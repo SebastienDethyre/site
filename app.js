@@ -29,8 +29,8 @@ class Application extends Object {
     #constructHTML = () => {      //        |   Type    |                        Attributs, Datasets & Inner Texts                          |    Elément Parent   |
                                   //        |_d'Element_|___________________________________________________________________________________|__def:document.body__|
         this.header          = createElement( "header" ,{id             :"header"                                                           }                    );
-        this.userName        = createElement(  "span"  ,{id             :"userName"                    ,text :""         },        this.header);
-        this.userNameImg     = createElement(   "img"  ,{src             :"/img/plancheNomed.png"                    ,alt :""               },        this.userName );
+        this.userName        = createElement(  "span"  ,{id             :"userName"                    ,text :""                            },        this.header);
+        this.userNameImg     = createElement(   "img"  ,{src            :"img/plancheNomed.png"                            ,alt :""         },      this.userName);
         this.linksMenu       = createElement(   "ul"   ,{class          :"linksMenu"                                       ,role :"tablist" },        this.header);
         this.switcher        = createElement(  "span"  ,{id             :"switcher"                                                         },     this.linksMenu);
         this.linkHome        = createElement(   "li"   ,{"data-target"  :"tabHome"                    ,class :"active"     ,role :"tab"     },     this.linksMenu);
