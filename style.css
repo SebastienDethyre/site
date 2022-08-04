@@ -43,7 +43,7 @@ html,body{
     z-index: 9;
     height:var(--headerHeight);
     /* background-color: var(--headerColor); */
-    background: no-repeat url(/img/peakpx2.jpg);
+    background: no-repeat url(./img/peakpx2.jpg);
     background-size: cover;
     font-size:3vw;
     width: 100%;
@@ -108,7 +108,7 @@ padding: -.5em;
  
  
     /* background-color: var(--switcherColor); */
-   background: url(/img/planche.png);
+   background: url(./img/planche.png);
    background-size: cover;
     box-shadow: var(--elementShadowColor);;
 }
@@ -179,7 +179,7 @@ padding: -.5em;
 #tabHome{
     position: fixed;
     /* background-color: var(--tabHomeColor); */
-    background: no-repeat url(/img/peakpx.jpg);
+    background: no-repeat url(./img/peakpx.jpg);
     opacity: 60%;
     backdrop-filter: blur(.8rem);
 }
@@ -188,13 +188,13 @@ padding: -.5em;
     position: fixed;
     opacity: 45%;
     /* background-color: var(--tabHistoryColor); */
-    background: no-repeat url(/img/peakpx3.jpg);
+    background: no-repeat url(./img/peakpx3.jpg);
 }
 
 #tabAlerts{
     position: fixed;
     opacity: 45%;
-    background: no-repeat url(/img/ali-abdul-rahman-Xva-TYqwHhA-unsplash.jpg);
+    background: no-repeat url(./img/ali-abdul-rahman-Xva-TYqwHhA-unsplash.jpg);
     /* background-color: var(--tabAlertsColor); */
     background-size: cover;
 }
