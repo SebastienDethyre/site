@@ -24,35 +24,33 @@ class Application extends Object {
         window.addEventListener("resize", ()=> {this.screenWidth = window.innerWidth;});
     }
 
-    /*   HTML Elements creation   */
-                                  //        _______________________________________________________________________________________________________________________
-    #constructHTML = () => {      //        |   Type    |                        Attributs, Datasets & Inner Texts                          |    Elément Parent   |
-                                  //        |_d'Element_|___________________________________________________________________________________|__def:document.body__|
-        this.header          = createElement( "header" ,{id             :"header"                                                           }                    );
-        this.userName        = createElement(  "span"  ,{id             :"userName"                    ,text :"Sébastien Dethyre"                            },        this.header);
-        // this.userNameImg     = createElement(   "img"  ,{src            :"img/planche.png"                            ,alt :""         },      this.userName);
-        this.linksMenu       = createElement(   "ul"   ,{class          :"linksMenu"                                       ,role :"tablist" },        this.header);
-        this.switcher        = createElement(  "span"  ,{id             :"switcher"                                                         },     this.linksMenu);
-        this.linkHome        = createElement(   "li"   ,{"data-target"  :"tabHome"                    ,class :"active"     ,role :"tab"     },     this.linksMenu);
-        const anchorHome     = createElement(   "a"    ,{text           :"Accueil"                                         ,href :"#"       },      this.linkHome);
-        this.linkHistory     = createElement(   "li"   ,{"data-target"  :"tabHistory"                                      ,role :"tab"     },     this.linksMenu);
-        const anchorHistory  = createElement(   "a"    ,{text           :"Réalisations"                                    ,href :"#"       },   this.linkHistory);
-        this.linkAlerts      = createElement(   "li"   ,{"data-target"  :"tabAlerts"                                       ,role :"tab"     },     this.linksMenu);
-        const anchorAlerts   = createElement(   "a"    ,{text           :"Me contacter"                                    ,href :"#"       },    this.linkAlerts);
-        this.tabsContainer   = createElement(  "div"   ,{class          :"tabsContainer"                                                    }                    );
-        this.tabHome         = createElement(  "div"   ,{id:"tabHome"   ,class:"everyTab",  "aria-labelledby":   "tabHome" ,role:"tabpanel" }, this.tabsContainer);
-        this.tabHistory      = createElement(  "div"   ,{id:"tabHistory",class:"everyTab",  "aria-labelledby":"tabHistory" ,role:"tabpanel" }, this.tabsContainer);
-        this.tabAlerts       = createElement(  "div"   ,{id:"tabAlerts" ,class:"everyTab",  "aria-labelledby": "tabAlerts" ,role:"tabpanel" }, this.tabsContainer);
+   
+    #constructHTML = () => {   
+        this.header          = qs("#header");
+        this.userName        = qs("#userName");
+        
+        this.linksMenu       = qs(".linksMenu");
+        this.switcher        = qs("#switcher");
+        this.linkHome        = document.querySelector('[data-target="tabHome"]');
+    
+        this.linkHistory     = document.querySelector('[data-target="tabHistory"]');
+
+        this.linkAlerts      = document.querySelector('[data-target="tabAlerts"]');
+
+        this.tabsContainer   = qs(".tabsContainer");
+        this.tabHome         = qs("#tabHome");
+        this.tabHistory      = qs("#tabHistory");
+        this.tabAlerts       = qs("#tabAlerts");
         this.links           =      qsa     (".linksMenu li");
         this.contents        =      qsa     (".everyTab");
 
         // Put all tabs and their associated button in a list, for scalability
         this.#tabs = [this.tabHome, this.tabHistory, this.tabAlerts];
         this.#tabButtons = [this.linkHome, this.linkHistory, this.linkAlerts];
-
+console.log(this.#tabs)
+console.log( this.#tabButtons)
         // Put the links slightly on top of the switcher
         for(let tab of this.#tabButtons) tab.style.zIndex = '1';
-          
     }
 
     /**
@@ -276,10 +274,6 @@ function clamp(number, min, max){
         });
     })();
 };
-
-
-
-
 
 let app= new Application()
 app.create()

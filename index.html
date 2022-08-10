@@ -7,20 +7,35 @@
         <meta name="keywords" content="Presentation, Resume , Sébastien Dethyre">
         <meta name="author" content="Sébastien Dethyre">
 
-        <title>Présentation</title>
+        <title>Sébastien Dethyre</title>
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="msapplication-config" content="browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="assets/style.css">
  
-        <script src="app.js"  defer></script>
+        <script src="assets/app.js"  defer></script>
     </head>
     <body>
-<img src="" alt="">
-
-
-
-
-        
-    </body>
+        <header id="header">
+            <span id="userName" text=""><img src="assets/img/planche.png" alt="">
+            Sébastien Dethyre</span>
+            <ul class="linksMenu" role="tablist">
+                <span id="switcher"></span>
+                <li data-target="tabHome" class="active" role="tab"><a href="#" >Accueil</a></li>
+                <li data-target="tabHistory" role="tab"><a href="#" >Réalisations</a></li>
+                <li data-target="tabAlerts" role="tab"><a href="#" >Me contacter</a></li>
+            </ul>
+        </header>
+        <div class="tabsContainer">
+            <div id="tabHome" class="everyTab" aria-labelledby= "tabHome" role="tabpanel"></div>
+            <div id="tabHistory" class="everyTab" aria-labelledby= "tabHistory" role="tabpanel"></div>
+            <div id="tabAlerts" class="everyTab" aria-labelledby= "tabAlerts" role="tabpanel"></div>
+        </div>
+        <script>
+       
+    </script>
+        </body>
 </html>
