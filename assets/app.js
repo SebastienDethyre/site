@@ -4,11 +4,6 @@ class Application extends Object {
     #tabs = [];
     #tabButtons = [];
     #currentTabIndex = 0;
-
-    /* Instances of TabView */
-    #homeTabView;
-    #alertTabView;
-    #historyTabView;
  
     #tmpEventClient = 0;
     #prevPosX = 0;
@@ -23,7 +18,6 @@ class Application extends Object {
         this.screenWidth = window.innerWidth;
         window.addEventListener("resize", ()=> {this.screenWidth = window.innerWidth;});
     }
-
    
     #constructHTML = () => {   
         this.header          = qs("#header");
@@ -33,22 +27,20 @@ class Application extends Object {
         this.switcher        = qs("#switcher");
         this.linkHome        = document.querySelector('[data-target="tabHome"]');
     
-        this.linkHistory     = document.querySelector('[data-target="tabHistory"]');
+        this.linkAchievements     = document.querySelector('[data-target="tabAchievements"]');
 
-        this.linkAlerts      = document.querySelector('[data-target="tabAlerts"]');
+        this.linkContact      = document.querySelector('[data-target="tabContact"]');
 
         this.tabsContainer   = qs(".tabsContainer");
         this.tabHome         = qs("#tabHome");
-        this.tabHistory      = qs("#tabHistory");
-        this.tabAlerts       = qs("#tabAlerts");
+        this.tabAchievements      = qs("#tabAchievements");
+        this.tabContact       = qs("#tabContact");
         this.links           =      qsa     (".linksMenu li");
         this.contents        =      qsa     (".everyTab");
 
         // Put all tabs and their associated button in a list, for scalability
-        this.#tabs = [this.tabHome, this.tabHistory, this.tabAlerts];
-        this.#tabButtons = [this.linkHome, this.linkHistory, this.linkAlerts];
-console.log(this.#tabs)
-console.log( this.#tabButtons)
+        this.#tabs = [this.tabHome, this.tabAchievements, this.tabContact];
+        this.#tabButtons = [this.linkHome, this.linkAchievements, this.linkContact];
         // Put the links slightly on top of the switcher
         for(let tab of this.#tabButtons) tab.style.zIndex = '1';
     }
@@ -93,6 +85,13 @@ console.log( this.#tabButtons)
             this.#tabButtons[index].addEventListener("click", () => toggle(index));
         }
         toggle(0, true, true);
+        window.onresize = () =>{
+            c("youpi")
+            let containerBounds = this.linksMenu.getBoundingClientRect();
+            let targetBounds = this.#tabButtons[this.#currentTabIndex].getBoundingClientRect();
+            this.switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
+            this.switcher.style.left = targetBounds.x - containerBounds.x + 'px';
+        }
     };
 
     /**
@@ -104,7 +103,9 @@ console.log( this.#tabButtons)
         d.addEventListener("pointerup"    , this.#handleEnd.bind(this));
         d.addEventListener("pointercancel", this.#handleCancel.bind(this));
         d.addEventListener("pointermove"  , this.#handleMove.bind(this));
-        bubbly()
+        bubbles(this.tabHome)
+        bubbles(this.tabAchievements)
+        bubbles(this.tabContact)
     }
     #handleStart(evt){
         this.#prevPosX = evt.clientX;
@@ -117,6 +118,7 @@ console.log( this.#tabButtons)
         evt.preventDefault();
         let diffPos = this.#prevPosX - evt.clientX;
         if(evt.pointerType === "mouse"){
+            if(evt.target == qs("#intro")){ return;}
             if(diffPos > 0) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos < 0) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
@@ -124,6 +126,7 @@ console.log( this.#tabButtons)
     #handleCancel(evt) {
         let diffPos = this.#tmpEventClient - this.#prevPosX;
         if(evt.pointerType === "touch"){
+            if(evt.target == qs("#intro")){ return}
             if(diffPos < -8.5) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos > 8.5) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
@@ -210,26 +213,28 @@ function clamp(number, min, max){
  * @param config Possible modifications of the bubbles aspect
  *
  */
- let bubbly = function (config) {
+ let bubbles = function (element, config) {
     const c = config || {};
     const r = () => Math.random();
     const canvas = c.canvas || document.createElement("canvas");
-    let width = canvas.width;
-    let height = canvas.height;
+    let width   = canvas.width;
+    let height  = canvas.height;
     if (canvas.parentNode === null) {
         canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        document.body.appendChild(canvas);
+        width   = canvas.width = window.innerWidth;
+        height  = canvas.height = window.innerHeight;
+        element.appendChild(canvas);
     }
     const context = canvas.getContext("2d");
     context.shadowColor = c.shadowColor || "#fff";
     context.shadowBlur = c.blur || 4;
+    
     const gradient = context.createLinearGradient(0, 0, width, height);
+    
     gradient.addColorStop(0, c.colorStart || "#2AE");
     gradient.addColorStop(1, c.colorStop || "#17B");
     const nrBubbles = c.bubbles || Math.floor((width + height) * 0.02);
-    const bubbles = [];
+    const bubbles   = [];
     for (let i = 0; i < nrBubbles; i++) {
         bubbles.push({
             f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
@@ -275,5 +280,104 @@ function clamp(number, min, max){
     })();
 };
 
+const d = document.getElementsByClassName("draggable");
+
+for (let i = 0; i < d.length; i++) {
+    d[i].style.position = "relative";
+}
+let blurMaskTop     = qs("#blurMaskTop");
+let blurMaskBottom  = qs("#blurMaskBottom");
+let blurMaskLeft    = qs("#blurMaskLeft");
+let blurMaskRight   = qs("#blurMaskRight");
+let introBounds 
+let containerBounds 
+
+function filter(e) {
+    let target = e.target;
+
+    if (!target.classList.contains("draggable")) {
+        return;
+    }
+
+    target.moving = true;
+    //      👇 Check if Mouse events exist on users' device
+    if (e.clientX) {
+        target.oldX = e.clientX; // If they exist then use Mouse input
+        target.oldY = e.clientY;
+        
+    } 
+    else {
+        target.oldX = e.touches[0].clientX; // Otherwise use touch input
+        target.oldY = e.touches[0].clientY;
+    }
+    //           👆 Since there can be multiple touches, you need to mention which touch to look for, we are using the first touch only in this case
+    
+    target.oldLeft = window.getComputedStyle(target).getPropertyValue('left').split('px')[0] * 1;
+    target.oldTop = window.getComputedStyle(target).getPropertyValue('top').split('px')[0] * 1;
+
+    qs("#intro").onmousemove = dr;
+    qs("#intro").ontouchmove = dr;
+
+    function dr(event) {
+        event.stopPropagation()
+        event.preventDefault();
+        
+        if (!target.moving) {
+            return;
+        }
+        //          👇
+        if (event.clientX) {
+            target.distX = event.clientX - target.oldX;
+            target.distY = event.clientY - target.oldY;
+            
+        } 
+        else {
+            target.distX = event.touches[0].clientX - target.oldX;
+            target.distY = event.touches[0].clientY - target.oldY;
+        }
+        //          👆
+    
+        introBounds = qs("#intro").getBoundingClientRect();
+        containerBounds = qs("#tabHome").getBoundingClientRect();
+        
+        target.style.left = target.oldLeft + target.distX + "px";
+        target.style.top  = target.oldTop + target.distY + "px";
+        let tem = target.oldTop + target.distY 
+        if(target.offsetTop < -250)target.style.top ="-50px"
+      console.log(target.distY)
+        if(target.offsetLeft < -300)target.style.left ="-100px"
+
+        let relativeTop     = introBounds.top - containerBounds.top;
+        let relativeBottom  = containerBounds.bottom - introBounds.bottom;
+        let relativeLeft    = introBounds.left - containerBounds.left;
+        let relativeRight   = containerBounds.right - introBounds.right;
+
+        let roundedAnglesAdjust = 12;
+
+        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
+        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
+        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
+        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
+        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
+        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
+        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
+        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+    }
+
+    function endDrag() {
+        target.moving = false;
+    }
+
+    target.onmouseup = endDrag;
+    target.ontouchend = endDrag;
+    //            👆
+}
+
+qs("#intro").onmousedown = filter;
+qs("#intro").ontouchstart = filter;
+//                👆
+
+function c(e){console.log(e)}
+
 let app= new Application()
-app.create()
+app.create();

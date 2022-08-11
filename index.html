@@ -25,14 +25,21 @@
             <ul class="linksMenu" role="tablist">
                 <span id="switcher"></span>
                 <li data-target="tabHome" class="active" role="tab"><a href="#" >Accueil</a></li>
-                <li data-target="tabHistory" role="tab"><a href="#" >Réalisations</a></li>
-                <li data-target="tabAlerts" role="tab"><a href="#" >Me contacter</a></li>
+                <li data-target="tabAchievements" role="tab"><a href="#" >Réalisations</a></li>
+                <li data-target="tabContact" role="tab"><a href="#" >Me contacter</a></li>
             </ul>
         </header>
         <div class="tabsContainer">
-            <div id="tabHome" class="everyTab" aria-labelledby= "tabHome" role="tabpanel"></div>
-            <div id="tabHistory" class="everyTab" aria-labelledby= "tabHistory" role="tabpanel"></div>
-            <div id="tabAlerts" class="everyTab" aria-labelledby= "tabAlerts" role="tabpanel"></div>
+            <div id="tabHome" class="everyTab" aria-labelledby= "tabHome" role="tabpanel">
+                <img id="face" src="assets/img/face.jpg" alt="">
+                <div id="blurMaskTop"></div>
+                <div id="blurMaskLeft"></div>
+                <div id="blurMaskRight"></div>
+                <div id="blurMaskBottom"></div>
+                <div id="intro" draggable="false" class="draggable"><div id="introContent">Texte censé raconter ma life, vite fait</div></div>
+            </div>
+            <div id="tabAchievements" class="everyTab" aria-labelledby= "tabAchievements" role="tabpanel"></div>
+            <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel"></div>
         </div>
         <script>
        

@@ -9,15 +9,9 @@
     --switcherColor      :rgba(255, 255, 255, 0);
     --elementShadowColor :  0 15px 0px rgb(255, 255, 255);
 
-    --tabHomeColor       :rgba(0, 0, 0,0);
-    --tabHistoryColor    :rgba(0, 0, 0,.65);
-    --tabAlertsColor     :rgba(0, 0, 0,.65);
-
-    --historyTabScale    :  1.15;
-
-    --homeTabPosition    :    0%;
-    --historyTabPosition :  105%;
-    --alertsTabPosition  :  210%;
+    --introWidth         : 30%;
+    --introHeight        : 80% ;
+    --tabsBlurValue      : .55rem;
 }
 
 @font-face {
@@ -49,7 +43,7 @@ html,body{
     height:var(--headerHeight);
     /* background-color: var(--headerColor); */
     background: no-repeat url(img/peakpx2.jpg);
-    background-size: cover;
+    background-size: 100% 100%;
     font-size:3vw;
     width: 100%;
     color: white;
@@ -110,8 +104,9 @@ html,body{
     padding: -.5em;
     transition: all 0.3s ease-out;
     background: url(img/planche.png);
-    background-size: cover;
-    box-shadow: var(--elementShadowColor);;
+    background-size:100% 100%;
+
+    box-shadow: var(--elementShadowColor);
 }
 
 .linksMenu a {
@@ -134,7 +129,9 @@ html,body{
     justify-content: center;
     align-items: center;
 }
-
+canvas{
+    opacity: 50%;
+}
 .everyTab{
     width: 100%;
     bottom: 0;
@@ -147,30 +144,90 @@ html,body{
     backdrop-filter: blur(.8rem);
     transition-property: transform;
     transition-timing-function: linear;
-    opacity:35%;
+    /* opacity:35%; */
 }
 
 #tabHome{
     position: fixed;
-    /* background-color: var(--tabHomeColor); */
     background: no-repeat url(img/peakpx.jpg);
+    background-size:100% 100%;
+}
+#face{
+    position: absolute;
+    right: 5%;
+    bottom: 2%;
+    transform: scale(.6) rotate(.02turn);
+    border-radius:
+70% 30% 69% 31% / 24% 68% 32% 76%
+}
+#intro{
+    width: var(--introWidth);
+    height: var(--introHeight);
+    background: no-repeat url("img/tabletVertical.png");
+    background-size:100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:25px;
+    /* background-color: rgba(255, 255, 255, 0.1); */
+}
+#intro div{
 
-    backdrop-filter: blur(.8rem);
+    width: 60%;
+}
+#intro img{
+    position: absolute;
 }
 
-#tabHistory{
+
+#blurMaskTop{
+    position: fixed;
+    width: 100%;
+    height: calc((100% - var(--introHeight)) / 2);
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.001);
+    backdrop-filter: blur(var(--tabsBlurValue));
+}
+
+#blurMaskBottom{
+    position: fixed;
+    width: 100%;
+height: calc((100% - var(--introHeight)) / 2);
+    bottom:0;
+    background-color: rgba(255, 255, 255, 0.001);
+    backdrop-filter: blur(var(--tabsBlurValue));
+    
+}
+
+#blurMaskLeft{
+    position: fixed;
+    height: 100%;
+    width: calc((100% - var(--introWidth)) / 2);
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.001);
+    backdrop-filter: blur(var(--tabsBlurValue));
+}
+
+#blurMaskRight{
+    position: fixed;
+    height: 100%;
+    width: calc((100% - var(--introWidth)) / 2);
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.001);
+    backdrop-filter: blur(var(--tabsBlurValue));
+}
+
+#tabAchievements{
     position: fixed;
   
-    /* background-color: var(--tabHistoryColor); */
     background: no-repeat url(img/peakpx3.jpg);
+    background-size:100% 100%;
 }
 
-#tabAlerts{
+#tabContact{
     position: fixed;
- 
     background: no-repeat url(img/ali-abdul-rahman-Xva-TYqwHhA-unsplash.jpg);
-    /* background-color: var(--tabAlertsColor); */
-    background-size: cover;
+    background-size:100% 100%;
 }
 
 .aggregatedSensorDataTable {
