@@ -188,6 +188,7 @@ canvas{
     bottom:12%;
     padding: .55em;
     width: 70%;
+    z-index: -1;
 }
 /* #introContent:hover{
     z-index: -1;

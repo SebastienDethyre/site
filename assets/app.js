@@ -119,8 +119,8 @@ class Application extends Object {
         let diffPos = this.#prevPosX - evt.clientX;
         if(evt.pointerType === "mouse"){
             if(evt.target == qs("#intro")){ return;}
-            if(diffPos > 0) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
-            if(diffPos < 0) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos > -80) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos < 80) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
     #handleCancel(evt) {
