@@ -159,6 +159,7 @@ canvas{
     bottom: 2%;
     transform: scale(.6) rotate(.02turn);
     border-radius: 70% 30% 69% 31% / 24% 68% 32% 76%;
+    z-index: -1;
 }
 
 #intro{

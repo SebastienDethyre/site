@@ -292,13 +292,14 @@ let blurMaskRight   = qs("#blurMaskRight");
 let introBounds 
 let containerBounds 
 
+
+
 function filter(e) {
     let target = e.target;
     
     if (!target.classList.contains("draggable")) {
         return;
     }
-
     target.moving = true;
     //      👇 Check if Mouse events exist on users' device
     if (e.clientX) {
@@ -317,11 +318,13 @@ function filter(e) {
     
     qs("#intro").onmousemove = dr;
     qs("#intro").ontouchmove = dr;
-
+    qs("#introContent").onmousemove = dr;
+    qs("#introContent").ontouchmove = dr;
+    
     function dr(event) {
-        event.stopPropagation()
-        event.preventDefault();
-        
+      //  event.stopPropagation()
+       // event.preventDefault();
+      
         if (!target.moving) {
             return;
         }
@@ -375,11 +378,9 @@ function filter(e) {
     
 }
 
-function cRem(parent, child){if(gc(parent)[0].classList.contains(child)){return gc(parent)[0].classList.remove(child);}
-}
+function cRem(parent, child){if(gc(parent)[0].classList.contains(child))return gc(parent)[0].classList.remove(child);}
 
-
-function cAdd(parent, child){ return gc(parent)[0].classList.add(child);}
+function cAdd(parent, child){return gc(parent)[0].classList.add(child);}
 
 /* shortcut for getElementById */
 function gi(idName){return document.getElementById(idName)}
@@ -395,7 +396,6 @@ btnFlipTablet.onclick= () =>{
 
 	if (isFlipped==false){
 		cAdd("activePannel","flipTuileOn");
-		//
 		setTimeout(() => {qs("#introContent").style.transform= "rotateY(90deg)";}, time);
 		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
 		isFlipped=true;
