@@ -294,7 +294,7 @@ let containerBounds
 
 function filter(e) {
     let target = e.target;
-
+    
     if (!target.classList.contains("draggable")) {
         return;
     }
@@ -314,7 +314,7 @@ function filter(e) {
     
     target.oldLeft = window.getComputedStyle(target).getPropertyValue('left').split('px')[0] * 1;
     target.oldTop = window.getComputedStyle(target).getPropertyValue('top').split('px')[0] * 1;
-
+    
     qs("#intro").onmousemove = dr;
     qs("#intro").ontouchmove = dr;
 
@@ -342,9 +342,9 @@ function filter(e) {
         
         target.style.left = target.oldLeft + target.distX + "px";
         target.style.top  = target.oldTop + target.distY + "px";
-        let tem = target.oldTop + target.distY 
+      
         if(target.offsetTop < -250)target.style.top ="-50px"
-      console.log(target.distY)
+     
         if(target.offsetLeft < -300)target.style.left ="-100px"
 
         let relativeTop     = introBounds.top - containerBounds.top;
@@ -366,12 +366,54 @@ function filter(e) {
 
     function endDrag() {
         target.moving = false;
+        qs("#introContent").style.zIndex=0
     }
 
     target.onmouseup = endDrag;
     target.ontouchend = endDrag;
     //            👆
+    
 }
+
+function cRem(parent, child){if(gc(parent)[0].classList.contains(child)){return gc(parent)[0].classList.remove(child);}
+}
+
+
+function cAdd(parent, child){ return gc(parent)[0].classList.add(child);}
+
+/* shortcut for getElementById */
+function gi(idName){return document.getElementById(idName)}
+
+/* shortcut for getElementsByClassName */
+function gc(className){return document.getElementsByClassName(className)}
+var activePannel = qs(".activePannel");
+var btnFlipTablet = qs("#btnFlipTablet");
+var isFlipped=false;
+btnFlipTablet.onclick= () =>{
+	let indice = 2;
+	let time = indice * 100;
+
+	if (isFlipped==false){
+		cAdd("activePannel","flipTuileOn");
+		//
+		setTimeout(() => {qs("#introContent").style.transform= "rotateY(90deg)";}, time);
+		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
+		isFlipped=true;
+		setTimeout(() => {cAdd("emptyPannel","flipTuileOff")}, time);
+		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
+	}
+	else{
+		cAdd("emptyPannel","flipTuileOn");
+		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(90deg)";}, time);
+		setTimeout(() => {cRem("emptyPannel","flipTuileOn")}, time);
+		isFlipped=false;
+		setTimeout(() => {cAdd("introContent","flipTuileOff")}, time)
+		setTimeout(() => {qs("#introContent").style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {cRem("introContent","flipTuileOff")}, time * 2);	
+	}	
+}
+
 
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
