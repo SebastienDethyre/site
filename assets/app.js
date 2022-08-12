@@ -86,7 +86,6 @@ class Application extends Object {
         }
         toggle(0, true, true);
         window.onresize = () =>{
-            c("youpi")
             let containerBounds = this.linksMenu.getBoundingClientRect();
             let targetBounds = this.#tabButtons[this.#currentTabIndex].getBoundingClientRect();
             this.switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
@@ -291,7 +290,10 @@ let blurMaskLeft    = qs("#blurMaskLeft");
 let blurMaskRight   = qs("#blurMaskRight");
 let introBounds 
 let containerBounds 
-
+let relativeTop   
+        let relativeBottom  
+        let relativeLeft   
+        let relativeRight
 
 
 function filter(e) {
@@ -365,6 +367,25 @@ function filter(e) {
         if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
         blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
         if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+    }
+    window.onresize = () =>{
+        introBounds = qs("#intro").getBoundingClientRect();
+        containerBounds = qs("#tabHome").getBoundingClientRect();
+        relativeTop     = introBounds.top - containerBounds.top;
+        relativeBottom  = containerBounds.bottom - introBounds.bottom;
+        relativeLeft    = introBounds.left - containerBounds.left;
+        relativeRight   = containerBounds.right - introBounds.right;
+
+        let roundedAnglesAdjust = 12;
+        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
+        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
+        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
+        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
+        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
+        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
+        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
+        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+        target.style.left ="0"
     }
 
     function endDrag() {
