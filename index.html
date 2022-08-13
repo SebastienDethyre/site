@@ -12,10 +12,9 @@
         <meta name="msapplication-config" content="browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/style.css">
- 
         <script src="assets/app.js"  defer></script>
     </head>
     <body>
@@ -38,12 +37,14 @@
                 <div id="blurMaskRight"></div>
                 <div id="blurMaskBottom"></div>
                 <div id="intro" class="draggable">
-                    <div id="introContent" class="introContent activePannel" >Ouvrier pendant 20 ans, j'ai décidé d'une reconversion professionnelle dans l'informatique il y a maintenant 2 ans.<br><br>Formé en IUT, j'ai pu participer à de nombreux projets de développement, ce qui me donna l'envie de réaliser les miens.<br>Passionné de Kung Fu et d'informatique, en particulier de développement web, j'ai également nourri des intérêts pour la musique et le montage vidéo musical.<br><br>Je vous propose ici un panorama sous-marin de mon univers.<br><br><i>La tablette sur laquelle vous lisez ceci est interactive : vous pouvez la déplacer en saisissant ses bords, ou bien l'éteindre avec son interrupteur et la saisir même sur son écran.<br>L'accès aux pages peut se faire via les boutons de navigation ou en faisant "glisser" les pages avec la souris.</i><br><br>Bonne visite !</div>
+                    <div id="introContent" class="introContent activePannel" >Ouvrier pendant 20 ans, j'ai décidé d'une reconversion professionnelle dans l'informatique il y a maintenant 2 ans.<br><br>Formé en IUT, j'ai pu participer à de nombreux projets de développement, ce qui me donna l'envie de réaliser les miens.<br>Passionné de Kung Fu et d'informatique, en particulier de développement web, j'ai également nourri des intérêts pour la musique et le montage vidéo musical.<br><br>Je vous propose ici un panorama sous-marin de mon univers.<br><br><i>La tablette sur laquelle vous lisez ceci est interactive : vous pouvez la déplacer en saisissant ses bords, ou bien l'éteindre avec son interrupteur et la saisir aussi par écran.<br>L'accès aux pages peut se faire via les boutons de navigation ou en faisant "glisser" les pages avec la souris.</i><br><br>Bonne visite !</div>
                     <span id="btnFlipTablet"></span>
                     <div id="emptyPannel"class="emptyPannel"></div>
                 </div>
             </div>
-            <div id="tabAchievements" class="everyTab" aria-labelledby= "tabAchievements" role="tabpanel"></div>
+            <div id="tabAchievements" class="everyTab" aria-labelledby= "tabAchievements" role="tabpanel">
+                <div id="mask" class="blurMask"></div>
+            </div>
             <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel"></div>
         </div>
         <script>

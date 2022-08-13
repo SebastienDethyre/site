@@ -320,8 +320,7 @@ function filter(e) {
     
     qs("#intro").onmousemove = dr;
     qs("#intro").ontouchmove = dr;
-    qs("#introContent").onmousemove = dr;
-    qs("#introContent").ontouchmove = dr;
+
     
     function dr(event) {
       //  event.stopPropagation()
@@ -439,7 +438,24 @@ btnFlipTablet.onclick= () =>{
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
 //                👆
+let img = document.querySelector("#mask");
+function handler (ev) {
+    img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
+    img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
+}
+let isTracking = false;
 
+
+
+img.addEventListener("click", ()=> {
+    if(!isTracking) {
+        isTracking=true;
+        img.addEventListener("mousemove", handler, true);}
+        else{
+        isTracking=false;
+        img.removeEventListener("mousemove", handler, true)
+    }
+})
 function c(e){console.log(e)}
 
 let app= new Application()

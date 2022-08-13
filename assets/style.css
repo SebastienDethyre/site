@@ -145,6 +145,23 @@ canvas{
     transition-property: transform;
     transition-timing-function: linear;
 }
+#mask{
+    width: 100%;
+    height: 100%;
+
+}
+.blurMask::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    -webkit-mask: radial-gradient( circle at calc(var(--x, .5) * 100% )  calc(var(--y, .5) * 100% ), transparent 150px, #000 51px);
+    mask: radial-gradient( circle at calc(var(--x, .5) * 100% )  calc(var(--y, .5) * 100% ), transparent 150px, #000 51px);
+      background: rgba(0,0,0,.3);
+      backdrop-filter: blur(5px)
+}
 
 #tabHome{
     position: fixed;
@@ -167,7 +184,7 @@ canvas{
     width: 35%;
     left: 2%;
     bottom: 5%;
-    transform: scale(.45) rotate(-.02turn);
+    transform: scale(.45) rotate(.02turn);
     border-radius: 51% 49% 68% 32% / 41% 68% 32% 59% ;
     z-index: -1;
 }
@@ -296,7 +313,6 @@ canvas{
 
 #tabAchievements{
     position: fixed;
-  
     background: no-repeat url(img/peakpx3.jpg);
     background-size:100% 100%;
 }
@@ -307,7 +323,7 @@ canvas{
     background-size:100% 100%;
 }
 
-.aggregatedSensorDataTable {
+/* .aggregatedSensorDataTable {
     background: rgba(0, 0, 0, 0.3);
     width: 80%;
     color: rgb(248, 247, 243);
@@ -383,7 +399,7 @@ canvas{
 
 .alertHistoryItem > div > div:first-child{
     width : 15%;
-}
+} */
 
 @keyframes heartbeat_text_shadow{
     from{
