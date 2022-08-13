@@ -438,25 +438,40 @@ btnFlipTablet.onclick= () =>{
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
 //                👆
-let img = document.querySelector("#mask");
-function handler (ev) {
+let img = qs("#mask");
+let imgActivateSearch = qs("#imgActivateSearch");
+let isSeachActivate = false;
+let isTracking = false;
+function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
     img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
 }
-let isTracking = false;
 
 
 
-img.addEventListener("click", ()=> {
+function handlerClick () {
     if(!isTracking) {
         isTracking=true;
-        img.addEventListener("mousemove", handler, true);}
-        else{
+        img.addEventListener("mousemove", handlerMove, true);
+    }
+    else{
         isTracking=false;
-        img.removeEventListener("mousemove", handler, true)
+        img.removeEventListener("mousemove", handlerMove, true)
+    }
+}
+imgActivateSearch.addEventListener("click", ()=>{
+    if(!isSeachActivate) {
+        isSeachActivate=true;
+        imgActivateSearch.setAttribute("src", "assets/img/miniMagnifierStop.png")
+        img.addEventListener("mousemove", handlerMove)
+    }
+    else{
+        isSeachActivate=false;
+        img.removeEventListener("mousemove", handlerMove)
+        imgActivateSearch.setAttribute("src", "assets/img/miniMagnifier.png")
+        document.querySelector('#mask').style.mask=0
     }
 })
 function c(e){console.log(e)}
-
 let app= new Application()
 app.create();
