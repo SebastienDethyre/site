@@ -1,4 +1,4 @@
-class Application extends Object {
+class Application extends Object {zoneYang
 
     /* List of tabs and their appropriate buttons  */
     #tabs = [];
@@ -472,6 +472,19 @@ imgActivateSearch.addEventListener("click", ()=>{
         document.querySelector('#mask').style.mask=0
     }
 })
+
+let zoneYang= qs("#zoneYang")
+zoneYang.addEventListener("click", ()=>{
+    c("click sur rythmy")
+    qs("#videoYang").click()
+})
+
+let zoneYin= qs("#zoneYin")
+zoneYin.addEventListener("click", ()=>{
+    c("click sur rythmy")
+    qs("#videoYin").click()
+})
+
 function c(e){console.log(e)}
 let app= new Application()
 app.create();

@@ -164,14 +164,45 @@ canvas{
 }
 #activateSearch{
     position: fixed;
-    z-index: 99;
+    z-index: 9;
     right: -5%;
     top:-20%;
     transform: scale(.2);
 }
-#imgActivateSearch{
-
+#rythmyIcon{
+    position: absolute;
+    display: none;
+    top:65%;
+    left: 45%;
+   
+    z-index: 1;
 }
+
+
+#zoneYang{
+    position: absolute;
+    z-index: 2;
+  
+    top:51%;
+    left: 8.5%;
+    width: 9%;
+    height: 15%;
+    border-radius: 50px;
+    background-color: rgba(55,55,55,.0000002);
+ 
+}
+#zoneYin{
+    position: absolute;
+    z-index: 2;
+
+    top:48.5%;
+    right: 25.5%;
+    width: 9%;
+    height: 15%;
+    border-radius: 50px;
+    background-color: rgba(55,55,55,.0000002);
+}
+
 #tabHome{
     position: fixed;
     background: no-repeat url(img/peakpx.jpg);
@@ -327,7 +358,7 @@ button{
 
 #tabAchievements{
     position: fixed;
-    background: no-repeat url(img/peakpx3.jpg);
+    background: no-repeat url(img/fondtest.jpg);
     background-size:100% 100%;
 }
 
