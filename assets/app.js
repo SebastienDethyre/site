@@ -473,52 +473,70 @@ imgActivateSearch.addEventListener("click", ()=>{
     }
 })
 let treasuresNumber = 0;
+
+let titleYin="Yin";
+let titleYang="Yang";
+let titleRythmy="Rythmy";
+let titleEasygit="EasyGit";
 let isYinFound = false;
 let isYangFound = false;
 let isRythmyFound = false;
 let isEasygitFound = false;
+let textYin="Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
+let textYang="Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
+let textRythmy="L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
+let textEasygit="Cette petite interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main à part les commits.";
+let linkYin="https://www.dailymotion.com/video/x1005ve";
+let linkYang="https://www.dailymotion.com/video/x2qlfv7";
+let linkRythmy="https://www.youtube.com/watch?v=GMLWWS612lg";
+let linkEasygit="https://www.youtube.com/watch?v=x4DwNZzGstc";
 
 let zoneYang= qs("#zoneYang")
 zoneYang.addEventListener("click", ()=>{
+    if(!isSeachActivate) return;
     if (!isYangFound){
-    treasuresNumber += 1;
-    isYangFound = true;
-    updateTreasure()
+        treasuresNumber += 1;
+        isYangFound = true;
+        updateTreasure();
     }
-    qs("#videoYang").click()
+    cAdd("infoBubble", "activeBubble");
+    fillInfoBubble(textYang, titleYang, linkYang);
 })
 
 let zoneYin= qs("#zoneYin")
 zoneYin.addEventListener("click", ()=>{
+    if(!isSeachActivate) return;
     if (!isYinFound){
         treasuresNumber += 1;
         isYinFound = true;
-        updateTreasure()
-    }
-    
-    qs("#videoYin").click()
+        updateTreasure();
+    }  
+    cAdd("infoBubble", "activeBubble");
+    fillInfoBubble(textYin, titleYin, linkYin)
 })
 
 let zoneRythmy= qs("#zoneRythmy")
 zoneRythmy.addEventListener("click", ()=>{
+    if(!isSeachActivate) return;
     if (!isRythmyFound){
         treasuresNumber += 1;
         isRythmyFound = true;
-        updateTreasure()
+        updateTreasure();
     }
-    
-    qs("#videoRythmy").click()
+    cAdd("infoBubble", "activeBubble");
+    fillInfoBubble(textRythmy, titleRythmy, linkRythmy);
 })
 
 let zoneEasygit= qs("#zoneEasygit")
 zoneEasygit.addEventListener("click", ()=>{
+    if(!isSeachActivate) return;
     if (!isEasygitFound){
         treasuresNumber += 1;
         isEasygitFound = true;
-        updateTreasure()
+        updateTreasure();
     }
-    
-    qs("#videoEasygit").click()
+    cAdd("infoBubble", "activeBubble");
+    fillInfoBubble(textEasygit, titleEasygit, linkEasygit);
 })
 
 function c(e){console.log(e)}
@@ -528,6 +546,18 @@ function updateTreasure(){
     if (treasuresNumber > 3) treasuresNumber = 4;
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
+
+
+function fillInfoBubble(text, title, link){
+    let textBubble = qs("#textBubble");
+    textBubble.innerHTML=text;
+
+    let videoLink = qs("#videoLink");
+    videoLink.innerHTML=title
+    videoLink.setAttribute("href", link);
+}
+
+qs("#mask").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 
 let app= new Application()
 app.create();
