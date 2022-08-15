@@ -472,19 +472,36 @@ imgActivateSearch.addEventListener("click", ()=>{
         document.querySelector('#mask').style.mask=0
     }
 })
+let treasuresNumber = 0;
+let isYinFound = false;
+let isYangFound = false;
 
 let zoneYang= qs("#zoneYang")
 zoneYang.addEventListener("click", ()=>{
-    c("click sur rythmy")
+    if (!isYangFound){
+    treasuresNumber += 1;
+    isYangFound = true;
+    updateTreasure()
+    }
     qs("#videoYang").click()
 })
 
 let zoneYin= qs("#zoneYin")
 zoneYin.addEventListener("click", ()=>{
-    c("click sur rythmy")
+    if (!isYinFound){
+        treasuresNumber += 1;
+        isYinFound = true;
+        updateTreasure()
+    }
+    
     qs("#videoYin").click()
 })
 
 function c(e){console.log(e)}
+function updateTreasure(){
+    let treasureCounter = qs("#treasureCounter");
+    if (treasuresNumber > 3) treasuresNumber = 4;
+    treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
+}
 let app= new Application()
 app.create();
