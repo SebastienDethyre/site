@@ -462,13 +462,13 @@ function handlerClick () {
 imgActivateSearch.addEventListener("click", ()=>{
     if(!isSeachActivate) {
         isSeachActivate=true;
-        imgActivateSearch.setAttribute("src", "assets/img/miniMagnifierStop.png")
+        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png")
         img.addEventListener("mousemove", handlerMove)
     }
     else{
         isSeachActivate=false;
         img.removeEventListener("mousemove", handlerMove)
-        imgActivateSearch.setAttribute("src", "assets/img/miniMagnifier.png")
+        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
         document.querySelector('#mask').style.mask=0
     }
 })

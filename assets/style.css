@@ -167,8 +167,15 @@ canvas{
 #activateSearch{
     position: fixed;
     z-index: 9;
-    right: -5%;
-    top:-20%;
+    right: 2%;
+    top:5%;
+    /* transform: scale(.2); */
+}
+#treasureCounterContainer{
+    position: fixed;
+    z-index: 9;
+    right: -6%;
+    bottom:20%;
     transform: scale(.2);
 }
 #rythmyIcon{
