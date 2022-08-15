@@ -75,7 +75,7 @@ html,body{
 
 .linksMenu{
     position: absolute;
-    overflow:hidden;
+    overflow: hidden;
     width: 70%;
     display: flex;
     justify-content: space-between;
@@ -159,8 +159,8 @@ canvas{
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-mask: radial-gradient( circle at calc(var(--x, .5) * 100% )  calc(var(--y, .5) * 100% ), transparent 150px, #000 51px);
-    mask: radial-gradient( circle at calc(var(--x, .5) * 100% )  calc(var(--y, .5) * 100% ), transparent 150px, #000 51px);
+    -webkit-mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent 10%, #000 51px);
+    mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent 150px, #000 51px);
     background: rgba(0,0,0,.09);
     backdrop-filter: blur(var(--tabsBlurValue));
 }
@@ -197,25 +197,46 @@ canvas{
 #zoneYang{
     position: absolute;
     z-index: 2;
-  
     top:51%;
     left: 8.5%;
     width: 9%;
     height: 15%;
     border-radius: 50px;
-    background-color: rgba(55,55,55,.0000002);
+    background-color: rgba(55,55,55,.000002);
  
 }
 #zoneYin{
     position: absolute;
     z-index: 2;
-
     top:48.5%;
     right: 25.5%;
     width: 9%;
     height: 15%;
     border-radius: 50px;
-    background-color: rgba(55,55,55,.0000002);
+    background-color: rgba(55,55,55,.000002);
+}
+#zoneRythmy {
+    position: absolute;
+    z-index: 2;
+    top:62%;
+    left: 39.5%;
+    width: 9.5%;
+    height: 16%;
+    border-radius: 50px;
+    background-color: rgba(192, 24, 24, 0.000002);
+    
+}
+
+#zoneEasygit{
+    position: absolute;
+    z-index: 2;
+    bottom:2%;
+    left: 2.75%;
+    width: 9%;
+    height: 15%;
+    border-radius: 50px;
+    background-color: rgba(55,55,55,.000002);
+
 }
 
 #tabHome{
@@ -373,7 +394,7 @@ button{
 
 #tabAchievements{
     position: fixed;
-    background: no-repeat url(img/fondtest.jpg);
+    background: no-repeat url(img/fondDone.jpg);
     background-size:100% 100%;
 }
 
