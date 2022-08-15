@@ -261,10 +261,13 @@ canvas{
     color:rgba(15, 40, 51, 0.9);
     width: 80%;
     z-index: 9;
+    color: azure;
 }
 .infoBubble a{
+    color: azure;
     color:rgba(15, 40, 51, 0.9);
     z-index: 9;
+    animation: heartbeat_text_shadow 2s infinite alternate ease-in-out;
 }
 
 .infoBubble.activeBubble{
@@ -518,9 +521,11 @@ button{
 @keyframes heartbeat_text_shadow{
     from{
         text-shadow: 0 0px 10px rgb(255, 255, 255); 
+        color: rgba(16, 41, 53, 0.9);
     }
     to{
-        text-shadow: 0 0px 15px rgb(27, 6, 110);
+        text-shadow: 0 0px 15px rgb(73, 187, 240);
+        color: rgba(255, 255, 255, 0.9);
     }
 }
 
