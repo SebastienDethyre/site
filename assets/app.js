@@ -438,7 +438,7 @@ btnFlipTablet.onclick= () =>{
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
 //                👆
-let img = qs("#mask");
+let img = qs(".mask");
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
 let isTracking = false;
@@ -469,7 +469,7 @@ imgActivateSearch.addEventListener("click", ()=>{
         isSeachActivate=false;
         img.removeEventListener("mousemove", handlerMove)
         imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
-        document.querySelector('#mask').style.mask=0
+        document.querySelector('.mask').style.mask=0
     }
 })
 let treasuresNumber = 0;
@@ -543,7 +543,10 @@ function c(e){console.log(e)}
 
 function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
-    if (treasuresNumber > 3) treasuresNumber = 4;
+    if (treasuresNumber > 3) {
+        treasuresNumber = 4;
+        cAdd("mask", "unmask");
+    }
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
 
@@ -557,7 +560,9 @@ function fillInfoBubble(text, title, link){
     videoLink.setAttribute("href", link);
 }
 
-qs("#mask").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+qs(".mask").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+
 
 let app= new Application()
 app.create();
