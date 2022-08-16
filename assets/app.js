@@ -404,6 +404,17 @@ function filter(e) {
     //            👆
 }
 
+/* Click Amination */
+function clickAnim(e) {
+	const rond = document.createElement("div");
+	rond.className = "clickAnim";
+	rond.style.top = `${e.pageY - 25}px`;
+	rond.style.left = `${e.pageX - 25}px`;	
+	document.body.appendChild(rond);
+	setTimeout(() => {rond.remove();}, 1500)
+}
+
+/* accessing methods */
 function cRem(parent, child){if(gc(parent)[0].classList.contains(child))return gc(parent)[0].classList.remove(child);}
 
 function cAdd(parent, child){return gc(parent)[0].classList.add(child);}
@@ -413,16 +424,18 @@ function gi(idName){return document.getElementById(idName)}
 
 /* shortcut for getElementsByClassName */
 function gc(className){return document.getElementsByClassName(className)}
+
 let activePannel = qs(".activePannel");
 let btnFlipTablet = qs("#btnFlipTablet");
 let isFlipped=false;
 
-btnFlipTablet.onclick= () =>{
+btnFlipTablet.onclick= (e) =>{
 	let indice = 2;
 	let time = indice * 100;
 
 	if (isFlipped==false){
 		cAdd("activePannel","flipTuileOn");
+        clickAnim(e)
 		setTimeout(() => {qs("#introContent").style.transform= "rotateY(90deg)";}, time);
 		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
 		isFlipped=true;
@@ -432,6 +445,7 @@ btnFlipTablet.onclick= () =>{
 	}
 	else{
 		cAdd("emptyPannel","flipTuileOn");
+        clickAnim(e)
 		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(90deg)";}, time);
 		setTimeout(() => {cRem("emptyPannel","flipTuileOn")}, time);
 		isFlipped=false;
@@ -466,14 +480,16 @@ function handlerClick () {
     }
 }
 
-imgActivateSearch.addEventListener("click", ()=>{
+imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
         isSeachActivate=true;
+        clickAnim(e);
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png")
         img.addEventListener("mousemove", handlerMove)
     }
     else{
         isSeachActivate=false;
+        clickAnim(e);
         img.removeEventListener("mousemove", handlerMove)
         imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
         document.querySelector('.mask').style.mask=0
@@ -481,34 +497,35 @@ imgActivateSearch.addEventListener("click", ()=>{
 })
 
 let treasuresNumber = 0;
-let titleYin       = "Yin";
-let titleYang      = "Yang";
-let titleRythmy    = "Rythmy";
-let titleEasygit   = "EasyGit";
-let isYinFound     = false;
-let isYangFound    = false;
-let isRythmyFound  = false;
-let isEasygitFound = false;
-let textYin     = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
-let textYang    = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
-let textRythmy  = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
-let textEasygit = "Cette petite interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main à part les commits.";
-let linkYin     = "https://www.dailymotion.com/video/x1005ve";
-let linkYang    = "https://www.dailymotion.com/video/x2qlfv7";
-let linkRythmy  = "https://www.youtube.com/watch?v=GMLWWS612lg";
-let linkEasygit = "https://www.youtube.com/watch?v=x4DwNZzGstc";
-let imgYin="assets/img/yin.png"
-let imgYang="assets/img/yang.png"
-let imgRythmy="assets/img/note.png"
-let imgEasygit="assets/img/git.png"
+let titleYin        = "Yin";
+let titleYang       = "Yang";
+let titleRythmy     = "Rythmy";
+let titleEasygit    = "EasyGit";
+let isYinFound      = false;
+let isYangFound     = false;
+let isRythmyFound   = false;
+let isEasygitFound  = false;
+let textYin         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
+let textYang        = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
+let textRythmy      = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
+let textEasygit     = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
+let linkYin         = "https://www.dailymotion.com/video/x1005ve";
+let linkYang        = "https://www.dailymotion.com/video/x2qlfv7";
+let linkRythmy      = "https://www.youtube.com/watch?v=GMLWWS612lg";
+let linkEasygit     = "https://www.youtube.com/watch?v=x4DwNZzGstc";
+let imgYin          = "assets/img/yin.png"
+let imgYang         = "assets/img/yang.png"
+let imgRythmy       = "assets/img/note.png"
+let imgEasygit      = "assets/img/git.png"
 
 function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone){
     zoneName= qs(zoneName);
-    zoneName.addEventListener("click", ()=>{
+    zoneName.addEventListener("click", (e)=>{
         if(!isSeachActivate) return;
         if (!isFound){
             treasuresNumber += 1;
             isFound = true;
+            clickAnim(e);	
             updateTreasure();
         }
         cAdd("infoBubble", "activeBubble");
@@ -546,6 +563,9 @@ function fillInfoBubble(text, title, link, img){
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+
+// let clickableAnchors = qsa ("a");
+// for(let anchor of clickableAnchors) anchor.addEventListener("click", (e)=>{c("tell me more"); clickAnim(e)})
 
 let app= new Application()
 app.create();
