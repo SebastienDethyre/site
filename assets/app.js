@@ -20,19 +20,19 @@ class Application extends Object {zoneYang
     }
    
     #constructHTML = () => {   
-        this.header          = qs("#header");
-        this.userName        = qs("#userName");
-        this.linksMenu       = qs(".linksMenu");
-        this.switcher        = qs("#switcher");
-        this.linkHome        = document.querySelector('[data-target="tabHome"]');
-        this.linkAchievements     = document.querySelector('[data-target="tabAchievements"]');
-        this.linkContact      = document.querySelector('[data-target="tabContact"]');
-        this.tabsContainer   = qs(".tabsContainer");
-        this.tabHome         = qs("#tabHome");
-        this.tabAchievements      = qs("#tabAchievements");
+        this.header           = qs("#header");
+        this.userName         = qs("#userName");
+        this.linksMenu        = qs(".linksMenu");
+        this.switcher         = qs("#switcher");
+        this.linkHome         = qs('[data-target="tabHome"]');
+        this.linkAchievements = qs('[data-target="tabAchievements"]');
+        this.linkContact      = qs('[data-target="tabContact"]');
+        this.tabsContainer    = qs(".tabsContainer");
+        this.tabHome          = qs("#tabHome");
+        this.tabAchievements  = qs("#tabAchievements");
         this.tabContact       = qs("#tabContact");
-        this.links           =      qsa     (".linksMenu li");
-        this.contents        =      qsa     (".everyTab");
+        this.links            = qsa(".linksMenu li");
+        this.contents         = qsa(".everyTab");
 
         // Put all tabs and their associated button in a list, for scalability
         this.#tabs = [this.tabHome, this.tabAchievements, this.tabContact];
@@ -285,12 +285,12 @@ let blurMaskTop     = qs("#blurMaskTop");
 let blurMaskBottom  = qs("#blurMaskBottom");
 let blurMaskLeft    = qs("#blurMaskLeft");
 let blurMaskRight   = qs("#blurMaskRight");
-let introBounds 
-let containerBounds 
-let relativeTop   
-        let relativeBottom  
-        let relativeLeft   
-        let relativeRight
+let introBounds;
+let containerBounds; 
+let relativeTop;   
+let relativeBottom;  
+let relativeLeft;   
+let relativeRight;
 
 function filter(e) {
     let target = e.target;
@@ -318,8 +318,8 @@ function filter(e) {
     qs("#intro").ontouchmove = dr;
 
     function dr(event) {
-      //  event.stopPropagation()
-       // event.preventDefault();
+       event.stopPropagation()
+       event.preventDefault();
       
         if (!target.moving) {
             return;
@@ -349,8 +349,7 @@ function filter(e) {
         let relativeBottom  = containerBounds.bottom - introBounds.bottom;
         let relativeLeft    = introBounds.left - containerBounds.left;
         let relativeRight   = containerBounds.right - introBounds.right;
-        let roundedAnglesAdjust = 12;
-
+        let roundedAnglesAdjust     = 12;
         blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
         if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
         blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
@@ -368,7 +367,7 @@ function filter(e) {
         relativeLeft    = introBounds.left - containerBounds.left;
         relativeRight   = containerBounds.right - introBounds.right;
 
-        let roundedAnglesAdjust = 12;
+        let roundedAnglesAdjust     = 12;
         blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
         if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
         blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
@@ -377,18 +376,18 @@ function filter(e) {
         if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
         blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
         if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
-        target.style.left ="0";
-        let containerBounds = gc(".linksMenu").getBoundingClientRect();
-        let linkHome        = document.querySelector('[data-target="tabHome"]');
-        let linkAchievements     = document.querySelector('[data-target="tabAchievements"]');
-        let switcher = qs("#switcher");
-        let linkContact      = document.querySelector('[data-target="tabContact"]');
-        let tabButtons = [linkHome, linkAchievements, linkContact];
-        let targetBounds = tabButtons[app.getCurrentTabIndex].getBoundingClientRect();
-        switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
-        switcher.style.left = targetBounds.x - containerBounds.x + 'px';
-    }
+        target.style.left           ="0";
 
+        let containerLinksBounds    = qs(".linksMenu").getBoundingClientRect();
+        let linkHome                = qs('[data-target="tabHome"]');
+        let linkAchievements        = qs('[data-target="tabAchievements"]');
+        let switcher                = qs("#switcher");
+        let linkContact             = qs('[data-target="tabContact"]');
+        let tabButtons              = [linkHome, linkAchievements, linkContact];
+        let targetBounds            = tabButtons[app.getCurrentTabIndex()].getBoundingClientRect();
+        switcher.style.right        =  containerLinksBounds.right - targetBounds.right + 'px';
+        switcher.style.left         = targetBounds.x - containerLinksBounds.x + 'px';
+    }
     function endDrag() {
         target.moving = false;
         qs("#introContent").style.zIndex=0
@@ -397,7 +396,6 @@ function filter(e) {
     target.onmouseup = endDrag;
     target.ontouchend = endDrag;
     //            👆
-    
 }
 
 function cRem(parent, child){if(gc(parent)[0].classList.contains(child))return gc(parent)[0].classList.remove(child);}
@@ -436,7 +434,6 @@ btnFlipTablet.onclick= () =>{
 	}	
 }
 
-
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
 //                👆
@@ -448,8 +445,6 @@ function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
     img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
 }
-
-
 
 function handlerClick () {
     if(!isTracking) {
@@ -476,70 +471,41 @@ imgActivateSearch.addEventListener("click", ()=>{
 })
 let treasuresNumber = 0;
 
-let titleYin="Yin";
-let titleYang="Yang";
-let titleRythmy="Rythmy";
-let titleEasygit="EasyGit";
-let isYinFound = false;
-let isYangFound = false;
-let isRythmyFound = false;
+let titleYin       = "Yin";
+let titleYang      = "Yang";
+let titleRythmy    = "Rythmy";
+let titleEasygit   = "EasyGit";
+let isYinFound     = false;
+let isYangFound    = false;
+let isRythmyFound  = false;
 let isEasygitFound = false;
-let textYin="Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
-let textYang="Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
-let textRythmy="L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
-let textEasygit="Cette petite interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main à part les commits.";
-let linkYin="https://www.dailymotion.com/video/x1005ve";
-let linkYang="https://www.dailymotion.com/video/x2qlfv7";
-let linkRythmy="https://www.youtube.com/watch?v=GMLWWS612lg";
-let linkEasygit="https://www.youtube.com/watch?v=x4DwNZzGstc";
+let textYin     = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
+let textYang    = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
+let textRythmy  = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
+let textEasygit = "Cette petite interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main à part les commits.";
+let linkYin     = "https://www.dailymotion.com/video/x1005ve";
+let linkYang    = "https://www.dailymotion.com/video/x2qlfv7";
+let linkRythmy  = "https://www.youtube.com/watch?v=GMLWWS612lg";
+let linkEasygit = "https://www.youtube.com/watch?v=x4DwNZzGstc";
 
-let zoneYang= qs("#zoneYang")
-zoneYang.addEventListener("click", ()=>{
-    if(!isSeachActivate) return;
-    if (!isYangFound){
-        treasuresNumber += 1;
-        isYangFound = true;
-        updateTreasure();
-    }
-    cAdd("infoBubble", "activeBubble");
-    fillInfoBubble(textYang, titleYang, linkYang);
-})
+function activateZone(zoneName, isFound, textZone, titleZone, linkZone){
+    zoneName= qs(zoneName);
+    zoneName.addEventListener("click", ()=>{
+        if(!isSeachActivate) return;
+        if (!isFound){
+            treasuresNumber += 1;
+            isFound = true;
+            updateTreasure();
+        }
+        cAdd("infoBubble", "activeBubble");
+        fillInfoBubble(textZone, titleZone, linkZone);
+    })
+}
 
-let zoneYin= qs("#zoneYin")
-zoneYin.addEventListener("click", ()=>{
-    if(!isSeachActivate) return;
-    if (!isYinFound){
-        treasuresNumber += 1;
-        isYinFound = true;
-        updateTreasure();
-    }  
-    cAdd("infoBubble", "activeBubble");
-    fillInfoBubble(textYin, titleYin, linkYin)
-})
-
-let zoneRythmy= qs("#zoneRythmy")
-zoneRythmy.addEventListener("click", ()=>{
-    if(!isSeachActivate) return;
-    if (!isRythmyFound){
-        treasuresNumber += 1;
-        isRythmyFound = true;
-        updateTreasure();
-    }
-    cAdd("infoBubble", "activeBubble");
-    fillInfoBubble(textRythmy, titleRythmy, linkRythmy);
-})
-
-let zoneEasygit= qs("#zoneEasygit")
-zoneEasygit.addEventListener("click", ()=>{
-    if(!isSeachActivate) return;
-    if (!isEasygitFound){
-        treasuresNumber += 1;
-        isEasygitFound = true;
-        updateTreasure();
-    }
-    cAdd("infoBubble", "activeBubble");
-    fillInfoBubble(textEasygit, titleEasygit, linkEasygit);
-})
+activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang);
+activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin);
+activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy);
+activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit);
 
 function c(e){console.log(e)}
 
@@ -552,7 +518,6 @@ function updateTreasure(){
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
 
-
 function fillInfoBubble(text, title, link){
     let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
@@ -562,9 +527,8 @@ function fillInfoBubble(text, title, link){
     videoLink.setAttribute("href", link);
 }
 
-qs(".mask").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
-
 
 let app= new Application()
 app.create();
