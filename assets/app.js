@@ -281,6 +281,7 @@ const d = document.getElementsByClassName("draggable");
 for (let i = 0; i < d.length; i++) {
     d[i].style.position = "relative";
 }
+
 let blurMaskTop     = qs("#blurMaskTop");
 let blurMaskBottom  = qs("#blurMaskBottom");
 let blurMaskLeft    = qs("#blurMaskLeft");
@@ -412,9 +413,10 @@ function gi(idName){return document.getElementById(idName)}
 
 /* shortcut for getElementsByClassName */
 function gc(className){return document.getElementsByClassName(className)}
-var activePannel = qs(".activePannel");
-var btnFlipTablet = qs("#btnFlipTablet");
-var isFlipped=false;
+let activePannel = qs(".activePannel");
+let btnFlipTablet = qs("#btnFlipTablet");
+let isFlipped=false;
+
 btnFlipTablet.onclick= () =>{
 	let indice = 2;
 	let time = indice * 100;
@@ -442,10 +444,12 @@ btnFlipTablet.onclick= () =>{
 qs("#intro").onmousedown = filter;
 qs("#intro").ontouchstart = filter;
 //                👆
+
 let img = qs(".mask");
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
 let isTracking = false;
+
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
     img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
@@ -461,6 +465,7 @@ function handlerClick () {
         img.removeEventListener("mousemove", handlerMove, true)
     }
 }
+
 imgActivateSearch.addEventListener("click", ()=>{
     if(!isSeachActivate) {
         isSeachActivate=true;
@@ -474,6 +479,7 @@ imgActivateSearch.addEventListener("click", ()=>{
         document.querySelector('.mask').style.mask=0
     }
 })
+
 let treasuresNumber = 0;
 let titleYin       = "Yin";
 let titleYang      = "Yang";
@@ -491,8 +497,12 @@ let linkYin     = "https://www.dailymotion.com/video/x1005ve";
 let linkYang    = "https://www.dailymotion.com/video/x2qlfv7";
 let linkRythmy  = "https://www.youtube.com/watch?v=GMLWWS612lg";
 let linkEasygit = "https://www.youtube.com/watch?v=x4DwNZzGstc";
+let imgYin="assets/img/yin.png"
+let imgYang="assets/img/yang.png"
+let imgRythmy="assets/img/note.png"
+let imgEasygit="assets/img/git.png"
 
-function activateZone(zoneName, isFound, textZone, titleZone, linkZone){
+function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone){
     zoneName= qs(zoneName);
     zoneName.addEventListener("click", ()=>{
         if(!isSeachActivate) return;
@@ -502,14 +512,14 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone){
             updateTreasure();
         }
         cAdd("infoBubble", "activeBubble");
-        fillInfoBubble(textZone, titleZone, linkZone);
+        fillInfoBubble(textZone, titleZone, linkZone, imgZone);
     })
 }
 
-activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang);
-activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin);
-activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy);
-activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit);
+activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang);
+activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin);
+activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy);
+activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit, imgEasygit);
 
 function c(e){console.log(e)}
 
@@ -522,13 +532,16 @@ function updateTreasure(){
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
 
-function fillInfoBubble(text, title, link){
+function fillInfoBubble(text, title, link, img){
     let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
 
     let videoLink = qs("#videoLink");
     videoLink.innerHTML=title
     videoLink.setAttribute("href", link);
+
+    let imgBubble= qs("#imgBubble");
+    imgBubble.setAttribute("src", img)
 }
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
