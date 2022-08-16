@@ -349,10 +349,7 @@ function filter(e) {
         if(targetRight > (window.innerWidth)+200)target.style.left ="0px";
         let targetBottom = target.offsetTop + target.offsetHeight;
         if(targetBottom > (window.innerHeight)+50)target.style.top ="0px";
-        // obj.minBoundX = e.parentNode.offsetLeft;
-        // obj.minBoundY = e.parentNode.offsetTop;
-        console.dir(target)
-        console.dir(containerBounds.top)
+
         let relativeTop     = introBounds.top - containerBounds.top;
         let relativeBottom  = containerBounds.bottom - introBounds.bottom;
         let relativeLeft    = introBounds.left - containerBounds.left;
@@ -398,7 +395,7 @@ function filter(e) {
     }
     function endDrag() {
         target.moving = false;
-        qs("#introContent").style.zIndex=0
+        qs("#introContent").style.zIndex = 0
     }
 
     target.onmouseup = endDrag;
@@ -478,7 +475,6 @@ imgActivateSearch.addEventListener("click", ()=>{
     }
 })
 let treasuresNumber = 0;
-
 let titleYin       = "Yin";
 let titleYang      = "Yang";
 let titleRythmy    = "Rythmy";
