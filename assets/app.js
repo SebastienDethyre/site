@@ -22,15 +22,11 @@ class Application extends Object {zoneYang
     #constructHTML = () => {   
         this.header          = qs("#header");
         this.userName        = qs("#userName");
-        
         this.linksMenu       = qs(".linksMenu");
         this.switcher        = qs("#switcher");
         this.linkHome        = document.querySelector('[data-target="tabHome"]');
-    
         this.linkAchievements     = document.querySelector('[data-target="tabAchievements"]');
-
         this.linkContact      = document.querySelector('[data-target="tabContact"]');
-
         this.tabsContainer   = qs(".tabsContainer");
         this.tabHome         = qs("#tabHome");
         this.tabAchievements      = qs("#tabAchievements");
@@ -136,13 +132,14 @@ class Application extends Object {zoneYang
      * Creates the application
      *
      */
+    getCurrentTabIndex(){return this.#currentTabIndex}
+
     create() {
         this.#constructHTML();
         this.#setTabsBehavior();
         this.#startup();
     };
 }
-
 
 /**
  * Allow to easily access elements
@@ -295,7 +292,6 @@ let relativeTop
         let relativeLeft   
         let relativeRight
 
-
 function filter(e) {
     let target = e.target;
     
@@ -321,7 +317,6 @@ function filter(e) {
     qs("#intro").onmousemove = dr;
     qs("#intro").ontouchmove = dr;
 
-    
     function dr(event) {
       //  event.stopPropagation()
        // event.preventDefault();
@@ -346,16 +341,14 @@ function filter(e) {
         
         target.style.left = target.oldLeft + target.distX + "px";
         target.style.top  = target.oldTop + target.distY + "px";
-      
-        if(target.offsetTop < -250)target.style.top ="-50px"
-     
-        if(target.offsetLeft < -300)target.style.left ="-100px"
+    
+        if(target.offsetTop < -250)target.style.top ="-50px";
+        if(target.offsetLeft < -300)target.style.left ="-100px";
 
         let relativeTop     = introBounds.top - containerBounds.top;
         let relativeBottom  = containerBounds.bottom - introBounds.bottom;
         let relativeLeft    = introBounds.left - containerBounds.left;
         let relativeRight   = containerBounds.right - introBounds.right;
-
         let roundedAnglesAdjust = 12;
 
         blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
@@ -384,7 +377,16 @@ function filter(e) {
         if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
         blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
         if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
-        target.style.left ="0"
+        target.style.left ="0";
+        let containerBounds = gc(".linksMenu").getBoundingClientRect();
+        let linkHome        = document.querySelector('[data-target="tabHome"]');
+        let linkAchievements     = document.querySelector('[data-target="tabAchievements"]');
+        let switcher = qs("#switcher");
+        let linkContact      = document.querySelector('[data-target="tabContact"]');
+        let tabButtons = [linkHome, linkAchievements, linkContact];
+        let targetBounds = tabButtons[app.getCurrentTabIndex].getBoundingClientRect();
+        switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
+        switcher.style.left = targetBounds.x - containerBounds.x + 'px';
     }
 
     function endDrag() {
