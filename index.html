@@ -19,7 +19,7 @@
     </head>
     <body>
         <header id="header">
-            <span id="userName" text=""><img src="assets/img/planche.png" alt="">
+            <span id="myName" text=""><img src="assets/img/planche.png" alt="">
             Sébastien Dethyre</span>
             <ul class="linksMenu" role="tablist">
                 <span id="switcher"></span>
@@ -72,7 +72,22 @@
                     <a id="videoLink" href="" target="_blank"></a>
                 </div>
             </div>
-            <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel"></div>
+            <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel">
+                <div id="contactFormContainer">
+                    <form id="contactForm" action="javascript:sendMail();" method="post" name="contactForm">
+                       <br>
+                        <input id="userName" type="text" name="userName" placeholder="Nom" class="formStyle"><br>
+                        <br>
+                        <input id="userSurname" type="text" name="userSurname" placeholder="Prénom" class="formStyle"><br>
+                        <br>
+                        <textarea id="userMessage" name="userMessage"  placeholder="Votre message"  class="formStyle">
+                     
+                        </textarea>
+                        <br>
+                        <input id="userSubmit" type="submit" value="Ok" class="">
+                    </form>
+                </div>
+            </div>
         </div>
         <script>
        

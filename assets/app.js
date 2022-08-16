@@ -21,7 +21,7 @@ class Application extends Object {zoneYang
    
     #constructHTML = () => {   
         this.header           = qs("#header");
-        this.userName         = qs("#userName");
+        this.myName         = qs("#myName");
         this.linksMenu        = qs(".linksMenu");
         this.switcher         = qs("#switcher");
         this.linkHome         = qs('[data-target="tabHome"]');
@@ -107,19 +107,23 @@ class Application extends Object {zoneYang
     }
     #handleMove(evt) {
         evt.preventDefault();
-        this.#tmpEventClient=evt.clientX;
+        this.#tmpEventClient = evt.clientX;
     }
     #handleEnd(evt) {
         evt.preventDefault();
         let diffPos = this.#prevPosX - evt.clientX;
+        c("this.#prevPosX",this.#prevPosX)
+        console.dir("evt.clientX",diffPos)
         if(evt.pointerType === "mouse"){
             if(evt.target == qs("#intro")){ return;}
-            if(diffPos > -65) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
-            if(diffPos < 65) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos > 60) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos < -60) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
     #handleCancel(evt) {
         let diffPos = this.#tmpEventClient - this.#prevPosX;
+        c("this.#tmpEventClient",this.#tmpEventClient)
+        c("this.#prevPosX",this.#prevPosX)
         if(evt.pointerType === "touch"){
             if(evt.target == qs("#intro")){ return}
             if(diffPos < -8.5) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
@@ -564,8 +568,19 @@ function fillInfoBubble(text, title, link, img){
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 
-// let clickableAnchors = qsa ("a");
-// for(let anchor of clickableAnchors) anchor.addEventListener("click", (e)=>{c("tell me more"); clickAnim(e)})
+function sendMail(){
+    let userName = document.forms["contactForm"]["userName"].value;	
+    let userSurname = document.forms["contactForm"]["userSurname"].value;	
+    let userMessage = document.forms["contactForm"]["userMessage"].value;	
+    const mail = "dethyres@hotmail.fr"
+    const subject = "Message de Mr / Mme " + userName + userSurname ; 
+    const body = userMessage;
+    location.href = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+    alert("Votre message à bien été envoyé sur votre messagerie <br> par défaut pour Sébastien Dethyre");
+    userName = document.forms["contactForm"]["userName"].value = "";	
+    userSurname = document.forms["contactForm"]["userSurname"].value = "";	
+    userMessage = document.forms["contactForm"]["userMessage"].value = "";
+}
 
 let app= new Application()
 app.create();
