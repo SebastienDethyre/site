@@ -342,9 +342,17 @@ function filter(e) {
         target.style.left = target.oldLeft + target.distX + "px";
         target.style.top  = target.oldTop + target.distY + "px";
     
-        if(target.offsetTop < -250)target.style.top ="-50px";
-        if(target.offsetLeft < -300)target.style.left ="-100px";
-
+        if(target.offsetTop < -200){target.style.top = "0px";}
+        if(target.offsetLeft < (window.pageXOffset)-150)target.style.left ="0px";
+        
+        let targetRight = target.offsetLeft + target.offsetWidth;
+        if(targetRight > (window.innerWidth)+200)target.style.left ="0px";
+        let targetBottom = target.offsetTop + target.offsetHeight;
+        if(targetBottom > (window.innerHeight)+50)target.style.top ="0px";
+        // obj.minBoundX = e.parentNode.offsetLeft;
+        // obj.minBoundY = e.parentNode.offsetTop;
+        console.dir(target)
+        console.dir(containerBounds.top)
         let relativeTop     = introBounds.top - containerBounds.top;
         let relativeBottom  = containerBounds.bottom - introBounds.bottom;
         let relativeLeft    = introBounds.left - containerBounds.left;
