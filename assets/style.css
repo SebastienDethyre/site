@@ -474,7 +474,7 @@ button{
 .formStyle::placeholder {
     /* color: blue;
     font-size: 1.5em; */
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     animation: heartbeat_text 8s infinite alternate;
   }
 #userMessage{
