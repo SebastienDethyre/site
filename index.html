@@ -25,7 +25,7 @@
                 <span id="switcher"></span>
                 <li data-target="tabHome" class="active" role="tab"><a href="#" >Accueil</a></li>
                 <li data-target="tabAchievements" role="tab"><a href="#" >Réalisations</a></li>
-                <li data-target="tabContact" role="tab"><a href="#" >Contact</a></li>
+                <li data-target="tabContact" role="tab"><a href="#" >M'écrire</a></li>
             </ul>
         </header>
         <div class="tabsContainer">
@@ -68,29 +68,23 @@
                     <img id="imgBubble" src="" alt="">
                     <br>
                     <p id="textBubble"></p>
-             
                     <a id="videoLink" href="" target="_blank"></a>
                 </div>
             </div>
             <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel">
                 <div id="contactFormContainer">
                     <form id="contactForm" action="javascript:sendMail();" method="post" name="contactForm">
-                       <br>
-                        <input id="userName" type="text" name="userName" placeholder="Nom" class="formStyle"><br>
                         <br>
+                        <input id="userName" type="text" name="userName" placeholder="Nom" class="formStyle"><br>
+                        
                         <input id="userSurname" type="text" name="userSurname" placeholder="Prénom" class="formStyle"><br>
                         <br>
-                        <textarea id="userMessage" name="userMessage"  placeholder="Votre message"  class="formStyle">
-                     
-                        </textarea>
+                        <textarea id="userMessage" name="userMessage" placeholder="Votre message" class="formStyle"></textarea>
                         <br>
                         <input id="userSubmit" type="submit" value="Ok" class="">
                     </form>
                 </div>
             </div>
         </div>
-        <script>
-       
-    </script>
-        </body>
+    </body>
 </html>
