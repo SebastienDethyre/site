@@ -41,7 +41,6 @@ html,body{
     top: 0;
     z-index: 2;
     height:var(--headerHeight);
-    /* background-color: var(--headerColor); */
     background: no-repeat url(img/peakpx2.jpg);
     background-size: 100% 100%;
     font-size:3vw;
@@ -90,18 +89,12 @@ html,body{
     background-color: var(--tabMenuColor);
     border-radius:0.7rem;
     transition: .6s;
-    /* opacity: 65%; */
 }
-
-/* .linksMenu:hover{
-    opacity: 100%;
-} */
 
 #switcher {
     position: absolute;
     display: flex;
     height: 100%;
-    /* padding: -.5em; */
     transition: all 0.3s ease-out;
     background: url(img/galet.png);
     background-position: 50% 50%;
@@ -111,7 +104,6 @@ html,body{
 
 .linksMenu a {
     display: inline-flex;
-/* animation: heartbeat_text_shadow 3s infinite alternate; */
     padding: .5rem;
     margin: .2rem;
     color: var(--textColor);
@@ -260,23 +252,25 @@ z-index: 1;
     display: flex;
     z-index: 3;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     background: no-repeat url("img/bubble.png");
     background-size:100% 100%;
-    width: min(35%, 25%);
+    width: max(25rem, 25%);
     aspect-ratio:1/1;
     border-radius: 50%;
     transform: translateY(-100%) scale(.005);
     text-align: center;
-  padding: 1.5em;
+    padding: 1.5em;
 }
+
 .infoBubble p{
     color:rgba(15, 40, 51, 0.9);
     width: 80%;
     z-index: 9;
     color: azure;
 }
+
 .infoBubble a{
     color: azure;
     color:rgba(15, 40, 51, 0.9);
@@ -329,8 +323,8 @@ button{
     justify-content: center;
     align-items: center;
     padding:25px;
-    /* background-color: rgba(255, 255, 255, 0.1); */
 }
+
 #introContent{
     position: absolute;
     color: white;
@@ -341,6 +335,7 @@ button{
     padding: .55em;
     width: 70%;
 }
+
 #emptyPannel{
     position: absolute;
     top:12%;
@@ -350,6 +345,7 @@ button{
     z-index: -1;
 }
 
+/** scrollbar **/
 /* width */
 ::-webkit-scrollbar {
     width: 14px;
@@ -371,6 +367,7 @@ button{
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(15, 45, 59); 
 }
+/***************/
 
 #intro img{
     position: absolute;
@@ -443,84 +440,14 @@ button{
     background: no-repeat url(img/ali-abdul-rahman-Xva-TYqwHhA-unsplash.jpg);
     background-size:100% 100%;
 }
-
-/* .aggregatedSensorDataTable {
-    background: rgba(0, 0, 0, 0.3);
-    width: 80%;
-    color: rgb(248, 247, 243);
-    text-align: center;
-    margin: 1em;
-    border: 0.2rem solid darkgray;
+    /* text-align: center;
     border-collapse: separate;
     border-spacing: 0.35em;
     border-radius: 0.5em;
-}
-
-.aggregatedSensorDataTable thead {
-    background-color: #9e9e9e;
-}
-
-.aggregatedSensorDataTable thead tr td{
-    border-radius: 0.075em;
-}
-
-#latestAlertsContainer{
-    display: flex;
-    padding: 0;
     gap: 2em;
-}
-
-.latestAlert{
     list-style: none;
-    width: min(35vw, 10em);
-    background: rgba(0, 0, 0, 0.3);
-    aspect-ratio: 1/1;
     outline: 0.3em solid gray;
-    border-radius: 1em;
-    padding: 1em;
-}
-
-.latestAlert > *{
-    color: white;
-}
-
-#alertsHistory{
-    overflow-y: scroll;
-    display: flex;
-    width: min(85vw, 50em);
-    height: 18em;
-    background-color: rgba(0, 0, 0, 0.3);
-    flex-direction: column;
-    border-radius: 2% / 4%;
-    padding: 0.5em 2.5em;
-}
-
-.alertHistoryItem{
-    list-style: none;
-    width: 100%;
-}
-
-.alertHistoryItem > div{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.alertHistoryItem:not(:first-child){
-    border-top: solid 0.1em rgba(255, 255, 255, 0.6);
-}
-
-.alertHistoryItem > div > *{
-    color:white;
-}
-
-.alertHistoryItem > div > p{
-    width : 30%;
-}
-
-.alertHistoryItem > div > div:first-child{
-    width : 15%;
-} */
+    overflow-y: scroll; */
 
 
 .middle {
@@ -587,4 +514,16 @@ button{
     to{
         transform: rotateY(90deg);
     }    
+}
+
+@media all and (max-height: 600px){
+    .infoBubble{
+        transform: translateY(-30%);
+    }
+}
+
+@media all and (max-width: 500px){
+    .infoBubble{
+        width:80%;
+    }
 }
