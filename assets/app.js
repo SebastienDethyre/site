@@ -567,6 +567,7 @@ function fillInfoBubble(text, title, link, img){
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+qs("#userSubmit").onclick = e => {clickAnim(e)}
 
 function sendMail(){
     let userName = document.forms["contactForm"]["userName"].value;	
@@ -576,11 +577,12 @@ function sendMail(){
     const subject = "Message de Mr / Mme " + userName + userSurname ; 
     const body = userMessage;
     location.href = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-    alert("Votre message à bien été envoyé sur votre messagerie <br> par défaut pour Sébastien Dethyre");
+    alert("Votre message à bien été envoyé sur votre messagerie\npar défaut pour Sébastien Dethyre");
     userName = document.forms["contactForm"]["userName"].value = "";	
     userSurname = document.forms["contactForm"]["userSurname"].value = "";	
     userMessage = document.forms["contactForm"]["userMessage"].value = "";
 }
+
 
 let app= new Application()
 app.create();
