@@ -606,15 +606,26 @@ button{
     }    
 }
 
-@media all and (max-height: 650px){
+@media all and (max-height: 680px){
     #contactFormContainer{
-        transform: translateY(-15%);
+        transform: translateY(0%);
+    }
+    #userName{
+        height: .4em;
+        font-size: 1.5em;
+    }
+    #userSurname{
+        height: .4em;
+        font-size: 1.5em;
+    }
+    #userSubmit{
+        font-size: 1.5em;
     }
 }
 
 @media all and (max-height: 600px){
     .infoBubble.activeBubble{
-        transform: translateY(-30%);
+        transform: translateY(-8%);
     }
     #userSubmit{
         font-size: 1.5em;
@@ -623,8 +634,9 @@ button{
 
 @media all and (max-height: 550px){
     #contactFormContainer{
-        transform: translateY(-10%);
+        transform: translateY(-5%); 
     }
+    
     #userName{
         height: .4em;
         font-size: 1.5em;
@@ -638,23 +650,58 @@ button{
     }
 }
 
-@media all and (max-height: 450px){
+@media all and (max-height: 470px){
     #contactFormContainer{
-         transform: translateY(-20%); 
+        transform: translateY(10%); 
+    }
+    #userGender{
+        height: .5em;
+        font-size: .7em;
+        padding-bottom: .9em;
     }
     #userName{
-        height: .1em;
-        font-size: 1em;
+        font-size: 1.3em;
     }
     #userSurname{
-        height: .1em;
-        font-size: 1em;
+        font-size: 1.3em;
+    }
+    #userMessage{
+        height: 4em;
+        font-size: 1.5em;
     }
     #userSubmit{
         font-size: 1em;
     }
 }
+@media all and (max-height: 400px){
+    #contactFormContainer{
+         transform: translateY(0%); 
+    } 
+}
 
+@media all and (max-height: 420px){
+    #contactFormContainer{
+         transform: translateY(5%); 
+    }
+    #userGender{
+        font-size: .6em;
+    }
+    #userName{
+  
+        font-size: .8em;
+    }
+    #userSurname{
+     
+        font-size: .8em;
+    }
+    #userMessage{
+        height: .4em;
+        font-size: 1.5em;
+    }
+    #userSubmit{
+        font-size: .8em;
+    }
+}
 
 @media all and (max-width: 1000px){
     #myName{
