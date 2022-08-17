@@ -266,7 +266,6 @@ z-index: 1;
     background-size:100% 100%;
     width: clamp(15em, 25em, 40%);
     height: clamp(22em, 300px, 50%);
-  
     border-radius: 50%;
     transform: translateY(-100%) scale(.005);
     text-align: center;
@@ -305,10 +304,11 @@ button{
 
 #face{
     position: absolute;
-    width: clamp(250px,35em,60%);
-    right: 0;
-    bottom: 0;
-    transform: scale(.6) rotate(-.01turn);
+    width: clamp(50px,20em,50%);
+    right: 6%;
+    bottom: 5%;
+    max-height: 80%;
+    transform: rotate(-.01turn);
     border-radius: 51% 49% 63% 37% / 41% 55% 45% 59% ;
     z-index: -1;
 }
@@ -316,16 +316,17 @@ button{
 #kick{
     position: absolute;
     width: 35%;
-    width: clamp(250px,35em,60%);
-    left: 0;
-    bottom: 5%;
-    transform: scale(.45) rotate(.02turn);
+    width: clamp(50px,20em,50%);
+    max-height: 80%;
+    left: 8%;
+    bottom: 20%;
+    transform: rotate(.02turn);
     border-radius: 51% 49% 68% 32% / 41% 68% 32% 59% ;
     z-index: -1;
 }
 
 #intro{
-    width: clamp(20vw, 500px,80%) ;
+    width: clamp(20vw, 500px,60%) ;
     height: var(--introHeight);
     background: no-repeat url("img/tabletVertical.png");
     background-size:100% 100%;
