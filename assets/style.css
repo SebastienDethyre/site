@@ -54,8 +54,9 @@ html,body{
     align-items: center;
     right: 2%;
     top: 0;
-    width: 26vw;
-    height: 10vw;
+    width: clamp(10em, 500px, 60%);
+    font-size:clamp(1.5em, 16px, 70%) ;
+    height:clamp(25%, 7vw, 5em);
     right:-10%;
     animation: heartbeat_text 8s infinite alternate;
     font-family: 'Vujahday Script', cursive;
@@ -75,9 +76,9 @@ html,body{
 .linksMenu{
     position: absolute;
     overflow: hidden;
-    width: 70%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     opacity: 85%;
     bottom: 5%;
@@ -264,8 +265,8 @@ z-index: 1;
     background: no-repeat url("img/bubble.png");
     background-size:100% 100%;
     width: clamp(15em, 25em, 40%);
-    height: clamp(22em, 40em, 50%);
-    /* aspect-ratio:1/1; */
+    height: clamp(22em, 300px, 50%);
+  
     border-radius: 50%;
     transform: translateY(-100%) scale(.005);
     text-align: center;
@@ -304,8 +305,8 @@ button{
 
 #face{
     position: absolute;
-    width: 35%;
-    right: 5%;
+    width: clamp(250px,35em,60%);
+    right: 0;
     bottom: 0;
     transform: scale(.6) rotate(-.01turn);
     border-radius: 51% 49% 63% 37% / 41% 55% 45% 59% ;
@@ -315,7 +316,8 @@ button{
 #kick{
     position: absolute;
     width: 35%;
-    left: 2%;
+    width: clamp(250px,35em,60%);
+    left: 0;
     bottom: 5%;
     transform: scale(.45) rotate(.02turn);
     border-radius: 51% 49% 68% 32% / 41% 68% 32% 59% ;
@@ -323,7 +325,7 @@ button{
 }
 
 #intro{
-    width: 35%;
+    width: clamp(20vw, 500px,80%) ;
     height: var(--introHeight);
     background: no-repeat url("img/tabletVertical.png");
     background-size:100% 100%;
@@ -450,26 +452,31 @@ button{
 }
 
 #contactFormContainer{
-    position: fixed;
+    position: relative;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     padding-top: 1%;
     width: 100%;
     height: 80%;
-    margin-bottom: 5%;
+    margin-bottom: 0%;
+
 }
 
 #contactForm{
+    position: absolute;
     display: flex;
+    top: 0;
+    bottom: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 #userGender{
     font-family: 'Vujahday Script', cursive;
     display: flex;
-    font-size: 1.2em;
+    font-size: clamp(1.7vw, 16px, 3.5vw);
     color: azure;
 }
 
@@ -481,15 +488,19 @@ button{
     background-color: rgba(109, 72, 72, .2);
     background-size:100% 100%;
     border: 0;
-    border-radius: 25px;
-    font-size: clamp(1.5em,2em,3.5em);
     color:black;
     display: flex;
-    width: max(40vw,40%);
+    width: clamp(30%, 700px,80%);
     text-align: center;
     font-family: 'Vujahday Script', cursive;
     max-height: 2rem;
     padding: .25em;
+}
+
+#userName, #userSurname{
+    border-radius: 25px;
+    font-size: clamp(1.5em,2em,3.5em);
+    height: 5%;
 }
 
 .formStyle:focus{
@@ -505,14 +516,14 @@ button{
 }
 
 #userMessage{
-    background: no-repeat url("img/bubble.png");
+    /* background: no-repeat url("img/bubble.png"); */
     background-size:100% 100%;
     border: 0;
-    border-radius: 50%;
+    border-radius: 25px;
     font-size: clamp(1em,1.5em,2.5em);
     color:black;
     display: flex;
-    width: max(60vw,70%);
+    width: clamp(60vw,900px ,70%);
     aspect-ratio: 1/1;
     text-align: center;
     font-family: 'Vujahday Script', cursive;
@@ -533,7 +544,7 @@ button{
     justify-content: center;
     border-radius: 50%;
     font-family: 'Vujahday Script', cursive;
-    font-size: clamp(1.5em,2em,3.5em);
+    font-size: clamp(.5em, 1.4em, 2.5em);
 }
 
 #userSubmit:hover{
@@ -605,141 +616,6 @@ button{
     to{
         transform: rotateY(90deg);
     }    
-}
-
-@media all and (max-height: 680px){
-    #contactFormContainer{
-        transform: translateY(0%);
-    }
-    /* .infoBubble.activeBubble{
-        transform: scale(80%);
-    } */
-    #userName{
-        height: .4em;
-        font-size: 1.5em;
-    }
-    #userSurname{
-        height: .4em;
-        font-size: 1.5em;
-    }
-    #userSubmit{
-        font-size: 1.5em;
-    }
-}
-
-@media all and (max-height: 600px){
-    /* .infoBubble.activeBubble{
-        transform: translateY(-8%);
-    } */
-    #userSubmit{
-        font-size: 1.5em;
-    }
-}
-
-@media all and (max-height: 550px){
-    #contactFormContainer{
-        transform: translateY(-5%); 
-    }
-    .infoBubble.activeBubble{
-        /* transform: translateY(-10%); */
-
-    }
-    #userName{
-        height: .4em;
-        font-size: 1.5em;
-    }
-    #userSurname{
-        height: .4em;
-        font-size: 1.5em;
-    }
-    #userSubmit{
-        font-size: 1.5em;
-    }
-}
-
-@media all and (max-height: 470px){
-    #contactFormContainer{
-        transform: translateY(10%); 
-    }
-    #userGender{
-        height: .5em;
-        font-size: .7em;
-        padding-bottom: .9em;
-    }
-    #userName{
-        font-size: 1.3em;
-    }
-    #userSurname{
-        font-size: 1.3em;
-    }
-    #userMessage{
-        height: 4em;
-        font-size: 1.5em;
-    }
-    #userSubmit{
-        font-size: 1em;
-    }
-}
-@media all and (max-height: 400px){
-    #contactFormContainer{
-         transform: translateY(0%); 
-    } 
-}
-
-@media all and (max-height: 420px){
-    #contactFormContainer{
-         transform: translateY(5%); 
-    }
-    #userGender{
-        font-size: .6em;
-    }
-    #userName{
-  
-        font-size: .8em;
-    }
-    #userSurname{
-     
-        font-size: .8em;
-    }
-    #userMessage{
-        height: .4em;
-        font-size: 1.5em;
-    }
-    #userSubmit{
-        font-size: .8em;
-    }
-}
-
-@media all and (max-width: 1000px){
-    #myName{
-        width:40%;
-        font-size: 1.5em;
-    }
-    #intro{
-        width:60%;
-    }
-}
-
-@media all and (max-width: 500px){
-    #myName{
-        width:60%;
-        font-size: 2em;
-    }
-    /* .infoBubble.activeBubble{
-        width:80%;
-        
-    } */
-    .linksMenu{
-        font-size: 100%;
-    }
-    #userName{
-        height: .1em;
-        font-size: 1em;
-    }
-    #userSurname{
-        height: .1em;
-        font-size: 1em;
-    }
 }
 
 @keyframes heartbeat_element{
