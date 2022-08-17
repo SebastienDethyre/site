@@ -74,9 +74,13 @@
             <div id="tabContact" class="everyTab" aria-labelledby= "tabContact" role="tabpanel">
                 <div id="contactFormContainer">
                     <form id="contactForm" action="javascript:sendMail();" method="post" name="contactForm">
-                        <br>
+                        <div id="userGender">
+                            <input  type="radio" id="userMale" name="userGender" value="male" checked><br>
+                            <label for="userMale">Mr</label>
+                            <input  type="radio" id="userFemale" name="userGender" value="female"><br><br>
+                            <label for="userFemale">Mme</label>
+                        </div>
                         <input id="userName" type="text" name="userName" placeholder="Nom" class="formStyle"><br>
-                        
                         <input id="userSurname" type="text" name="userSurname" placeholder="Prénom" class="formStyle"><br>
                         <br>
                         <textarea id="userMessage" name="userMessage" placeholder="Votre message" class="formStyle"></textarea>

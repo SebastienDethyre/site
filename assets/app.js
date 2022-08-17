@@ -570,11 +570,14 @@ qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("inf
 qs("#userSubmit").onclick = e => {clickAnim(e)}
 
 function sendMail(){
+    let userGender = document.forms["contactForm"]["userGender"].value;	
     let userName = document.forms["contactForm"]["userName"].value;	
     let userSurname = document.forms["contactForm"]["userSurname"].value;	
     let userMessage = document.forms["contactForm"]["userMessage"].value;	
-    const mail = "dethyres@hotmail.fr"
-    const subject = "Message de Mr / Mme " + userName + userSurname ; 
+    const mail = "dethyres@hotmail.fr";
+    let subject = "Message de Mme " + userName + " " + userSurname;
+    if (userGender==="male") subject = "Message de Mr " + userName + " " + userSurname;
+
     const body = userMessage;
     location.href = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
     alert("Votre message à bien été envoyé sur votre messagerie\npar défaut pour Sébastien Dethyre");
