@@ -322,7 +322,7 @@ button{
 }
 
 #intro{
-    width: var(--introWidth);
+    width: 35%;
     height: var(--introHeight);
     background: no-repeat url("img/tabletVertical.png");
     background-size:100% 100%;
@@ -623,7 +623,35 @@ button{
 
 @media all and (max-height: 550px){
     #contactFormContainer{
-        transform: translateY(-50%);
+        transform: translateY(-10%);
+    }
+    #userName{
+        height: .4em;
+        font-size: 1.5em;
+    }
+    #userSurname{
+        height: .4em;
+        font-size: 1.5em;
+    }
+    #userSubmit{
+        font-size: 1.5em;
+    }
+    
+}
+@media all and (max-height: 450px){
+    #contactFormContainer{
+         transform: translateY(-20%); 
+    }
+    #userName{
+        height: .1em;
+        font-size: 1em;
+    }
+    #userSurname{
+        height: .1em;
+        font-size: 1em;
+    }
+    #userSubmit{
+        font-size: 1em;
     }
     
 }
@@ -631,6 +659,23 @@ button{
 @media all and (max-width: 500px){
     .infoBubble.activeBubble{
         width:80%;
+    }
+    .linksMenu{
+        font-size: 100%;
+    }
+    #userName{
+        height: .1em;
+        font-size: 1em;
+    }
+    #userSurname{
+        height: .1em;
+        font-size: 1em;
+    }
+}
+
+@media all and (max-width: 1000px){
+    #intro{
+        width:60%;
     }
 }
 
