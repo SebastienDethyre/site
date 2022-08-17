@@ -636,8 +636,8 @@ button{
     #userSubmit{
         font-size: 1.5em;
     }
-    
 }
+
 @media all and (max-height: 450px){
     #contactFormContainer{
          transform: translateY(-20%); 
@@ -653,10 +653,24 @@ button{
     #userSubmit{
         font-size: 1em;
     }
-    
+}
+
+
+@media all and (max-width: 1000px){
+    #myName{
+        width:40%;
+        font-size: 1.5em;
+    }
+    #intro{
+        width:60%;
+    }
 }
 
 @media all and (max-width: 500px){
+    #myName{
+        width:60%;
+        font-size: 2em;
+    }
     .infoBubble.activeBubble{
         width:80%;
     }
@@ -670,12 +684,6 @@ button{
     #userSurname{
         height: .1em;
         font-size: 1em;
-    }
-}
-
-@media all and (max-width: 1000px){
-    #intro{
-        width:60%;
     }
 }
 
