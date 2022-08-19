@@ -12,12 +12,9 @@
     --introWidth         : 30%;
     --introHeight        : 80% ;
     --tabsBlurValue      : .65rem;
+    --z                  : 10vh;
 }
 
-@font-face {
-	font-family: 'Lemon';
-	src: url(‘fonts/LemonJellyPersonalUse-dEqR.ttf’) format(‘truetype’);
-}
 html,body{
     display:flex;
     flex-direction: column;
@@ -172,7 +169,7 @@ canvas{
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent 10%, #000 51px);
+    -webkit-mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent var(--z), #000 51px);
     mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent 150px, #000 51px);
     background: rgba(0,0,0,.09);
     backdrop-filter: blur(var(--tabsBlurValue));
@@ -185,7 +182,7 @@ canvas{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    color: rgb(87, 166, 172);
+    color: rgb(218, 250, 250);
     text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
     height: 100%;
     z-index: 3;
@@ -194,10 +191,10 @@ canvas{
 }
 
 #activateSearch img{
-    /* position: fixed; */
-    /* position: absolute; */
-    right: 1em;
-    top: 1rem;
+    z-index: 2;
+    right: 1rem;
+    position: relative;
+    top: -8vh;
     width: clamp(4.5rem, 6rem,10%);
     cursor: pointer;
 }
@@ -205,23 +202,23 @@ canvas{
 #activateSearch:hover{
     transform: scale(1.2);
 }
+
 #treasuresContainer{
     display: flex;
 }
+
 #treasuresContainer img{
     position: fixed;
     right: 1rem;
     bottom: 2vh;
     width: clamp(2.5em, 8em,10%);
-    
 }
+
 #treasuresContainer span {
     position: fixed;
     right: 1rem;
     bottom: 20vh;
-    /* width: clamp(2.5em, 8em,10%); */
     font-size: clamp(.6em, 6em,10%);
-
 }
 
 .zone{
@@ -229,13 +226,22 @@ canvas{
     z-index: 2;
     height: 15%;
     border-radius: 50%;
-    background-color: rgba(55,55,55,.000002);
+    background-color: rgba(55,55,55,.000000002);
+}
+
+.zoneImage{
+    z-index: 1;
+    width: 100%;
+}
+.zoneImage:hover{
+    transform: scale(1.2);
 }
 
 #zoneYang{
     top:51.5%;
     left: 8.5%;
     width: 9%;
+    border:0;
 }
 
 #zoneYin{
@@ -243,6 +249,7 @@ canvas{
     right: 25.5%;
     width: 9%;
 }
+
 #zoneRythmy {
     top:62.5%;
     left: 39.5%;
@@ -258,7 +265,7 @@ canvas{
 .infoBubble{
     position: fixed;
     display: flex;
-    z-index: 1;
+    z-index: 2;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -271,6 +278,7 @@ canvas{
     transform: translateY(-100%) scale(.005);
     text-align: center;
     padding: 1.5em;
+    backdrop-filter: blur(var(--tabsBlurValue));
 }
 
 .infoBubble img{
@@ -279,7 +287,18 @@ canvas{
     color: azure;
 }
 
-.infoBubble p{
+#closeBubble{
+    bottom: 15%;
+    color: azure;
+    height: .1em;
+    cursor: pointer;
+}
+
+#closeBubble:hover{
+    transform: scale(1.2);
+}
+
+#textBubble{
     color:rgba(15, 40, 51, 0.9);
     width: 80%;
     font-size: min(90vw,90%);
@@ -290,7 +309,21 @@ canvas{
     color: azure;
     color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
-    animation: heartbeat_text_shadow 2s infinite alternate ease-in-out;
+    animation: heartbeat_text_shadow 5s infinite alternate ease-in-out;
+}
+.infoBubble a:hover{
+    transform:scale(1.2)
+}
+
+#linkSite{
+    color: azure;
+    color:rgba(15, 40, 51, 0.9);
+    font-size: min(90vw,90%);
+    animation: heartbeat_text_shadow 5s infinite alternate ease-in-out;
+}
+#linkSite:hover{
+    transform:scale(1.2)
+
 }
 
 .infoBubble.activeBubble{
@@ -516,6 +549,7 @@ button{
 }
 
 .formStyle:hover{
+
     animation: heartbeat_element .6s  alternate infinite;
 }
 
@@ -531,11 +565,11 @@ button{
     font-size: clamp(1em,1.5em,2.5em);
     color:black;
     display: flex;
-    width: clamp(60vw,900px ,70%);
+    width: clamp(80vw,700px ,60%);
     aspect-ratio: 1/1;
     text-align: center;
     font-family: 'Vujahday Script', cursive;
-    max-height: 25vh;
+    max-height: 30vh;
     min-height: 15vh;
     padding: .25em;
     background-color: rgba(109, 72, 72, .2);

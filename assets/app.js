@@ -464,9 +464,13 @@ qs("#intro").ontouchstart = filter;
 //                👆
 
 let img = qs(".mask");
+let zones= qsa(".zone")
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
 let isTracking = false;
+
+for (let i = 0; i < zones.length; i++){zones[i].addEventListener("mouseover", ()=>{ img.style.setProperty('--z', "14vh");})}
+for (let i = 0; i < zones.length; i++){zones[i].addEventListener("mouseout", ()=>{ img.style.setProperty('--z', "8vh");})}
 
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
@@ -488,7 +492,7 @@ imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
         isSeachActivate=true;
         clickAnim(e);
-        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png")
+        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         img.addEventListener("mousemove", handlerMove)
     }
     else{
@@ -500,50 +504,62 @@ imgActivateSearch.addEventListener("click", (e)=>{
     }
 })
 
-let treasuresNumber = 0;
-let titleYin        = "Yin";
-let titleYang       = "Yang";
-let titleRythmy     = "Rythmy";
-let titleEasygit    = "EasyGit";
-let isYinFound      = false;
-let isYangFound     = false;
-let isRythmyFound   = false;
-let isEasygitFound  = false;
-let textYin         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
-let textYang        = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
-let textRythmy      = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
-let textEasygit     = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
-let linkYin         = "https://www.dailymotion.com/video/x1005ve";
-let linkYang        = "https://www.dailymotion.com/video/x2qlfv7";
-let linkRythmy      = "https://www.youtube.com/watch?v=GMLWWS612lg";
-let linkEasygit     = "https://www.youtube.com/watch?v=x4DwNZzGstc";
-let imgYin          = "assets/img/yin.png"
-let imgYang         = "assets/img/yang.png"
-let imgRythmy       = "assets/img/note.png"
-let imgEasygit      = "assets/img/git.png"
+let treasuresNumber  = 0;
+let titleYin         = "Vidéo Yin";
+let titleYang        = "Vidéo Yang";
+let titleRythmy      = "Vidéo Rythmy";
+let titleEasygit     = "Vidéo EasyGit";
+let titleSiteRythmy  = "Site Rythmy";
+let titleSiteEasygit = "Dépôt GitHub EasyGit";
+let isYinFound       = false;
+let isYangFound      = false;
+let isRythmyFound    = false;
+let isEasygitFound   = false;
+let textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
+let textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
+let textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
+let textEasygit      = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
+let linkYin          = "https://www.dailymotion.com/video/x1005ve";
+let linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
+let linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
+let linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
+let imgYin           = "assets/img/yin.png"
+let imgYang          = "assets/img/yang.png"
+let imgRythmy        = "assets/img/note.png"
+let imgEasygit       = "assets/img/git.png"
+let imgIdYin         = "#imgYin"
+let imgIdYang        = "#imgYang"
+let imgIdRythmy      = "#imgRythmy"
+let imgIdEasygit     = "#imgEasygit"
+let linkSiteRythmy   = "https://dethyre.alwaysdata.net/"
+let linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git"
 
 const animationHeartbeatCSS  = "heartbeat_element 3s infinite alternate";
 
-function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone){
+function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
+    let zob = qs(imgId);
     zoneName.addEventListener("click", (e)=>{
         if(!isSeachActivate) return;
         if (!isFound){
+            console.log("zeerehytghj",zob)
             treasuresNumber += 1;
             isFound = true;
             clickAnim(e);	
-            zoneName.style.animation = animationHeartbeatCSS;
+          
+            qs(imgId).setAttribute("src",imgZone)
+            qs(imgId).style.height="100%"
             updateTreasure();
         }
         cAdd("infoBubble", "activeBubble");
-        fillInfoBubble(textZone, titleZone, linkZone, imgZone);
+        fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
     })
 }
 
-activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang);
-activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin);
-activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy);
-activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit, imgEasygit);
+activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang, imgIdYang);
+activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin, imgIdYin);
+activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy, imgIdRythmy, titleSiteRythmy, linkSiteRythmy);
+activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit, imgEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
 
 function c(e){console.log(e)}
 
@@ -556,7 +572,7 @@ function updateTreasure(){
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
 
-function fillInfoBubble(text, title, link, img){
+function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
     let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
 
@@ -566,10 +582,21 @@ function fillInfoBubble(text, title, link, img){
 
     let imgBubble= qs("#imgBubble");
     imgBubble.setAttribute("src", img)
+
+    let linkSite = qs("#linkSite")
+    linkSite.setAttribute("href", "");
+    linkSite.innerHTML = "";
+
+    if (titleLinkSup && linkSup){
+        linkSite.setAttribute("href", linkSup);
+        linkSite.innerHTML = titleLinkSup;
+    } 
 }
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
+qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble")}
+
 qs("#userSubmit").onclick = e => {clickAnim(e)}
 
 function sendMail(){
