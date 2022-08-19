@@ -129,9 +129,11 @@ html,body{
     justify-content: center;
     align-items: center;
 }
+
 canvas{
     opacity: 50%;
 }
+
 .everyTab{
     width: 100%;
     bottom: 0;
@@ -145,11 +147,13 @@ canvas{
     transition-property: transform;
     transition-timing-function: linear;
 }
+
 .mask{
     width: 100%;
     height: 100%;
-z-index: 1;
+    z-index: 1;
 }
+
 #overlayBubble{
     position: absolute;
     width: 100%;
@@ -159,8 +163,8 @@ z-index: 1;
 
 .mask.unmask{
     display:none;
-
 }
+
 .blurMask::before{
     content: '';
     position: fixed;
@@ -174,115 +178,118 @@ z-index: 1;
     backdrop-filter: blur(var(--tabsBlurValue));
     z-index: 1;
 }
-#activateSearch{
+
+#searchContainer{
     position: fixed;
-    z-index: 9;
-    right: 2%;
-    top:5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(87, 166, 172);
+    text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+    height: 100%;
+    z-index: 3;
+    right: 0%;
+    top:0%;
+}
+
+#activateSearch img{
+    /* position: fixed; */
+    /* position: absolute; */
+    right: 1em;
+    top: 1rem;
+    width: clamp(4.5rem, 6rem,10%);
     cursor: pointer;
 }
 
 #activateSearch:hover{
     transform: scale(1.2);
 }
-
-#treasureCounterContainer{
-    position: fixed;
+#treasuresContainer{
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    color: rgb(87, 166, 172);
-    text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
-    gap: 1em;
-    z-index: 9;
-    right: 2%;
-    top:40%;
+}
+#treasuresContainer img{
+    position: fixed;
+    right: 1rem;
+    bottom: 2vh;
+    width: clamp(2.5em, 8em,10%);
+    
+}
+#treasuresContainer span {
+    position: fixed;
+    right: 1rem;
+    bottom: 20vh;
+    /* width: clamp(2.5em, 8em,10%); */
+    font-size: clamp(.6em, 6em,10%);
+
 }
 
-
-#rythmyIcon{
+.zone{
     position: absolute;
-    display: none;
-    top:65%;
-    left: 45%;
-   
-    z-index: 1;
+    z-index: 2;
+    height: 15%;
+    border-radius: 50%;
+    background-color: rgba(55,55,55,.000002);
 }
-
 
 #zoneYang{
-    position: absolute;
-    z-index: 2;
-    top:51%;
+    top:51.5%;
     left: 8.5%;
     width: 9%;
-    height: 15%;
-    border-radius: 50px;
-    background-color: rgba(55,55,55,.000002);
- 
 }
+
 #zoneYin{
-    position: absolute;
-    z-index: 2;
     top:48.5%;
     right: 25.5%;
     width: 9%;
-    height: 15%;
-    border-radius: 50px;
-    background-color: rgba(55,55,55,.000002);
 }
 #zoneRythmy {
-    position: absolute;
-    z-index: 2;
-    top:62%;
+    top:62.5%;
     left: 39.5%;
     width: 9.5%;
-    height: 16%;
-    border-radius: 50px;
-    background-color: rgba(192, 24, 24, 0.000002);
-    
 }
 
 #zoneEasygit{
-    position: absolute;
-    z-index: 2;
     bottom:2%;
-    left: 2.75%;
+    left: 2.6%;
     width: 9%;
-    height: 15%;
-    border-radius: 50px;
-    background-color: rgba(55,55,55,.000002);
-
 }
 
 .infoBubble{
     position: fixed;
     display: flex;
-    z-index: 3;
+    z-index: 1;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background: no-repeat url("img/bubble.png");
     background-size:100% 100%;
-    width: clamp(15em, 25em, 40%);
-    height: clamp(22em, 300px, 50%);
+    width: clamp(11rem, 25rem, 40%);
+    height: clamp(11rem, 30rem, 70%);
+    aspect-ratio: 1/1;
     border-radius: 50%;
     transform: translateY(-100%) scale(.005);
     text-align: center;
     padding: 1.5em;
 }
 
+.infoBubble img{
+    color:rgba(15, 40, 51, 0.9);
+    height: 35%;
+    color: azure;
+}
+
 .infoBubble p{
     color:rgba(15, 40, 51, 0.9);
     width: 80%;
-    z-index: 9;
+    font-size: min(90vw,90%);
     color: azure;
 }
 
 .infoBubble a{
     color: azure;
     color:rgba(15, 40, 51, 0.9);
-    z-index: 9;
+    font-size: min(90vw,90%);
     animation: heartbeat_text_shadow 2s infinite alternate ease-in-out;
 }
 

@@ -522,6 +522,8 @@ let imgYang         = "assets/img/yang.png"
 let imgRythmy       = "assets/img/note.png"
 let imgEasygit      = "assets/img/git.png"
 
+const animationHeartbeatCSS  = "heartbeat_element 3s infinite alternate";
+
 function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone){
     zoneName= qs(zoneName);
     zoneName.addEventListener("click", (e)=>{
@@ -530,6 +532,7 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone)
             treasuresNumber += 1;
             isFound = true;
             clickAnim(e);	
+            zoneName.style.animation = animationHeartbeatCSS;
             updateTreasure();
         }
         cAdd("infoBubble", "activeBubble");
