@@ -477,30 +477,18 @@ function handlerMove (ev) {
     img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
 }
 
-function handlerClick () {
-    if(!isTracking) {
-        isTracking=true;
-        img.addEventListener("mousemove", handlerMove, true);
-    }
-    else{
-        isTracking=false;
-        img.removeEventListener("mousemove", handlerMove, true)
-    }
-}
-
 imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
         isSeachActivate=true;
         clickAnim(e);
-        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         img.addEventListener("mousemove", handlerMove)
+        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
     }
     else{
         isSeachActivate=false;
         clickAnim(e);
         img.removeEventListener("mousemove", handlerMove)
         imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
-        document.querySelector('.mask').style.mask=0
     }
 })
 
@@ -567,6 +555,8 @@ function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
     if (treasuresNumber > 3) {
         treasuresNumber = 4;
+        isGameEnded = true;
+        imgActivateSearch.style.display="none"
         cAdd("mask", "unmask");
     }
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
