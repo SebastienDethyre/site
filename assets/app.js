@@ -572,10 +572,12 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
     imgBubble.setAttribute("src", img)
 
     let linkSite = qs("#linkSite")
+    linkSite.style.display="none"
     linkSite.innerHTML = "";
 
     if (titleLinkSup && linkSup){
         linkSite.setAttribute("href", linkSup);
+        linkSite.style.display="block"
         linkSite.innerHTML = titleLinkSup;
     } 
 }
