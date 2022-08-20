@@ -470,10 +470,9 @@ let img = qs(".mask");
 let zones= qsa(".zone")
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
-let isTracking = false;
 
-for (let i = 0; i < zones.length; i++){zones[i].addEventListener("mouseover", ()=>{ img.style.setProperty('--z', "14vh");})}
-for (let i = 0; i < zones.length; i++){zones[i].addEventListener("mouseout", ()=>{ img.style.setProperty('--z', "8vh");})}
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "14vh");})
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "8vh");})
 
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
@@ -482,16 +481,20 @@ function handlerMove (ev) {
 
 imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
-        isSeachActivate=true;
+        isSeachActivate = true;
         clickAnim(e);
-        img.addEventListener("mousemove", handlerMove)
+        qs(".mask").style.cursor = "zoom-in";
+        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="cell";
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
+        img.addEventListener("mousemove", handlerMove)
     }
     else{
-        isSeachActivate=false;
+        isSeachActivate = false;
         clickAnim(e);
-        img.removeEventListener("mousemove", handlerMove)
+        qs(".mask").style.cursor = "auto"
+        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
         imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
+        img.removeEventListener("mousemove", handlerMove)
     }
 })
 

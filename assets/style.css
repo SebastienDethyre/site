@@ -191,7 +191,7 @@ canvas{
     width: clamp(4.5rem, 6rem,10%);
     top: -8vh;
     right: 1rem;
-    cursor: pointer;
+    cursor: zoom-in;
     z-index: 2;
 }
 
@@ -223,6 +223,7 @@ canvas{
     border-radius: 50%;
     background-color: rgba(55,55,55,.000000002);
     z-index: 2;
+   
 }
 
 .zoneImage{
