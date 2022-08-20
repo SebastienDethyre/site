@@ -199,7 +199,7 @@ canvas{
     cursor: pointer;
 }
 
-#activateSearch:hover{
+#activateSearch img:hover{
     transform: scale(1.2);
 }
 
