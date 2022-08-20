@@ -584,6 +584,7 @@ button{
     border-radius: 50%;
     font-family: 'Vujahday Script', cursive;
     font-size: clamp(.5em, 1.4em, 2.5em);
+    color: azure;
 }
 
 #userSubmit:hover{
