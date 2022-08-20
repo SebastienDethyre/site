@@ -484,7 +484,7 @@ imgActivateSearch.addEventListener("click", (e)=>{
         isSeachActivate = true;
         clickAnim(e);
         qs(".mask").style.cursor = "none";
-        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="crosshair";
+        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         img.addEventListener("mousemove", handlerMove)
     }
