@@ -493,34 +493,35 @@ imgActivateSearch.addEventListener("click", (e)=>{
 })
 
 let treasuresNumber  = 0;
-let titleYin         = "Vidéo Yin";
-let titleYang        = "Vidéo Yang";
-let titleRythmy      = "Vidéo Rythmy";
-let titleEasygit     = "Vidéo EasyGit";
-let titleSiteRythmy  = "Site Rythmy";
-let titleSiteEasygit = "Dépôt GitHub EasyGit";
 let isYinFound       = false;
 let isYangFound      = false;
 let isRythmyFound    = false;
 let isEasygitFound   = false;
-let textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
-let textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
-let textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
-let textEasygit      = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
-let linkYin          = "https://www.dailymotion.com/video/x1005ve";
-let linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
-let linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
-let linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
-let imgYin           = "assets/img/yin.png"
-let imgYang          = "assets/img/yang.png"
-let imgRythmy        = "assets/img/note.png"
-let imgEasygit       = "assets/img/git.png"
-let imgIdYin         = "#imgYin"
-let imgIdYang        = "#imgYang"
-let imgIdRythmy      = "#imgRythmy"
-let imgIdEasygit     = "#imgEasygit"
-let linkSiteRythmy   = "https://dethyre.alwaysdata.net/"
-let linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git"
+
+const titleYin         = "Vidéo Yin";
+const titleYang        = "Vidéo Yang";
+const titleRythmy      = "Vidéo Rythmy";
+const titleEasygit     = "Vidéo EasyGit";
+const titleSiteRythmy  = "Site Rythmy";
+const titleSiteEasygit = "Dépôt GitHub EasyGit";
+const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
+const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
+const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
+const textEasygit      = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
+const linkYin          = "https://www.dailymotion.com/video/x1005ve";
+const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
+const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
+const linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
+const imgYin           = "assets/img/yin.png"
+const imgYang          = "assets/img/yang.png"
+const imgRythmy        = "assets/img/note.png"
+const imgEasygit       = "assets/img/git.png"
+const imgIdYin         = "#imgYin"
+const imgIdYang        = "#imgYang"
+const imgIdRythmy      = "#imgRythmy"
+const imgIdEasygit     = "#imgEasygit"
+const linkSiteRythmy   = "https://dethyre.alwaysdata.net/"
+const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git"
 
 const animationHeartbeatCSS  = "heartbeat_element 3s infinite alternate";
 
@@ -574,7 +575,6 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
     imgBubble.setAttribute("src", img)
 
     let linkSite = qs("#linkSite")
-    linkSite.setAttribute("href", "");
     linkSite.innerHTML = "";
 
     if (titleLinkSup && linkSup){
@@ -586,7 +586,6 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
 qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble")}
-
 qs("#userSubmit").onclick = e => {clickAnim(e)}
 
 function sendMail(){

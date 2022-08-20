@@ -336,6 +336,7 @@ canvas{
     background: no-repeat url(img/peakpx.jpg);
     background-size:100% 100%;
 }
+
 button{
     position: absolute;
     width: 10%;
@@ -496,12 +497,10 @@ button{
     position: relative;
     display: flex;
     justify-content: center;
-    /* align-items: flex-start; */
     padding-top: 1%;
     width: 100%;
     height: 80%;
     margin-bottom: 0%;
-
 }
 
 #contactForm{
@@ -558,7 +557,6 @@ button{
 }
 
 #userMessage{
-    /* background: no-repeat url("img/bubble.png"); */
     background-size:100% 100%;
     border: 0;
     border-radius: 25px;
