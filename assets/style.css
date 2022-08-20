@@ -38,7 +38,7 @@ html,body{
     top: 0;
     z-index: 2;
     height:var(--headerHeight);
-    background: no-repeat url(img/peakpx2.jpg);
+    background: no-repeat url(img/header.jpg);
     background-size: 100% 100%;
     font-size:3vw;
     width: 100%;
@@ -332,7 +332,7 @@ canvas{
 
 #tabHome{
     position: fixed;
-    background: no-repeat url(img/peakpx.jpg);
+    background: no-repeat url(img/tabHome.jpg);
     background-size:100% 100%;
 }
 
@@ -368,7 +368,7 @@ button{
 #intro{
     width: clamp(20vw, 500px,60%) ;
     height: var(--introHeight);
-    background: no-repeat url("img/tabletVertical.png");
+    background: no-repeat url("img/tablet.png");
     background-size:100% 100%;
     display: flex;
     justify-content: center;
@@ -482,13 +482,13 @@ button{
 
 #tabAchievements{
     position: fixed;
-    background: no-repeat url(img/fondDone.jpg);
+    background: no-repeat url(img/tabAchievements.jpg);
     background-size:100% 100%;
 }
 
 #tabContact{
     position: fixed;
-    background: no-repeat url(img/ali-abdul-rahman-Xva-TYqwHhA-unsplash.jpg);
+    background: no-repeat url(img/tabContact.jpg);
     background-size:100% 100%;
 }
 
@@ -654,7 +654,7 @@ button{
         color: rgba(7, 4, 4, 0.9);
     }
     to{
-        text-shadow: 0 0px 25px rgb(255, 255, 255); 
+        text-shadow: 0 0px 15px rgb(255, 255, 255); 
         color: rgba(255, 255, 255, 0.9);
     }
 }
