@@ -308,7 +308,7 @@ canvas{
 .infoBubble a{
     color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
-    animation: heartbeat_site_link_shadow 6s alternate infinite;
+    animation: heartbeat_site_link_shadow 4s alternate infinite;
 }
 
 .infoBubble a:hover{
@@ -318,7 +318,7 @@ canvas{
 #linkSite{
     color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
-    animation: heartbeat_site_link_shadow 6s alternate infinite;
+    animation: heartbeat_site_link_shadow 4s alternate infinite;
 }
 #linkSite:hover{
     transform:scale(1.2)
@@ -651,11 +651,11 @@ button{
 @keyframes heartbeat_site_link_shadow{
     from{
         text-shadow: 0 0px 5px rgb(73, 187, 240);
-        color: rgba(7, 4, 4, 0.9);
+        color: rgba(255, 255, 255, 0.6);
     }
     to{
         text-shadow: 0 0px 15px rgb(255, 255, 255); 
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 1);
     }
 }
 
