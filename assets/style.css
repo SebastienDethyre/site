@@ -306,20 +306,19 @@ canvas{
 }
 
 .infoBubble a{
-    color: azure;
     color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
-    animation: heartbeat_text_shadow 5s infinite alternate ease-in-out;
+    animation: heartbeat_site_link_shadow 6s alternate infinite;
 }
+
 .infoBubble a:hover{
     transform:scale(1.2)
 }
 
 #linkSite{
-    color: azure;
     color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
-    animation: heartbeat_text_shadow 5s infinite alternate ease-in-out;
+    animation: heartbeat_site_link_shadow 6s alternate infinite;
 }
 #linkSite:hover{
     transform:scale(1.2)
@@ -645,6 +644,17 @@ button{
     }
     to{
         text-shadow: 0 0px 15px rgb(73, 187, 240);
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+@keyframes heartbeat_site_link_shadow{
+    from{
+        text-shadow: 0 0px 5px rgb(73, 187, 240);
+        color: rgba(7, 4, 4, 0.9);
+    }
+    to{
+        text-shadow: 0 0px 25px rgb(255, 255, 255); 
         color: rgba(255, 255, 255, 0.9);
     }
 }

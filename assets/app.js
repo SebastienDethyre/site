@@ -1,5 +1,4 @@
 class Application extends Object {zoneYang
-
     /* List of tabs and their appropriate buttons  */
     #tabs = [];
     #tabButtons = [];
@@ -507,7 +506,7 @@ const titleSiteEasygit = "Dépôt GitHub EasyGit";
 const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper.";
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin'. <br><br>Le mot de passe est : yang";
 const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix.";
-const textEasygit      = "Cette interface graphique (entièrement codée en Bash) a pour vocation de simplifier l'usage de Git, dans le sens de pouvoir tout faire d'une main sauf les commits.";
+const textEasygit      = "Cette interface graphique entièrement codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits.";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
@@ -522,8 +521,6 @@ const imgIdRythmy      = "#imgRythmy"
 const imgIdEasygit     = "#imgEasygit"
 const linkSiteRythmy   = "https://dethyre.alwaysdata.net/"
 const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git"
-
-const animationHeartbeatCSS  = "heartbeat_element 3s infinite alternate";
 
 function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
@@ -545,9 +542,9 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone,
     })
 }
 
-activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang, imgIdYang);
-activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin, imgIdYin);
-activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy, imgIdRythmy, titleSiteRythmy, linkSiteRythmy);
+activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang,    imgIdYang                                      );
+activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin,     imgIdYin                                       );
+activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy,  imgIdRythmy,  titleSiteRythmy,  linkSiteRythmy );
 activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit, imgEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
 
 function c(e){console.log(e)}
