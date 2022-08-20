@@ -483,7 +483,7 @@ imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
         isSeachActivate = true;
         clickAnim(e);
-        qs(".mask").style.cursor = "zoom-in";
+        qs(".mask").style.cursor = "none";
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="cell";
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         img.addEventListener("mousemove", handlerMove)
