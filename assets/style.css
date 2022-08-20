@@ -590,6 +590,10 @@ button{
 #userSubmit:hover{
     transform: scale(1.2);
     cursor: pointer;
+    animation: heartbeat_element .6s  alternate infinite;
+}
+#userSubmit:focus{
+    animation: heartbeat_element .6s  alternate infinite;
 }
 
 .middle {
