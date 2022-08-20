@@ -604,8 +604,9 @@ button{
 #userSubmit:hover{
     transform: scale(1.2);
     cursor: pointer;
-    animation: heartbeat_element .5s alternate infinite;
+    animation: heartbeat_element_white_bright .5s alternate infinite;
 }
+
 #userSubmit:focus{
     animation: heartbeat_element .5s alternate infinite;
 }
@@ -635,7 +636,7 @@ button{
     transform: scale(0);
     transform-origin: center;
     animation:ripple-effect .4s linear;
-    z-index: 7;
+    z-index: 4;
 }
 
 @keyframes ripple-effect {
@@ -702,5 +703,14 @@ button{
     }
     to{
         box-shadow: 0 0px 35px rgb(255, 255, 255);
+	}
+}
+
+@keyframes heartbeat_element_white_bright{
+    from{
+        box-shadow: 0 0px 25px rgba(130, 100, 255, .2);
+    }
+    to{
+        box-shadow: 0 0px 15px rgb(255, 255, 255);
 	}
 }
