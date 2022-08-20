@@ -116,6 +116,8 @@ class Application extends Object {zoneYang
         qs("#header").style.cursor = "auto";
         qs(".mask").style.cursor = "auto";
         for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "auto";
+        if(isSeachActivate)qs(".mask").style.cursor = "none";
+        if(!isSeachActivate)qs(".mask").style.cursor = "auto";
         let diffPos = this.#prevPosX - evt.clientX;
         if(evt.pointerType === "mouse"){
             if(evt.target == qs("#intro")) return;
@@ -533,19 +535,26 @@ const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git";
 
 function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
-    let zob = qs(imgId);
     zoneName.addEventListener("click", (e)=>{
+        if(isFound){
+            clickAnim(e);	
+            qs(".mask").style.cursor = "none";
+            qs("#closeBubble").style.cursor = "pointer";
+            cAdd("infoBubble", "activeBubble");
+            fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
+            zoneName.addEventListener("mouseover", ()=> { if(isSeachActivate)img.style.setProperty('--z', "14vh");})
+        }
         if(!isSeachActivate) return;
         if (!isFound){
-            console.log("zeerehytghj",zob)
             treasuresNumber += 1;
             isFound = true;
             clickAnim(e);	
-          
             qs(imgId).setAttribute("src",imgZone)
             qs(imgId).style.height="100%";
             updateTreasure();
         }
+        qs(".mask").style.cursor = "none";
+        qs("#closeBubble").style.cursor = "pointer";
         cAdd("infoBubble", "activeBubble");
         fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
     })
@@ -591,9 +600,9 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
     } 
 }
 
-qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")};
-qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")};
-qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble")};
+qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");if(isSeachActivate)qs(".mask").style.cursor = "none"; else qs(".mask").style.cursor = "auto";};
+qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");};
+qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble");qs(".mask").style.cursor = "none";qs("#closeBubble").style.cursor = "none";};
 qs("#userSubmit").onclick = e => {clickAnim(e)};
 
 function sendMail(){
