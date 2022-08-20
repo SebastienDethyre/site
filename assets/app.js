@@ -67,7 +67,6 @@ class Application extends Object {zoneYang
             this.#tabs[this.#currentTabIndex].style.zIndex = '2';
             this.#tabs[targetIndex].style.zIndex = '3';
 
-
             // button transition, we need to be direction aware
             let containerBounds = this.linksMenu.getBoundingClientRect();
             let targetBounds = this.#tabButtons[targetIndex].getBoundingClientRect();
@@ -97,12 +96,16 @@ class Application extends Object {zoneYang
         d.addEventListener("pointerup"    , this.#handleEnd.bind(this));
         d.addEventListener("pointercancel", this.#handleCancel.bind(this));
         d.addEventListener("pointermove"  , this.#handleMove.bind(this));
+
         bubbles(this.tabHome)
         bubbles(this.tabAchievements)
         bubbles(this.tabContact)
     }
     #handleStart(evt){
         this.#prevPosX = evt.clientX;
+        qs("#header").style.cursor = "grabbing";
+        qs(".mask").style.cursor = "grabbing";
+        for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "grabbing";
     }
     #handleMove(evt) {
         evt.preventDefault();
@@ -110,25 +113,24 @@ class Application extends Object {zoneYang
     }
     #handleEnd(evt) {
         evt.preventDefault();
+        qs("#header").style.cursor = "auto";
+        qs(".mask").style.cursor = "auto";
+        for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "auto";
         let diffPos = this.#prevPosX - evt.clientX;
-        c("this.#prevPosX",this.#prevPosX)
-        console.dir("evt.clientX",diffPos)
         if(evt.pointerType === "mouse"){
-            if(evt.target == qs("#intro")){ return;}
+            if(evt.target == qs("#intro")) return;
             if(diffPos > 60) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos < -60) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
     #handleCancel(evt) {
+        evt.preventDefault();
         let diffPos = this.#tmpEventClient - this.#prevPosX;
-        c("this.#tmpEventClient",this.#tmpEventClient)
-        c("this.#prevPosX",this.#prevPosX)
         if(evt.pointerType === "touch"){
-            if(evt.target == qs("#intro")){ return}
+            if(evt.target == qs("#intro")) return;
             if(diffPos < -8.5) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos > 8.5) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
-        evt.preventDefault();
     }
 
     /**
@@ -498,11 +500,11 @@ imgActivateSearch.addEventListener("click", (e)=>{
     }
 })
 
-let treasuresNumber  = 0;
-let isYinFound       = false;
-let isYangFound      = false;
-let isRythmyFound    = false;
-let isEasygitFound   = false;
+let treasuresNumber    = 0;
+let isYinFound         = false;
+let isYangFound        = false;
+let isRythmyFound      = false;
+let isEasygitFound     = false;
 
 const titleYin         = "Vidéo Yin";
 const titleYang        = "Vidéo Yang";
@@ -518,16 +520,16 @@ const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
 const linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
-const imgYin           = "assets/img/yin.png"
-const imgYang          = "assets/img/yang.png"
-const imgRythmy        = "assets/img/note.png"
-const imgEasygit       = "assets/img/git.png"
-const imgIdYin         = "#imgYin"
-const imgIdYang        = "#imgYang"
-const imgIdRythmy      = "#imgRythmy"
-const imgIdEasygit     = "#imgEasygit"
-const linkSiteRythmy   = "https://dethyre.alwaysdata.net/"
-const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git"
+const imgYin           = "assets/img/yin.png";
+const imgYang          = "assets/img/yang.png";
+const imgRythmy        = "assets/img/note.png";
+const imgEasygit       = "assets/img/git.png";
+const imgIdYin         = "#imgYin";
+const imgIdYang        = "#imgYang";
+const imgIdRythmy      = "#imgRythmy";
+const imgIdEasygit     = "#imgEasygit";
+const linkSiteRythmy   = "https://dethyre.alwaysdata.net/";
+const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git";
 
 function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
@@ -541,7 +543,7 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone,
             clickAnim(e);	
           
             qs(imgId).setAttribute("src",imgZone)
-            qs(imgId).style.height="100%"
+            qs(imgId).style.height="100%";
             updateTreasure();
         }
         cAdd("infoBubble", "activeBubble");
@@ -561,7 +563,7 @@ function updateTreasure(){
     if (treasuresNumber > 3) {
         treasuresNumber = 4;
         isGameEnded = true;
-        imgActivateSearch.style.display="none"
+        imgActivateSearch.style.display="none";
         cAdd("mask", "unmask");
     }
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
@@ -572,27 +574,27 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
     textBubble.innerHTML=text;
 
     let videoLink = qs("#videoLink");
-    videoLink.innerHTML=title
+    videoLink.innerHTML=title;
     videoLink.setAttribute("href", link);
 
     let imgBubble= qs("#imgBubble");
-    imgBubble.setAttribute("src", img)
+    imgBubble.setAttribute("src", img);
 
     let linkSite = qs("#linkSite")
-    linkSite.style.display="none"
+    linkSite.style.display="none";
     linkSite.innerHTML = "";
 
     if (titleLinkSup && linkSup){
         linkSite.setAttribute("href", linkSup);
-        linkSite.style.display="block"
+        linkSite.style.display="block";
         linkSite.innerHTML = titleLinkSup;
     } 
 }
 
-qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
-qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")}
-qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble")}
-qs("#userSubmit").onclick = e => {clickAnim(e)}
+qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")};
+qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble")};
+qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble")};
+qs("#userSubmit").onclick = e => {clickAnim(e)};
 
 function sendMail(){
     let userGender = document.forms["contactForm"]["userGender"].value;	
@@ -612,5 +614,5 @@ function sendMail(){
 }
 
 
-let app= new Application()
+let app= new Application();
 app.create();

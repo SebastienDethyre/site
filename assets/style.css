@@ -1,5 +1,5 @@
 :root{
-    --textColor          :rgb(255, 255, 255);
+    --textColor          :azure;
 
     --headerHeight       :  30%;
     --headerColor        : rgba(255, 255, 255,0);
@@ -103,7 +103,7 @@ html,body{
     display: inline-flex;
     padding: .5rem;
     margin: .2rem;
-    color: azure;
+    color: var(--textColor);
     text-shadow: 0 0px 15px rgb(27, 6, 110);
     text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 2px rgba(0,0,0,.7);
     text-decoration: none;
@@ -279,13 +279,13 @@ canvas{
 
 .infoBubble img{
     height: 35%;
-    color: azure;
+    color: var(--textColor);
 }
 
 #closeBubble{
     height: .1em;
     bottom: 15%;
-    color: azure;
+    color: var(--textColor);
     cursor: pointer;
 }
 
@@ -296,7 +296,8 @@ canvas{
 #textBubble{
     width: 80%;
     font-size: min(90vw,90%);
-    color: azure;
+    color: var(--textColor);
+    cursor: default;
 }
 
 .infoBubble a{
@@ -380,7 +381,7 @@ button{
 }
 
 #introContentOverlay :not(#intro){
-    cursor: auto;
+    cursor: default;
 }
 
 #introContent{
@@ -389,7 +390,7 @@ button{
     top: 12%;
     bottom: 12%;
     padding: .55em;
-    color: white;
+    color: var(--textColor);
     text-align: justify;
     overflow: auto;
 }
@@ -524,7 +525,7 @@ button{
     display: flex;
     font-family: 'Vujahday Script', cursive;
     font-size: clamp(1.7vw, 16px, 3.5vw);
-    color: azure;
+    color: var(--textColor);
 }
 
 [for='userMale'],[for='userFemale']{
@@ -593,7 +594,7 @@ button{
     border-radius: 50%;
     font-family: 'Vujahday Script', cursive;
     font-size: clamp(.5em, 1.4em, 2.5em);
-    color: azure;
+    color: var(--textColor);
     cursor: pointer;
     background: no-repeat url("img/bubble.png");
     background-size: 100% 100%;
