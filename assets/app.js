@@ -367,6 +367,7 @@ function filter(e) {
         if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
         blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
         if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+        qs("#intro").style.cursor = "grabbing";
     }
     window.onresize = () =>{
         introBounds = qs("#intro").getBoundingClientRect();
@@ -399,7 +400,8 @@ function filter(e) {
     }
     function endDrag() {
         target.moving = false;
-        qs("#introContent").style.zIndex = 0
+        qs("#introContent").style.zIndex = 0;
+        qs("#intro").style.cursor = "grab";
     }
 
     target.onmouseup = endDrag;
@@ -433,10 +435,11 @@ let btnFlipTablet = qs("#btnFlipTablet");
 let isFlipped=false;
 
 btnFlipTablet.onclick= (e) =>{
-	let indice = 2;
+    let indice = 2;
 	let time = indice * 100;
-
+    
 	if (isFlipped==false){
+        qs("#introContentOverlay").style.zIndex = "-1";
 		cAdd("activePannel","flipTuileOn");
         clickAnim(e)
 		setTimeout(() => {qs("#introContent").style.transform= "rotateY(90deg)";}, time);
@@ -447,6 +450,7 @@ btnFlipTablet.onclick= (e) =>{
 		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
 	}
 	else{
+        qs("#introContentOverlay").style.zIndex = "0";
 		cAdd("emptyPannel","flipTuileOn");
         clickAnim(e)
 		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(90deg)";}, time);

@@ -16,14 +16,14 @@
 }
 
 html,body{
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
     padding: 0;
     margin: 0;
     border: 0;
-    height: 100%;
     font: inherit;
     font-family: system-ui;
     vertical-align: baseline;
@@ -35,13 +35,13 @@ html,body{
     position: absolute;
     display: flex;
     justify-content: center;
+    width: 100%;
+    height: var(--headerHeight);
     top: 0;
-    z-index: 2;
-    height:var(--headerHeight);
+    font-size: 3vw;
     background: no-repeat url(img/header.jpg);
     background-size: 100% 100%;
-    font-size:3vw;
-    width: 100%;
+    z-index: 2;
 }
 
 #myName{
@@ -49,14 +49,13 @@ html,body{
     display: flex;
     justify-content: center;
     align-items: center;
-    right: 2%;
-    top: 0;
     width: clamp(10em, 500px, 60%);
-    font-size:clamp(1.5em, 16px, 70%) ;
-    height:clamp(25%, 7vw, 5em);
-    right:-10%;
-    animation: heartbeat_text 8s infinite alternate;
+    height: clamp(25%, 7vw, 5em);
+    top: 0;
+    right: -10%;
+    font-size: clamp(1.5em, 16px, 70%) ;
     font-family: 'Vujahday Script', cursive;
+    animation: heartbeat_text 8s infinite alternate;
 }
 
 #myName img{
@@ -66,26 +65,26 @@ html,body{
     height: 60%;
     right: -2.5%;
     padding-top: 1.5%;
-    z-index: -1;
     transform: rotate(0.01turn);
+    z-index: -1;
 }
 
 .linksMenu{
     position: absolute;
     overflow: hidden;
-    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     opacity: 85%;
+    width: 100%;
     bottom: 5%;
     padding: 0;
     margin: 0;
+    border-radius: 0.7rem;
     list-style: none;
-    font-size:large;
+    font-size: large;
     line-height: 1.3em;
     background-color: var(--tabMenuColor);
-    border-radius:0.7rem;
     transition: .6s;
 }
 
@@ -93,19 +92,17 @@ html,body{
     position: absolute;
     display: flex;
     height: 100%;
-    transition: all 0.3s ease-out;
     background: url(img/galet.png);
     background-position: 50% 50%;
-    background-size:120% 170%;
+    background-size: 120% 170%;
     box-shadow: var(--elementShadowColor);
+    transition: all 0.3s ease-out;
 }
 
 .linksMenu a {
     display: inline-flex;
     padding: .5rem;
     margin: .2rem;
-    color: var(--textColor);
-    color: rgb(25, 87, 92);
     color: azure;
     text-shadow: 0 0px 15px rgb(27, 6, 110);
     text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 2px rgba(0,0,0,.7);
@@ -121,7 +118,7 @@ html,body{
     bottom: 0;
 }
 
-[data-target="tabHome"],[data-target="tabHistory"]{
+[data-target="tabHome"], [data-target="tabHistory"]{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -132,14 +129,13 @@ canvas{
 }
 
 .everyTab{
-    width: 100%;
-    bottom: 0;
-    height: calc(100% - var(--headerHeight));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-size: auto;
+    width: 100%;
+    height: calc(100% - var(--headerHeight));
+    bottom: 0;
     backdrop-filter: blur(.8rem);
     transition-property: transform;
     transition-timing-function: linear;
@@ -159,7 +155,7 @@ canvas{
 }
 
 .mask.unmask{
-    display:none;
+    display: none;
 }
 
 .blurMask::before{
@@ -182,21 +178,21 @@ canvas{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
+    top: 0%;
+    right: 0%;
     color: rgb(218, 250, 250);
     text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
-    height: 100%;
     z-index: 3;
-    right: 0%;
-    top:0%;
 }
 
 #activateSearch img{
-    z-index: 2;
-    right: 1rem;
     position: relative;
-    top: -8vh;
     width: clamp(4.5rem, 6rem,10%);
+    top: -8vh;
+    right: 1rem;
     cursor: pointer;
+    z-index: 2;
 }
 
 #activateSearch img:hover{
@@ -209,88 +205,86 @@ canvas{
 
 #treasuresContainer img{
     position: fixed;
+    width: clamp(2.5em, 8em,10%);
     right: 1rem;
     bottom: 2vh;
-    width: clamp(2.5em, 8em,10%);
 }
 
 #treasuresContainer span {
     position: fixed;
-    right: 1rem;
     bottom: 20vh;
+    right: 1rem;
     font-size: clamp(.6em, 6em,10%);
 }
 
 .zone{
     position: absolute;
-    z-index: 2;
     height: 15%;
     border-radius: 50%;
     background-color: rgba(55,55,55,.000000002);
+    z-index: 2;
 }
 
 .zoneImage{
-    z-index: 1;
     width: 100%;
+    z-index: 1;
 }
 .zoneImage:hover{
     transform: scale(1.2);
 }
 
 #zoneYang{
-    top:51.5%;
-    left: 8.5%;
     width: 9%;
-    border:0;
+    top: 51.5%;
+    left: 8.5%;
+    border: 0;
 }
 
 #zoneYin{
-    top:48.5%;
-    right: 25.5%;
     width: 9%;
+    top: 48.5%;
+    right: 25.5%;
 }
 
 #zoneRythmy {
-    top:62.5%;
-    left: 39.5%;
     width: 9.5%;
+    top: 62.5%;
+    left: 39.5%;
 }
 
 #zoneEasygit{
-    bottom:2%;
-    left: 2.6%;
     width: 9%;
+    bottom: 2%;
+    left: 2.6%;
 }
 
 .infoBubble{
     position: fixed;
     display: flex;
-    z-index: 2;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background: no-repeat url("img/bubble.png");
-    background-size:100% 100%;
     width: clamp(11rem, 25rem, 40%);
     height: clamp(11rem, 30rem, 70%);
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    transform: translateY(-100%) scale(.005);
-    text-align: center;
     padding: 1.5em;
+    border-radius: 50%;
+    text-align: center;
+    background: no-repeat url("img/bubble.png");
+    background-size:100% 100%;
+    transform: translateY(-100%) scale(.005);
     backdrop-filter: blur(var(--tabsBlurValue));
+    z-index: 2;
 }
 
 .infoBubble img{
-    color:rgba(15, 40, 51, 0.9);
     height: 35%;
     color: azure;
 }
 
 #closeBubble{
+    height: .1em;
     bottom: 15%;
     color: azure;
-    height: .1em;
     cursor: pointer;
 }
 
@@ -299,15 +293,14 @@ canvas{
 }
 
 #textBubble{
-    color:rgba(15, 40, 51, 0.9);
     width: 80%;
     font-size: min(90vw,90%);
     color: azure;
 }
 
 .infoBubble a{
-    color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
+    color:rgba(15, 40, 51, 0.9);
     animation: heartbeat_site_link_shadow 4s alternate infinite;
 }
 
@@ -316,13 +309,13 @@ canvas{
 }
 
 #linkSite{
-    color:rgba(15, 40, 51, 0.9);
     font-size: min(90vw,90%);
+    color:rgba(15, 40, 51, 0.9);
     animation: heartbeat_site_link_shadow 4s alternate infinite;
 }
+
 #linkSite:hover{
     transform:scale(1.2)
-
 }
 
 .infoBubble.activeBubble{
@@ -333,7 +326,7 @@ canvas{
 #tabHome{
     position: fixed;
     background: no-repeat url(img/tabHome.jpg);
-    background-size:100% 100%;
+    background-size: 100% 100%;
 }
 
 button{
@@ -345,54 +338,68 @@ button{
 #face{
     position: absolute;
     width: clamp(50px,20em,50%);
+    max-height: 80%;
     right: 6%;
     bottom: 5%;
-    max-height: 80%;
-    transform: rotate(-.01turn);
     border-radius: 51% 49% 63% 37% / 41% 55% 45% 59% ;
+    transform: rotate(-.01turn);
     z-index: -1;
 }
 
 #kick{
     position: absolute;
-    width: 35%;
     width: clamp(50px,20em,50%);
     max-height: 80%;
     left: 8%;
     bottom: 20%;
-    transform: rotate(.02turn);
     border-radius: 51% 49% 68% 32% / 41% 68% 32% 59% ;
+    transform: rotate(.02turn);
     z-index: -1;
 }
 
 #intro{
-    width: clamp(20vw, 500px,60%) ;
-    height: var(--introHeight);
-    background: no-repeat url("img/tablet.png");
-    background-size:100% 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding:25px;
+    width: clamp(20vw, 500px,60%) ;
+    height: var(--introHeight);
+    padding: 25px;
+    background: no-repeat url("img/tablet.png");
+    background-size: 100% 100%;
+    cursor: grab;
+}
+
+#introContentOverlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85.75%;
+    height: 88%;
+    z-index: 1;
+}
+
+#introContentOverlay :not(#intro){
+    cursor: auto;
 }
 
 #introContent{
     position: absolute;
-    color: white;
-    top:12%;
-    bottom:12%;
-    text-align:justify;
-    overflow:auto;
-    padding: .55em;
     width: 70%;
+    top: 12%;
+    bottom: 12%;
+    padding: .55em;
+    color: white;
+    text-align: justify;
+    overflow: auto;
 }
+
 
 #emptyPannel{
     position: absolute;
-    top:12%;
-    bottom:12%;
-    padding: .55em;
     width: 70%;
+    top: 12%;
+    bottom:1 2%;
+    padding: .55em;
     z-index: -1;
 }
 
@@ -426,7 +433,7 @@ button{
 
 #btnFlipTablet{
     position: absolute;
-    width: 6%;
+    width: 6.5%;
     height: 5%;
     bottom: 2%;
     border-radius: 50%;
@@ -464,8 +471,8 @@ button{
 
 #blurMaskLeft{
     position: fixed;
-    height: 100%;
     width: calc((100% - var(--introWidth)) / 2);
+    height: 100%;
     left: 0;
     background-color: rgba(255, 255, 255, 0.001);
     backdrop-filter: blur(var(--tabsBlurValue));
@@ -473,8 +480,8 @@ button{
 
 #blurMaskRight{
     position: fixed;
-    height: 100%;
     width: calc((100% - var(--introWidth)) / 2);
+    height: 100%;
     right: 0;
     background-color: rgba(255, 255, 255, 0.001);
     backdrop-filter: blur(var(--tabsBlurValue));
@@ -489,66 +496,71 @@ button{
 #tabContact{
     position: fixed;
     background: no-repeat url(img/tabContact.jpg);
-    background-size:100% 100%;
+    background-size: 100% 100%;
 }
 
 #contactFormContainer{
     position: relative;
     display: flex;
     justify-content: center;
-    padding-top: 1%;
     width: 100%;
     height: 80%;
-    margin-bottom: 0%;
+    padding-top: 1%;
+    margin-bottom: 0;
 }
 
 #contactForm{
     position: absolute;
     display: flex;
-    top: 0;
-    bottom: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    top: 0;
+    bottom: 0;
 }
 
 #userGender{
-    font-family: 'Vujahday Script', cursive;
     display: flex;
+    font-family: 'Vujahday Script', cursive;
     font-size: clamp(1.7vw, 16px, 3.5vw);
     color: azure;
 }
 
+[for='userMale'],[for='userFemale']{
+    cursor:pointer;
+}
+
 [name='userGender']{
     accent-color: rgba(73, 187, 240, .4);
+    cursor: pointer;
 }
 
 .formStyle{
+    width: clamp(30%, 700px,80%);
+    max-height: 2rem;
+    border: 0;
+    padding: .25em;
     background-color: rgba(109, 72, 72, .2);
     background-size:100% 100%;
-    border: 0;
     color:black;
     display: flex;
-    width: clamp(30%, 700px,80%);
     text-align: center;
     font-family: 'Vujahday Script', cursive;
-    max-height: 2rem;
-    padding: .25em;
 }
 
 #userName, #userSurname{
+    height: 5%;
     border-radius: 25px;
     font-size: clamp(1.5em,2em,3.5em);
-    height: 5%;
 }
 
 .formStyle:focus{
-    animation: heartbeat_element .6s  alternate infinite;
+    animation: heartbeat_element 2.2s alternate infinite;
 }
 
 .formStyle:hover{
 
-    animation: heartbeat_element .6s  alternate infinite;
+    animation: heartbeat_element 2.4s alternate infinite;
 }
 
 .formStyle::placeholder {
@@ -556,44 +568,45 @@ button{
 }
 
 #userMessage{
-    background-size:100% 100%;
+    display: flex;
+    text-align: center;
+    width: clamp(80vw,700px ,60%);
+    max-height: 30vh;
+    min-height: 15vh;
     border: 0;
+    padding: .25em;
     border-radius: 25px;
     font-size: clamp(1em,1.5em,2.5em);
     color:black;
-    display: flex;
-    width: clamp(80vw,700px ,60%);
-    aspect-ratio: 1/1;
-    text-align: center;
     font-family: 'Vujahday Script', cursive;
-    max-height: 30vh;
-    min-height: 15vh;
-    padding: .25em;
     background-color: rgba(109, 72, 72, .2);
 }
 
 #userSubmit{
     position: relative;
-    background: no-repeat url("img/bubble.png");
-    background-size:100% 100%;
-    border: 0;
-    width:20%;
-    height: 5vh;
     display: flex;
     justify-content: center;
+    width: 20%;
+    height: 5vh;
+    border: 0;
     border-radius: 50%;
     font-family: 'Vujahday Script', cursive;
     font-size: clamp(.5em, 1.4em, 2.5em);
     color: azure;
+    cursor: pointer;
+    background: no-repeat url("img/bubble.png");
+    background-size: 100% 100%;
+    animation: heartbeat_element_white 3.5s alternate infinite;
+
 }
 
 #userSubmit:hover{
     transform: scale(1.2);
     cursor: pointer;
-    animation: heartbeat_element .6s  alternate infinite;
+    animation: heartbeat_element .5s alternate infinite;
 }
 #userSubmit:focus{
-    animation: heartbeat_element .6s  alternate infinite;
+    animation: heartbeat_element .5s alternate infinite;
 }
 
 .middle {
@@ -610,18 +623,34 @@ button{
 
 .clickAnim {
     position:fixed;
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
     border-radius: 50px;
     background: linear-gradient(
                 to top left,
                 rgba(73, 187, 240, .4),
                 rgba(73, 187, 240, .4) 40%,
                 rgba(109, 72, 72, .2));
-    z-index: 7;
     transform: scale(0);
     transform-origin: center;
-    animation:ripple-effect .4s  linear;
+    animation:ripple-effect .4s linear;
+    z-index: 7;
+}
+
+@keyframes ripple-effect {
+    to  {
+        transform:scale(15);
+        opacity: 0.01;
+    }
+}
+
+@keyframes flip-on{
+    from{
+        transform: rotateY(0deg);
+    }
+    to{
+        transform: rotateY(90deg);
+    }    
 }
 
 @keyframes heartbeat_text{
@@ -635,13 +664,6 @@ button{
     }
 }
  
-@keyframes ripple-effect {
-    to  {
-            transform:scale(15);
-            opacity: 0.01;
-        }
-}
-
 @keyframes heartbeat_text_shadow{
     from{
         text-shadow: 0 0px 10px rgb(255, 255, 255); 
@@ -664,20 +686,20 @@ button{
     }
 }
 
-@keyframes flip-on{
-    from{
-        transform: rotateY(0deg);
-    }
-    to{
-        transform: rotateY(90deg);
-    }    
-}
-
 @keyframes heartbeat_element{
     from{
         box-shadow: 0 0px 25px rgba(130, 100, 255, .2);
     }
     to{
-        box-shadow: 0 0px 35px rgba(73, 187, 240, 1);
+        box-shadow: 0 0px 35px rgb(124, 206, 245);
+	}
+}
+
+@keyframes heartbeat_element_white{
+    from{
+        box-shadow: 0 0px 25px rgba(130, 100, 255, .2);
+    }
+    to{
+        box-shadow: 0 0px 35px rgb(255, 255, 255);
 	}
 }
