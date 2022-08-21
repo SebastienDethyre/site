@@ -224,11 +224,11 @@ canvas{
     background-color: rgba(55,55,55,.000000002);
     z-index: 2;
 }
-
+/* 
 .zone:hover{
     animation: heartbeat_element_white_bright 1s alternate infinite;
 
-}
+} */
 
 .zoneImage{
     width: 100%;

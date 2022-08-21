@@ -398,6 +398,9 @@ let relativeBottom;
 let relativeLeft;   
 let relativeRight;
 
+let isGameEnded = false;
+
+
 function filter(e) {
     let target = e.target;
     
@@ -573,8 +576,8 @@ let zones= qsa(".zone")
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
 
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "14vh");})
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "8vh");})
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "14vh"); zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; if (isGameEnded) zones[i].style.animation="";})
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "8vh"); zones[i].style.animation="";})
 
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
