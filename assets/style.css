@@ -191,7 +191,7 @@ canvas{
     width: clamp(4.5rem, 6rem,10%);
     top: -8vh;
     right: 1rem;
-    cursor: zoom-in;
+    /* cursor: zoom-in; */
     z-index: 2;
 }
 

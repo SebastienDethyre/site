@@ -96,10 +96,25 @@ class Application extends Object {zoneYang
         d.addEventListener("pointerup"    , this.#handleEnd.bind(this));
         d.addEventListener("pointercancel", this.#handleCancel.bind(this));
         d.addEventListener("pointermove"  , this.#handleMove.bind(this));
-
         bubbles(this.tabHome)
-        bubbles(this.tabAchievements)
+        
+        flyinImage(this.tabContact, "assets/img/fishes/blueYellowL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/clownL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/pinkL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/yellowBlackL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/yellowBlackR.png", "right")
+        flyinImage(this.tabContact, "assets/img/fishes/blueL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/blueR.png", "right")
         bubbles(this.tabContact)
+        
+        bubbles(this.tabAchievements)
+        flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/clownL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/pinkL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackR.png", "right")
+        flyinImage(this.tabAchievements, "assets/img/fishes/blueL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/blueR.png", "right")
     }
     #handleStart(evt){
         this.#prevPosX = evt.clientX;
@@ -266,6 +281,83 @@ function clamp(number, min, max){
             context.fill();
             // update positions for next draw
             bubble.x += Math.cos(bubble.a) * bubble.v;
+            bubble.y += Math.sin(bubble.a) * bubble.v;
+            if (bubble.x - bubble.r > width) {
+                bubble.x = -bubble.r;
+            }
+            if (bubble.x + bubble.r < 0) {
+                bubble.x = width + bubble.r;
+            }
+            if (bubble.y - bubble.r > height) {
+                bubble.y = -bubble.r;
+            }
+            if (bubble.y + bubble.r < 0) {
+                bubble.y = height + bubble.r;
+            }
+        });
+    })();
+};
+ let flyinImage = function (element, imagePath = null, imageDirection = null, config) {
+    const c = config || {};
+    const r = () => Math.random();
+    const canvas = c.canvas || document.createElement("canvas");
+    let width   = canvas.width;
+    let height  = canvas.height;
+    if (canvas.parentNode === null) {
+        canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
+        width   = canvas.width = window.innerWidth;
+        height  = canvas.height = window.innerHeight;
+        element.appendChild(canvas);
+    }
+    const context = canvas.getContext("2d");
+    context.shadowColor = c.shadowColor || "#fff00";
+    context.shadowBlur = c.blur || 1;
+    
+    const gradient = context.createLinearGradient(0, 0, width, height);
+    
+    gradient.addColorStop(0, c.colorStart || "#39B8ED00");
+    gradient.addColorStop(1, c.colorStop || "#39B8ED00");
+    const realNrBubbles = 1.75;
+    const nrBubbles = c.bubbles || Math.floor((width + height) * 0.001 * realNrBubbles);
+    const bubbles   = [];
+    for (let i = 0; i < nrBubbles; i++) {
+        let randomFishNumber = Math.round(Math.random() * 20);
+        bubbles.push({
+            f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
+            x: r() * width, // x-position
+            y: r() * height, // y-position
+            r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
+            a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
+            v: (c.velocityFunc || (() => 0.1 + r() * 0.1 * randomFishNumber)).call() // velocity
+        });
+    }
+    let base_image = new Image();
+    // console.log(randomFishNumber)
+    
+    base_image.src = 'assets/img/fishes/blue.png';
+            
+    if(imagePath !== null)base_image.src = imagePath;
+    var background = new Image();
+ 
+    background.src = "assets/img/tabContact.jpg";
+    (function draw() {
+        if (canvas.parentNode === null) {
+            return cancelAnimationFrame(draw)
+        }
+        if (c.animate !== false) {
+            requestAnimationFrame(draw);
+        }
+        context.canvas.width = element.offsetWidth*2;
+        context.canvas.height =  element.offsetHeight*2;
+      
+        context.globalCompositeOperation = c.compose || "light";
+        bubbles.forEach(bubble => {
+            context.drawImage(base_image, bubble.x, bubble.y, bubble.r,bubble.r * 1.5);
+            context.fillStyle = bubble.f;
+            context.fill();
+            // update positions for next draw
+            if(imageDirection === "left") bubble.x += -Math.abs(Math.cos(bubble.a) * bubble.v);
+            if(imageDirection === "right") bubble.x += Math.abs(Math.cos(bubble.a) * bubble.v);
             bubble.y += Math.sin(bubble.a) * bubble.v;
             if (bubble.x - bubble.r > width) {
                 bubble.x = -bubble.r;
