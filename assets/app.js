@@ -99,8 +99,11 @@ class Application extends Object {zoneYang
         bubbles(this.tabHome)
         
         flyinImage(this.tabContact, "assets/img/fishes/blueYellowL.png", "left")
+        // flyinImage(this.tabContact, "assets/img/fishes/blueYellowR.png", "right")
         flyinImage(this.tabContact, "assets/img/fishes/clownL.png", "left")
-        flyinImage(this.tabContact, "assets/img/fishes/pinkL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/clownR.png", "right")
+        // flyinImage(this.tabContact, "assets/img/fishes/pinkL.png", "left")
+        flyinImage(this.tabContact, "assets/img/fishes/pinkR.png", "right")
         flyinImage(this.tabContact, "assets/img/fishes/yellowBlackL.png", "left")
         flyinImage(this.tabContact, "assets/img/fishes/yellowBlackR.png", "right")
         flyinImage(this.tabContact, "assets/img/fishes/blueL.png", "left")
@@ -108,9 +111,12 @@ class Application extends Object {zoneYang
         bubbles(this.tabContact)
         
         bubbles(this.tabAchievements)
-        flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowL.png", "left")
+        // flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowR.png", "right")
         flyinImage(this.tabAchievements, "assets/img/fishes/clownL.png", "left")
+        // flyinImage(this.tabAchievements, "assets/img/fishes/clownR.png", "right")
         flyinImage(this.tabAchievements, "assets/img/fishes/pinkL.png", "left")
+        flyinImage(this.tabAchievements, "assets/img/fishes/pinkR.png", "right")
         flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackL.png", "left")
         flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackR.png", "right")
         flyinImage(this.tabAchievements, "assets/img/fishes/blueL.png", "left")
@@ -317,18 +323,18 @@ function clamp(number, min, max){
     
     gradient.addColorStop(0, c.colorStart || "#39B8ED00");
     gradient.addColorStop(1, c.colorStop || "#39B8ED00");
-    const realNrBubbles = 1.75;
+    const realNrBubbles = 1.4;
     const nrBubbles = c.bubbles || Math.floor((width + height) * 0.001 * realNrBubbles);
     const bubbles   = [];
     for (let i = 0; i < nrBubbles; i++) {
-        let randomFishNumber = Math.round(Math.random() * 20);
+        let randomFishNumber = Math.round(Math.random() * 30);
         bubbles.push({
             f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
             x: r() * width, // x-position
             y: r() * height, // y-position
             r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
             a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
-            v: (c.velocityFunc || (() => 0.1 + r() * 0.1 * randomFishNumber)).call() // velocity
+            v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomFishNumber)).call() // velocity
         });
     }
     let base_image = new Image();
@@ -572,7 +578,7 @@ for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=
 
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
-    img.style.setProperty('--y', ev.offsetY / (ev.target.offsetHeight));
+    img.style.setProperty('--y', ev.offsetY / ev.target.offsetHeight);
 }
 
 imgActivateSearch.addEventListener("click", (e)=>{
@@ -581,6 +587,7 @@ imgActivateSearch.addEventListener("click", (e)=>{
         clickAnim(e);
         qs(".mask").style.cursor = "none";
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
+        imgActivateSearch.style.cursor = "zoom-out"
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         img.addEventListener("mousemove", handlerMove)
     }
@@ -589,10 +596,14 @@ imgActivateSearch.addEventListener("click", (e)=>{
         clickAnim(e);
         qs(".mask").style.cursor = "auto"
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
+        imgActivateSearch.style.cursor = "zoom-in"
         imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
         img.removeEventListener("mousemove", handlerMove)
     }
 })
+
+// imgActivateSearch.addEventListener("mousemove", () => {imgActivateSearch.style.cursor = "zoom-in"})
+// imgActivateSearch.addEventListener("mouseout", () => {imgActivateSearch.style.cursor = "zoom-out"})
 
 let treasuresNumber    = 0;
 let isYinFound         = false;
@@ -634,7 +645,6 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone,
             qs("#closeBubble").style.cursor = "pointer";
             cAdd("infoBubble", "activeBubble");
             fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
-            zoneName.addEventListener("mouseover", ()=> { if(isSeachActivate)img.style.setProperty('--z', "14vh");})
         }
         if(!isSeachActivate) return;
         if (!isFound){

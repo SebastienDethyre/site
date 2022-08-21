@@ -165,8 +165,8 @@ canvas{
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent var(--z), #000 51px);
-    mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent 150px, #000 51px);
+    -webkit-mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent var(--z), #000 9vh);
+    mask: radial-gradient( circle at calc(var(--x, 1) * 100% )  calc(var(--y, 0) * 100% ), transparent var(--z), #000 9vh);
     background: rgba(0,0,0,.09);
     backdrop-filter: blur(var(--tabsBlurValue));
     z-index: 1;
@@ -191,7 +191,7 @@ canvas{
     width: clamp(4.5rem, 6rem,10%);
     top: -8vh;
     right: 1rem;
-    /* cursor: zoom-in; */
+    cursor: zoom-in;
     z-index: 2;
 }
 
@@ -223,13 +223,18 @@ canvas{
     border-radius: 50%;
     background-color: rgba(55,55,55,.000000002);
     z-index: 2;
-   
+}
+
+.zone:hover{
+    animation: heartbeat_element_white_bright 1s alternate infinite;
+
 }
 
 .zoneImage{
     width: 100%;
     z-index: 1;
 }
+
 .zoneImage:hover{
     transform: scale(1.2);
 }
