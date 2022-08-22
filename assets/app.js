@@ -643,7 +643,7 @@ const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
 const linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
-const linkHelp         = () => {Location.reload() }
+
 const imgYin           = "assets/img/yin.png";
 const imgYang          = "assets/img/yang.png";
 const imgRythmy        = "assets/img/note.png";
@@ -674,6 +674,8 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             qs(imgId).style.height="100%";
             updateTreasure();
         }
+
+
         qs(".mask").style.cursor = "none";
         qs("#closeBubble").style.cursor = "pointer";
         cAdd("infoBubble", "activeBubble");
@@ -688,7 +690,6 @@ function activateEveryZone(){
     activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, imgEasygit, linkEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
 }
 activateEveryZone()
-function c(e){console.log(e)}
 
 function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
@@ -718,8 +719,7 @@ function fillInfoBubble(text, title, img = "", link = "", titleLinkSup = "",link
     let linkSite = qs("#linkSite")
     linkSite.style.display="none";
     linkSite.innerHTML = "";
-    
-    if (titleLinkSup === "" && linkSup === ""){
+    if (titleLinkSup !== "" && linkSup !== ""){
         linkSite.setAttribute("href", linkSup);
         linkSite.style.display="block";
         linkSite.innerHTML = titleLinkSup;
@@ -731,6 +731,7 @@ function clearInfoBubble(){
     qs("#imgBubble").src = "";
     qs("#linkSite").innerHTML = "";
     qs("#imgEndGame").src = "";
+    qs("#endGame").style.display="none";
 }
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");if(isSeachActivate)qs(".mask").style.cursor = "none"; else qs(".mask").style.cursor = "auto";};
@@ -740,7 +741,6 @@ qs("#userSubmit").onclick = e => {clickAnim(e)};
 qs("#help").onclick = e => {
     clearInfoBubble()
     clickAnim(e);	
-    // qs(".mask").style.cursor = "none";
     if(!isGameEnded)qs("#imgEndGame").setAttribute("src", "assets/img/finishFlag.png")
     qs("#closeBubble").style.cursor = "pointer";
     cAdd("infoBubble", "activeBubble");
@@ -785,6 +785,7 @@ function sendMail(){
     userMessage = document.forms["contactForm"]["userMessage"].value = "";
 }
 
+function c(e){console.log(e)}
 
 let app= new Application();
 app.create();

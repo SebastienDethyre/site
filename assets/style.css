@@ -324,7 +324,7 @@ canvas{
 
 #textBubble{
     width: 80%;
-    height: 45%;
+    height: 40%;
     font-size: min(90vw,90%);
     color: var(--textColor);
     cursor: default;
