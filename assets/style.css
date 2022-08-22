@@ -314,12 +314,17 @@ canvas{
     height: 25%;
 }
 
+#endGame:hover{
+    transform: scale(1.2);
+}
+
 #closeBubble:hover{
     transform: scale(1.2);
 }
 
 #textBubble{
     width: 80%;
+    height: 45%;
     font-size: min(90vw,90%);
     color: var(--textColor);
     cursor: default;

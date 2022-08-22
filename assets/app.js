@@ -702,27 +702,35 @@ function updateTreasure(){
 }
 
 function fillInfoBubble(text, title, img = "", link = "", titleLinkSup = "",linkSup = ""){
+    clearInfoBubble()
     let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
-
+    
     let imgBubble= qs("#imgBubble");
     if (img !== "") imgBubble.setAttribute("src", img);
-
+    
     let videoLink = qs("#videoLink");
     if (link !== ""){
         videoLink.innerHTML = title;
         videoLink.setAttribute("href", link);
     }
-
+    
     let linkSite = qs("#linkSite")
     linkSite.style.display="none";
     linkSite.innerHTML = "";
-
+    
     if (titleLinkSup === "" && linkSup === ""){
         linkSite.setAttribute("href", linkSup);
         linkSite.style.display="block";
         linkSite.innerHTML = titleLinkSup;
     } 
+}
+function clearInfoBubble(){
+    qs("#textBubble").innerHTML = "";
+    qs("#videoLink").innerHTML = "";
+    qs("#imgBubble").src = "";
+    qs("#linkSite").innerHTML = "";
+    qs("#imgEndGame").src = "";
 }
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");if(isSeachActivate)qs(".mask").style.cursor = "none"; else qs(".mask").style.cursor = "auto";};
@@ -730,8 +738,10 @@ qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("inf
 qs("#closeBubble").onclick = () => {cRem("infoBubble", "activeBubble");qs(".mask").style.cursor = "none";qs("#closeBubble").style.cursor = "none";};
 qs("#userSubmit").onclick = e => {clickAnim(e)};
 qs("#help").onclick = e => {
+    clearInfoBubble()
     clickAnim(e);	
     // qs(".mask").style.cursor = "none";
+    if(!isGameEnded)qs("#imgEndGame").setAttribute("src", "assets/img/finishFlag.png")
     qs("#closeBubble").style.cursor = "pointer";
     cAdd("infoBubble", "activeBubble");
     let textBubble = qs("#textBubble");
