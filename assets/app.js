@@ -3,9 +3,36 @@ class Application extends Object {zoneYang
     #tabs = [];
     #tabButtons = [];
     #currentTabIndex = 0;
- 
+    
     #tmpEventClient = 0;
     #prevPosX = 0;
+
+    #fishes = {
+        tabAchievements:[    
+            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 0},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 0},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
+        ],
+        tabContact:[    
+            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 0},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 0},
+            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
+        ]
+    };
 
      /**
      * Creates a new instance of the Application
@@ -88,51 +115,34 @@ class Application extends Object {zoneYang
     };
 
     /**
-     * Set screen swaping behaviors (#startup, #handleStart, #handleMove, #handleEnd, #handleCancel)
+     * Set screen swaping behaviors (#startup, #handleTabsStart, #handleTabsMove, #handleTabsEnd, #handleTabsCancel)
      */
     #startup() {
         const d =  document;
-        d.addEventListener("pointerdown"  , this.#handleStart.bind(this));
-        d.addEventListener("pointerup"    , this.#handleEnd.bind(this));
-        d.addEventListener("pointercancel", this.#handleCancel.bind(this));
-        d.addEventListener("pointermove"  , this.#handleMove.bind(this));
-        bubbles(this.tabHome)
+        d.addEventListener("pointerdown"  , this.#handleTabsStart.bind(this));
+        d.addEventListener("pointerup"    , this.#handleTabsEnd.bind(this));
+        d.addEventListener("pointercancel", this.#handleTabsCancel.bind(this));
+        d.addEventListener("pointermove"  , this.#handleTabsMove.bind(this));
+
+        this.#bubbles(this.tabHome)
         
-        flyinImage(this.tabContact, "assets/img/fishes/blueYellowL.png", "left")
-        // flyinImage(this.tabContact, "assets/img/fishes/blueYellowR.png", "right")
-        flyinImage(this.tabContact, "assets/img/fishes/clownL.png", "left")
-        flyinImage(this.tabContact, "assets/img/fishes/clownR.png", "right")
-        // flyinImage(this.tabContact, "assets/img/fishes/pinkL.png", "left")
-        flyinImage(this.tabContact, "assets/img/fishes/pinkR.png", "right")
-        flyinImage(this.tabContact, "assets/img/fishes/yellowBlackL.png", "left")
-        flyinImage(this.tabContact, "assets/img/fishes/yellowBlackR.png", "right")
-        flyinImage(this.tabContact, "assets/img/fishes/blueL.png", "left")
-        flyinImage(this.tabContact, "assets/img/fishes/blueR.png", "right")
-        bubbles(this.tabContact)
-        
-        bubbles(this.tabAchievements)
-        // flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowL.png", "left")
-        flyinImage(this.tabAchievements, "assets/img/fishes/blueYellowR.png", "right")
-        flyinImage(this.tabAchievements, "assets/img/fishes/clownL.png", "left")
-        // flyinImage(this.tabAchievements, "assets/img/fishes/clownR.png", "right")
-        flyinImage(this.tabAchievements, "assets/img/fishes/pinkL.png", "left")
-        flyinImage(this.tabAchievements, "assets/img/fishes/pinkR.png", "right")
-        flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackL.png", "left")
-        flyinImage(this.tabAchievements, "assets/img/fishes/yellowBlackR.png", "right")
-        flyinImage(this.tabAchievements, "assets/img/fishes/blueL.png", "left")
-        flyinImage(this.tabAchievements, "assets/img/fishes/blueR.png", "right")
+        this.#bubbles(this.tabAchievements)
+        for(let i=0 ; i < this.#fishes.tabAchievements.length ; ++i) this.#flyinImage(this.tabAchievements,this.#fishes.tabAchievements[i].path, this.#fishes.tabAchievements[i].direction,this.#fishes.tabAchievements[i].number); 
+
+        for(let i=0 ; i < this.#fishes.tabContact.length ; ++i)this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
+        this.#bubbles(this.tabContact)
     }
-    #handleStart(evt){
+    #handleTabsStart(evt){
         this.#prevPosX = evt.clientX;
         qs("#header").style.cursor = "grabbing";
         qs(".mask").style.cursor = "grabbing";
         for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "grabbing";
     }
-    #handleMove(evt) {
+    #handleTabsMove(evt) {
         evt.preventDefault();
         this.#tmpEventClient = evt.clientX;
     }
-    #handleEnd(evt) {
+    #handleTabsEnd(evt) {
         evt.preventDefault();
         qs("#header").style.cursor = "auto";
         qs(".mask").style.cursor = "auto";
@@ -146,7 +156,7 @@ class Application extends Object {zoneYang
             if(diffPos < -60) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
-    #handleCancel(evt) {
+    #handleTabsCancel(evt) {
         evt.preventDefault();
         let diffPos = this.#tmpEventClient - this.#prevPosX;
         if(evt.pointerType === "touch"){
@@ -155,6 +165,151 @@ class Application extends Object {zoneYang
             if(diffPos > 8.5) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
+    /**
+     * A method to create visual moving bubbles. Thanks to @tipsy
+     * @param config Possible modifications of the bubbles aspect
+     *
+     */
+    #bubbles(element, config) {
+        const c = config || {};
+        const r = () => Math.random();
+        const canvas = c.canvas || document.createElement("canvas");
+        let width   = canvas.width;
+        let height  = canvas.height;
+        if (canvas.parentNode === null) {
+            canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
+            width   = canvas.width = window.innerWidth;
+            height  = canvas.height = window.innerHeight;
+            element.appendChild(canvas);
+        }
+        const context = canvas.getContext("2d");
+        context.shadowColor = c.shadowColor || "#fff";
+        context.shadowBlur = c.blur || 4;
+        
+        const gradient = context.createLinearGradient(0, 0, width, height);
+        
+        gradient.addColorStop(0, c.colorStart || "#2AE");
+        gradient.addColorStop(1, c.colorStop || "#17B");
+        const nrBubbles = c.bubbles || Math.floor((width + height) * 0.02);
+        const bubbles   = [];
+        for (let i = 0; i < nrBubbles; i++) {
+            bubbles.push({
+                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
+                x: r() * width, // x-position
+                y: r() * height, // y-position
+                r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
+                a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
+                v: (c.velocityFunc || (() => 0.1 + r() * 0.5)).call() // velocity
+            });
+        }
+        (function draw() {
+            if (canvas.parentNode === null) {
+                return cancelAnimationFrame(draw)
+            }
+            if (c.animate !== false) {
+                requestAnimationFrame(draw);
+            }
+            context.globalCompositeOperation = "source-over";
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, width, height);
+            context.globalCompositeOperation = c.compose || "lighter";
+            bubbles.forEach(bubble => {
+                context.beginPath();
+                context.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
+                context.fillStyle = bubble.f;
+                context.fill();
+                // update positions for next draw
+                bubble.x += Math.cos(bubble.a) * bubble.v;
+                bubble.y += Math.sin(bubble.a) * bubble.v;
+                if (bubble.x - bubble.r > width) {
+                    bubble.x = -bubble.r;
+                }
+                if (bubble.x + bubble.r < 0) {
+                    bubble.x = width + bubble.r;
+                }
+                if (bubble.y - bubble.r > height) {
+                    bubble.y = -bubble.r;
+                }
+                if (bubble.y + bubble.r < 0) {
+                    bubble.y = height + bubble.r;
+                }
+            });
+        })();
+    };
+
+    #flyinImage(element, imagePath = null, imageDirection = null, numberImages = 1, config) {
+        const c = config || {};
+        const r = () => Math.random();
+        const canvas = c.canvas || document.createElement("canvas");
+        let width   = canvas.width;
+        let height  = canvas.height;
+        if (canvas.parentNode === null) {
+            canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
+            width   = canvas.width = window.innerWidth;
+            height  = canvas.height = window.innerHeight;
+            element.appendChild(canvas);
+        }
+        const context = canvas.getContext("2d");
+        context.shadowColor = c.shadowColor || "#fff00";
+        context.shadowBlur = c.blur || 1;
+        
+        const gradient = context.createLinearGradient(0, 0, width, height);
+        
+        gradient.addColorStop(0, c.colorStart || "#39B8ED00");
+        gradient.addColorStop(1, c.colorStop || "#39B8ED00");
+    
+        const nbImagesToDisplay = c.images || Math.floor((width + height) * 0.001 * numberImages);
+        const images   = [];
+        for (let i = 0; i < nbImagesToDisplay; i++) {
+            let randomVelocity = 5 + Math.round(Math.random() * 20);
+            images.push({
+                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
+                x: r() * width, // x-position
+                y: r() * height, // y-position
+                r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
+                a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
+                v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomVelocity)).call() // velocity
+            });
+        }
+        let base_image = new Image();
+        base_image.src = 'assets/img/fishes/blue.png';
+                
+        if(imagePath !== null)base_image.src = imagePath;
+
+        (function draw() {
+            if (canvas.parentNode === null) {
+                return cancelAnimationFrame(draw)
+            }
+            if (c.animate !== false) {
+                requestAnimationFrame(draw);
+            }
+            context.canvas.width = element.offsetWidth*2;
+            context.canvas.height =  element.offsetHeight*2;
+          
+            context.globalCompositeOperation = c.compose || "light";
+            images.forEach(bubble => {
+                context.drawImage(base_image, bubble.x, bubble.y, bubble.r,bubble.r * 1.5);
+                context.fillStyle = bubble.f;
+                context.fill();
+                // update positions for next draw
+                if(imageDirection && imageDirection === "left") bubble.x += -Math.abs(Math.cos(bubble.a) * bubble.v);
+                if(imageDirection && imageDirection === "right") bubble.x += Math.abs(Math.cos(bubble.a) * bubble.v);
+                bubble.y += Math.sin(bubble.a) * bubble.v;
+                if (bubble.x - bubble.r > width) {
+                    bubble.x = -bubble.r;
+                }
+                if (bubble.x + bubble.r < 0) {
+                    bubble.x = width + bubble.r;
+                }
+                if (bubble.y - bubble.r > height) {
+                    bubble.y = -bubble.r;
+                }
+                if (bubble.y + bubble.r < 0) {
+                    bubble.y = height + bubble.r;
+                }
+            });
+        })();
+    };
 
     /**
      * Creates the application
@@ -232,159 +387,10 @@ function clamp(number, min, max){
     return Math.min(Math.max(number, min), max);
 }
 
-/**
- * A method to create visual moving bubbles. Thanks to @tipsy
- * @param config Possible modifications of the bubbles aspect
- *
- */
- let bubbles = function (element, config) {
-    const c = config || {};
-    const r = () => Math.random();
-    const canvas = c.canvas || document.createElement("canvas");
-    let width   = canvas.width;
-    let height  = canvas.height;
-    if (canvas.parentNode === null) {
-        canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-        width   = canvas.width = window.innerWidth;
-        height  = canvas.height = window.innerHeight;
-        element.appendChild(canvas);
-    }
-    const context = canvas.getContext("2d");
-    context.shadowColor = c.shadowColor || "#fff";
-    context.shadowBlur = c.blur || 4;
-    
-    const gradient = context.createLinearGradient(0, 0, width, height);
-    
-    gradient.addColorStop(0, c.colorStart || "#2AE");
-    gradient.addColorStop(1, c.colorStop || "#17B");
-    const nrBubbles = c.bubbles || Math.floor((width + height) * 0.02);
-    const bubbles   = [];
-    for (let i = 0; i < nrBubbles; i++) {
-        bubbles.push({
-            f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
-            x: r() * width, // x-position
-            y: r() * height, // y-position
-            r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
-            a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
-            v: (c.velocityFunc || (() => 0.1 + r() * 0.5)).call() // velocity
-        });
-    }
-    (function draw() {
-        if (canvas.parentNode === null) {
-            return cancelAnimationFrame(draw)
-        }
-        if (c.animate !== false) {
-            requestAnimationFrame(draw);
-        }
-        context.globalCompositeOperation = "source-over";
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, width, height);
-        context.globalCompositeOperation = c.compose || "lighter";
-        bubbles.forEach(bubble => {
-            context.beginPath();
-            context.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
-            context.fillStyle = bubble.f;
-            context.fill();
-            // update positions for next draw
-            bubble.x += Math.cos(bubble.a) * bubble.v;
-            bubble.y += Math.sin(bubble.a) * bubble.v;
-            if (bubble.x - bubble.r > width) {
-                bubble.x = -bubble.r;
-            }
-            if (bubble.x + bubble.r < 0) {
-                bubble.x = width + bubble.r;
-            }
-            if (bubble.y - bubble.r > height) {
-                bubble.y = -bubble.r;
-            }
-            if (bubble.y + bubble.r < 0) {
-                bubble.y = height + bubble.r;
-            }
-        });
-    })();
-};
- let flyinImage = function (element, imagePath = null, imageDirection = null, config) {
-    const c = config || {};
-    const r = () => Math.random();
-    const canvas = c.canvas || document.createElement("canvas");
-    let width   = canvas.width;
-    let height  = canvas.height;
-    if (canvas.parentNode === null) {
-        canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-        width   = canvas.width = window.innerWidth;
-        height  = canvas.height = window.innerHeight;
-        element.appendChild(canvas);
-    }
-    const context = canvas.getContext("2d");
-    context.shadowColor = c.shadowColor || "#fff00";
-    context.shadowBlur = c.blur || 1;
-    
-    const gradient = context.createLinearGradient(0, 0, width, height);
-    
-    gradient.addColorStop(0, c.colorStart || "#39B8ED00");
-    gradient.addColorStop(1, c.colorStop || "#39B8ED00");
-    const realNrBubbles = 1.4;
-    const nrBubbles = c.bubbles || Math.floor((width + height) * 0.001 * realNrBubbles);
-    const bubbles   = [];
-    for (let i = 0; i < nrBubbles; i++) {
-        let randomFishNumber = Math.round(Math.random() * 30);
-        bubbles.push({
-            f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
-            x: r() * width, // x-position
-            y: r() * height, // y-position
-            r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
-            a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
-            v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomFishNumber)).call() // velocity
-        });
-    }
-    let base_image = new Image();
-    // console.log(randomFishNumber)
-    
-    base_image.src = 'assets/img/fishes/blue.png';
-            
-    if(imagePath !== null)base_image.src = imagePath;
-    var background = new Image();
- 
-    background.src = "assets/img/tabContact.jpg";
-    (function draw() {
-        if (canvas.parentNode === null) {
-            return cancelAnimationFrame(draw)
-        }
-        if (c.animate !== false) {
-            requestAnimationFrame(draw);
-        }
-        context.canvas.width = element.offsetWidth*2;
-        context.canvas.height =  element.offsetHeight*2;
-      
-        context.globalCompositeOperation = c.compose || "light";
-        bubbles.forEach(bubble => {
-            context.drawImage(base_image, bubble.x, bubble.y, bubble.r,bubble.r * 1.5);
-            context.fillStyle = bubble.f;
-            context.fill();
-            // update positions for next draw
-            if(imageDirection === "left") bubble.x += -Math.abs(Math.cos(bubble.a) * bubble.v);
-            if(imageDirection === "right") bubble.x += Math.abs(Math.cos(bubble.a) * bubble.v);
-            bubble.y += Math.sin(bubble.a) * bubble.v;
-            if (bubble.x - bubble.r > width) {
-                bubble.x = -bubble.r;
-            }
-            if (bubble.x + bubble.r < 0) {
-                bubble.x = width + bubble.r;
-            }
-            if (bubble.y - bubble.r > height) {
-                bubble.y = -bubble.r;
-            }
-            if (bubble.y + bubble.r < 0) {
-                bubble.y = height + bubble.r;
-            }
-        });
-    })();
-};
+const draggable = document.getElementsByClassName("draggable");
 
-const d = document.getElementsByClassName("draggable");
-
-for (let i = 0; i < d.length; i++) {
-    d[i].style.position = "relative";
+for (let i = 0; i < draggable.length; i++) {
+    draggable[i].style.position = "relative";
 }
 
 let blurMaskTop     = qs("#blurMaskTop");
@@ -576,8 +582,18 @@ let zones= qsa(".zone")
 let imgActivateSearch = qs("#imgActivateSearch");
 let isSeachActivate = false;
 
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "14vh"); zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; if (isGameEnded) zones[i].style.animation="";})
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ if(isSeachActivate)img.style.setProperty('--z', "8vh"); zones[i].style.animation="";})
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ 
+    if(isSeachActivate){
+        img.style.setProperty('--z', "14vh"); 
+        zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; 
+    }
+    if (isGameEnded) zones[i].style.animation="";
+})
+
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ 
+    if(isSeachActivate)img.style.setProperty('--z', "8vh"); 
+    zones[i].style.animation="";
+})
 
 function handlerMove (ev) {
     img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
@@ -605,9 +621,6 @@ imgActivateSearch.addEventListener("click", (e)=>{
     }
 })
 
-// imgActivateSearch.addEventListener("mousemove", () => {imgActivateSearch.style.cursor = "zoom-in"})
-// imgActivateSearch.addEventListener("mouseout", () => {imgActivateSearch.style.cursor = "zoom-out"})
-
 let treasuresNumber    = 0;
 let isYinFound         = false;
 let isYangFound        = false;
@@ -618,16 +631,19 @@ const titleYin         = "Vidéo Yin";
 const titleYang        = "Vidéo Yang";
 const titleRythmy      = "Vidéo Rythmy";
 const titleEasygit     = "Vidéo EasyGit";
+const titleHelp        = "Abréger le jeu"
 const titleSiteRythmy  = "Site Rythmy";
 const titleSiteEasygit = "Dépôt GitHub EasyGit";
 const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper";
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin' <br><br>Le mot de passe est : yang";
 const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix";
 const textEasygit      = "Cette interface graphique entièrement codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
+const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Vous pouvez <b>abréger le jeu</b> en cliquant sur le drapeau ci-dessus";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
 const linkEasygit      = "https://www.youtube.com/watch?v=x4DwNZzGstc";
+const linkHelp         = () => {Location.reload() }
 const imgYin           = "assets/img/yin.png";
 const imgYang          = "assets/img/yang.png";
 const imgRythmy        = "assets/img/note.png";
@@ -639,7 +655,7 @@ const imgIdEasygit     = "#imgEasygit";
 const linkSiteRythmy   = "https://dethyre.alwaysdata.net/";
 const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git";
 
-function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone, imgId, titleLinkSup, linkSup){
+function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
     zoneName.addEventListener("click", (e)=>{
         if(isFound){
@@ -661,15 +677,17 @@ function activateZone(zoneName, isFound, textZone, titleZone, linkZone, imgZone,
         qs(".mask").style.cursor = "none";
         qs("#closeBubble").style.cursor = "pointer";
         cAdd("infoBubble", "activeBubble");
-        fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
+        fillInfoBubble(textZone, titleZone, imgZone, linkZone, titleLinkSup,linkSup);
     })
 }
 
-activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    linkYang,    imgYang,    imgIdYang                                      );
-activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     linkYin,     imgYin,     imgIdYin                                       );
-activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  linkRythmy,  imgRythmy,  imgIdRythmy,  titleSiteRythmy,  linkSiteRythmy );
-activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, linkEasygit, imgEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
-
+function activateEveryZone(){
+    activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    imgYang,    linkYang,    imgIdYang                                      );
+    activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     imgYin,     linkYin,     imgIdYin                                       );
+    activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  imgRythmy,  linkRythmy,  imgIdRythmy,  titleSiteRythmy,  linkSiteRythmy );
+    activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, imgEasygit, linkEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
+}
+activateEveryZone()
 function c(e){console.log(e)}
 
 function updateTreasure(){
@@ -683,22 +701,24 @@ function updateTreasure(){
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
 }
 
-function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
+function fillInfoBubble(text, title, img = "", link = "", titleLinkSup = "",linkSup = ""){
     let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
 
-    let videoLink = qs("#videoLink");
-    videoLink.innerHTML=title;
-    videoLink.setAttribute("href", link);
-
     let imgBubble= qs("#imgBubble");
-    imgBubble.setAttribute("src", img);
+    if (img !== "") imgBubble.setAttribute("src", img);
+
+    let videoLink = qs("#videoLink");
+    if (link !== ""){
+        videoLink.innerHTML = title;
+        videoLink.setAttribute("href", link);
+    }
 
     let linkSite = qs("#linkSite")
     linkSite.style.display="none";
     linkSite.innerHTML = "";
 
-    if (titleLinkSup && linkSup){
+    if (titleLinkSup === "" && linkSup === ""){
         linkSite.setAttribute("href", linkSup);
         linkSite.style.display="block";
         linkSite.innerHTML = titleLinkSup;
@@ -707,8 +727,36 @@ function fillInfoBubble(text, title, link, img, titleLinkSup,linkSup){
 
 qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");if(isSeachActivate)qs(".mask").style.cursor = "none"; else qs(".mask").style.cursor = "auto";};
 qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");};
-qs("#closeBubble").onclick = e => {cRem("infoBubble", "activeBubble");qs(".mask").style.cursor = "none";qs("#closeBubble").style.cursor = "none";};
+qs("#closeBubble").onclick = () => {cRem("infoBubble", "activeBubble");qs(".mask").style.cursor = "none";qs("#closeBubble").style.cursor = "none";};
 qs("#userSubmit").onclick = e => {clickAnim(e)};
+qs("#help").onclick = e => {
+    clickAnim(e);	
+    // qs(".mask").style.cursor = "none";
+    qs("#closeBubble").style.cursor = "pointer";
+    cAdd("infoBubble", "activeBubble");
+    let textBubble = qs("#textBubble");
+    textBubble.innerHTML = textHelp;
+    qs("#endGame").style.display="flex";
+}
+
+qs("#endGame").onclick = e => {
+    let imgBubble= qs("#imgBubble");
+    imgBubble.setAttribute("src", "");
+    clickAnim(e);
+    treasuresNumber = 4; 
+    isSeachActivate = true ;
+    qs(imgIdYin).setAttribute("src",imgYin)
+    qs(imgIdYin).style.height="100%";
+    qs(imgIdYang).setAttribute("src",imgYang)
+    qs(imgIdYang).style.height="100%";
+    qs(imgIdRythmy).setAttribute("src",imgRythmy)
+    qs(imgIdRythmy).style.height="100%";
+    qs(imgIdEasygit).setAttribute("src",imgEasygit)
+    qs(imgIdEasygit).style.height="100%";
+    updateTreasure();
+    activateEveryZone();
+    qs("#endGame").style.display="none";
+}
 
 function sendMail(){
     let userGender = document.forms["contactForm"]["userGender"].value;	

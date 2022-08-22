@@ -189,7 +189,7 @@ canvas{
 #activateSearch img{
     position: relative;
     width: clamp(4.5rem, 6rem,10%);
-    top: -8vh;
+    top: -3vh;
     right: 1rem;
     cursor: zoom-in;
     z-index: 2;
@@ -200,21 +200,41 @@ canvas{
 }
 
 #treasuresContainer{
+    position: relative;
     display: flex;
+    height: 50%;
+    width: 10%;
+    bottom: 0;
 }
 
 #treasuresContainer img{
-    position: fixed;
-    width: clamp(2.5em, 8em,10%);
-    right: 1rem;
-    bottom: 2vh;
+  position: absolute;
+  width: clamp(5rem, 8em,50%);
+  right: 1rem;
+  bottom: 2vh;
 }
 
-#treasuresContainer span {
-    position: fixed;
-    bottom: 20vh;
-    right: 1rem;
+#treasureCounter{
+    position: absolute;
+ 
+    /* bottom: 18vh; */
+    bottom: 10em;
+    right: 2em;
     font-size: clamp(.6em, 6em,10%);
+}
+
+#help{
+    position: absolute;
+    height: 2.5em;
+    bottom: 13.5rem;
+    right: 1rem;
+    font-size: clamp(2em, 6em,10%);
+}
+
+#help:hover{
+    transition: all 0.3s ease-out;
+    cursor:help;
+    transform: scale(1.2);
 }
 
 .zone{
@@ -223,12 +243,8 @@ canvas{
     border-radius: 50%;
     background-color: rgba(55,55,55,.000000002);
     z-index: 2;
-}
-/* 
-.zone:hover{
-    animation: heartbeat_element_white_bright 1s alternate infinite;
 
-} */
+}
 
 .zoneImage{
     width: 100%;
@@ -292,6 +308,10 @@ canvas{
     bottom: 15%;
     color: var(--textColor);
     cursor: pointer;
+}
+
+#endGame{
+    height: 25%;
 }
 
 #closeBubble:hover{
