@@ -186,7 +186,7 @@ canvas{
     z-index: 3;
 }
 
-#activateSearch img{
+#searchOn img{
     position: relative;
     width: clamp(4.5rem, 6rem,10%);
     top: -3vh;
@@ -195,7 +195,7 @@ canvas{
     z-index: 2;
 }
 
-#activateSearch img:hover{
+#searchOn img:hover{
     transform: scale(1.2);
 }
 
@@ -519,9 +519,9 @@ button{
     backdrop-filter: blur(var(--tabsBlurValue));
 }
 
-#tabAchievements{
+#tabAchiev{
     position: fixed;
-    background: no-repeat url(img/tabAchievements.jpg);
+    background: no-repeat url(img/tabAchiev.jpg);
     background-size:100% 100%;
 }
 

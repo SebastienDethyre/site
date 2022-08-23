@@ -8,7 +8,7 @@ class Application extends Object {
     #prevPosX = 0;
 
     #fishes = {
-        tabAchievements:[    
+        tabAchiev:[    
             {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
             {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 0},
@@ -47,22 +47,22 @@ class Application extends Object {
    
     #constructHTML = () => {   
         this.header           = qs("#header");
-        this.myName         = qs("#myName");
+        this.myName           = qs("#myName");
         this.linksMenu        = qs(".linksMenu");
         this.switcher         = qs("#switcher");
         this.linkHome         = qs('[data-target="tabHome"]');
-        this.linkAchievements = qs('[data-target="tabAchievements"]');
+        this.linkAchiev       = qs('[data-target="tabAchiev"]');
         this.linkContact      = qs('[data-target="tabContact"]');
         this.tabsContainer    = qs(".tabsContainer");
         this.tabHome          = qs("#tabHome");
-        this.tabAchievements  = qs("#tabAchievements");
+        this.tabAchiev        = qs("#tabAchiev");
         this.tabContact       = qs("#tabContact");
         this.links            = qsa(".linksMenu li");
         this.contents         = qsa(".everyTab");
 
         // Put all tabs and their associated button in a list, for scalability
-        this.#tabs = [this.tabHome, this.tabAchievements, this.tabContact];
-        this.#tabButtons = [this.linkHome, this.linkAchievements, this.linkContact];
+        this.#tabs       = [this.tabHome,  this.tabAchiev,  this.tabContact ];
+        this.#tabButtons = [this.linkHome, this.linkAchiev, this.linkContact];
         // Put the links slightly on top of the switcher
         for(let tab of this.#tabButtons) tab.style.zIndex = '1';
     }
@@ -76,12 +76,12 @@ class Application extends Object {
 
             // Remove all class transitions, then apply the appropriate one
             for(let index in this.#tabs){
-                let currentTab = this.#tabs[index];
+                let currentTab    = this.#tabs[index];
 
                 // Compute animation settings
-                let addedClass = index < targetIndex ? "left" : index > targetIndex ? "right" : "middle"
+                let addedClass    = index < targetIndex ? "left" : index > targetIndex ? "right" : "middle"
                 let currentBounds = currentTab.getBoundingClientRect();
-                let destination = addedClass === "left" ? - window.innerWidth : addedClass === "right" ? window.innerWidth : 0;
+                let destination   = addedClass === "left" ? - window.innerWidth : addedClass === "right" ? window.innerWidth : 0;
 
                 // Then we update the class holding transform properties
                 currentTab.style.transitionDuration = !skipAnimation * ((0.3 * Math.abs(currentBounds.x - destination)) / window.innerWidth) + "s";
@@ -92,25 +92,25 @@ class Application extends Object {
 
             // Put priority on the two main animating tabs
             this.#tabs[this.#currentTabIndex].style.zIndex = '2';
-            this.#tabs[targetIndex].style.zIndex = '3';
+            this.#tabs[targetIndex].style.zIndex           = '3';
 
             // button transition, we need to be direction aware
-            let containerBounds = this.linksMenu.getBoundingClientRect();
-            let targetBounds = this.#tabButtons[targetIndex].getBoundingClientRect();
-            this.switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
-            this.switcher.style.left = targetBounds.x - containerBounds.x + 'px';
-            this.#currentTabIndex = targetIndex;
+            let containerBounds       = this.linksMenu.getBoundingClientRect();
+            let targetBounds          = this.#tabButtons[targetIndex].getBoundingClientRect();
+            this.switcher.style.right = containerBounds.right - targetBounds.right + 'px';
+            this.switcher.style.left  = targetBounds.x        - containerBounds.x  + 'px';
+            this.#currentTabIndex     = targetIndex;
         }
         // Bind button click to their respective tabs
         for(let index in this.#tabButtons){
             this.#tabButtons[index].addEventListener("click", () => toggle(index));
         }
-        toggle(0, true, true);
+        toggle(0, false, true);
         window.onresize = () =>{
-            let containerBounds = this.linksMenu.getBoundingClientRect();
-            let targetBounds = this.#tabButtons[this.#currentTabIndex].getBoundingClientRect();
-            this.switcher.style.right =  containerBounds.right - targetBounds.right + 'px';
-            this.switcher.style.left = targetBounds.x - containerBounds.x + 'px';
+            let containerBounds       = this.linksMenu.getBoundingClientRect();
+            let targetBounds          = this.#tabButtons[this.#currentTabIndex].getBoundingClientRect();
+            this.switcher.style.right = containerBounds.right - targetBounds.right + 'px';
+            this.switcher.style.left  = targetBounds.x        - containerBounds.x  + 'px';
         }
     };
 
@@ -125,11 +125,9 @@ class Application extends Object {
         d.addEventListener("pointermove"  , this.#handleTabsMove.bind(this));
 
         this.#bubbles(this.tabHome)
-        
-        this.#bubbles(this.tabAchievements)
-        for(let i=0 ; i < this.#fishes.tabAchievements.length ; ++i) this.#flyinImage(this.tabAchievements,this.#fishes.tabAchievements[i].path, this.#fishes.tabAchievements[i].direction,this.#fishes.tabAchievements[i].number); 
-
-        for(let i=0 ; i < this.#fishes.tabContact.length ; ++i)this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
+        this.#bubbles(this.tabAchiev)
+        for(let i=0 ; i < this.#fishes.tabAchiev.length  ; ++i) this.#flyinImage(this.tabAchiev,this.#fishes.tabAchiev[i].path, this.#fishes.tabAchiev[i].direction,this.#fishes.tabAchiev[i].number);
+        for(let i=0 ; i < this.#fishes.tabContact.length ; ++i) this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
         this.#bubbles(this.tabContact)
     }
     #handleTabsStart(evt){
@@ -147,12 +145,12 @@ class Application extends Object {
         qs("#header").style.cursor = "auto";
         mask.style.cursor = "auto";
         for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "auto";
-        if(isSeachActivate)mask.style.cursor = "none";
+        if(isSeachActivate) mask.style.cursor = "none";
         if(!isSeachActivate)mask.style.cursor = "auto";
         let diffPos = this.#prevPosX - evt.clientX;
         if(evt.pointerType === "mouse"){
             if(evt.target == intro) return;
-            if(diffPos > 60) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos > 60 ) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos < -60) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
@@ -160,9 +158,9 @@ class Application extends Object {
         evt.preventDefault();
         let diffPos = this.#tmpEventClient - this.#prevPosX;
         if(evt.pointerType === "touch"){
-            if(evt.target == intro) return;
+            if(evt.target  == intro) return;
             if(diffPos < -8.5) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
-            if(diffPos > 8.5) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
+            if(diffPos > 8.5 ) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
     }
     /**
@@ -174,17 +172,17 @@ class Application extends Object {
         const c = config || {};
         const r = () => Math.random();
         const canvas = c.canvas || document.createElement("canvas");
-        let width   = canvas.width;
-        let height  = canvas.height;
+        let width    = canvas.width;
+        let height   = canvas.height;
         if (canvas.parentNode === null) {
             canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-            width   = canvas.width = window.innerWidth;
-            height  = canvas.height = window.innerHeight;
+            width    = canvas.width = window.innerWidth;
+            height   = canvas.height = window.innerHeight;
             element.appendChild(canvas);
         }
-        const context = canvas.getContext("2d");
+        const context       = canvas.getContext("2d");
         context.shadowColor = c.shadowColor || "#fff";
-        context.shadowBlur = c.blur || 4;
+        context.shadowBlur  = c.blur || 4;
         
         const gradient = context.createLinearGradient(0, 0, width, height);
         
@@ -241,17 +239,17 @@ class Application extends Object {
         const c = config || {};
         const r = () => Math.random();
         const canvas = c.canvas || document.createElement("canvas");
-        let width   = canvas.width;
-        let height  = canvas.height;
+        let width    = canvas.width;
+        let height   = canvas.height;
         if (canvas.parentNode === null) {
             canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-            width   = canvas.width = window.innerWidth;
-            height  = canvas.height = window.innerHeight;
+            width    = canvas.width  = window.innerWidth;
+            height   = canvas.height = window.innerHeight;
             element.appendChild(canvas);
         }
-        const context = canvas.getContext("2d");
+        const context       = canvas.getContext("2d");
         context.shadowColor = c.shadowColor || "#fff00";
-        context.shadowBlur = c.blur || 1;
+        context.shadowBlur  = c.blur || 1;
         
         const gradient = context.createLinearGradient(0, 0, width, height);
         
@@ -283,8 +281,8 @@ class Application extends Object {
             if (c.animate !== false) {
                 requestAnimationFrame(draw);
             }
-            context.canvas.width = element.offsetWidth*2;
-            context.canvas.height =  element.offsetHeight*2;
+            context.canvas.width  = element.offsetWidth  * 2;
+            context.canvas.height = element.offsetHeight * 2;
           
             context.globalCompositeOperation = c.compose || "light";
             images.forEach(bubble => {
@@ -387,43 +385,43 @@ function clamp(number, min, max){
     return Math.min(Math.max(number, min), max);
 }
 
-const draggable           = qsa(".draggable");
+
+const draggable        = qsa(".draggable");
 for (let i = 0; i < draggable.length; i++) draggable[i].style.position = "relative";
+const intro            = qs("#intro");
+const tabHome          = qs("#tabHome");
+const introContent     = qs("#introContent");
+const introOverlay     = qs("#introOverlay");
+const emptyPannel      = qs("#emptyPannel")
+const activePannel     = qs(".activePannel");
+const btnFlipTablet    = qs("#btnFlipTablet");
 
-const intro               = qs("#intro");
-const tabHome             = qs("#tabHome");
-const introContent        = qs("#introContent");
-const introContentOverlay = qs("#introContentOverlay");
-const emptyPannel         = qs("#emptyPannel")
-const activePannel        = qs(".activePannel");
-const btnFlipTablet       = qs("#btnFlipTablet");
+const linkHome         = qs('[data-target="tabHome"]');
+const linkAchiev       = qs('[data-target="tabAchiev"]');
+const switcher         = qs("#switcher");
+const linkContact      = qs('[data-target="tabContact"]');
+const tabButtons       = [linkHome, linkAchiev, linkContact];
 
-const linkHome            = qs('[data-target="tabHome"]');
-const linkAchievements    = qs('[data-target="tabAchievements"]');
-const switcher            = qs("#switcher");
-const linkContact         = qs('[data-target="tabContact"]');
-const tabButtons          = [linkHome, linkAchievements, linkContact];
+const blurMaskTop      = qs("#blurMaskTop");
+const blurMaskBottom   = qs("#blurMaskBottom");
+const blurMaskLeft     = qs("#blurMaskLeft");
+const blurMaskRight    = qs("#blurMaskRight");
 
-const blurMaskTop         = qs("#blurMaskTop");
-const blurMaskBottom      = qs("#blurMaskBottom");
-const blurMaskLeft        = qs("#blurMaskLeft");
-const blurMaskRight       = qs("#blurMaskRight");
-
-const mask                = qs(".mask");
-const zones               = qsa(".zone");
-const imgActivateSearch   = qs("#imgActivateSearch");
-const endGame             = qs("#endGame");
-const overlayBubble       = qs("#overlayBubble");
-const imgBubble           = qs("#imgBubble");
-const videoLink           = qs("#videoLink");
-const linkSite            = qs("#linkSite");
-const textBubble          = qs("#textBubble");
-const closeBubble         = qs("#closeBubble");
-const infoBubble          = qs("#infoBubble");
-const imgEndGame          = qs("#imgEndGame");
-const help                = qs("#help");
-const treasureCounter     = qs("#treasureCounter");
-const userSubmit          = qs("#userSubmit");
+const mask             = qs(".mask");
+const zones            = qsa(".zone");
+const imgSearchOn      = qs("#imgSearchOn");
+const endGame          = qs("#endGame");
+const overlayBubble    = qs("#overlayBubble");
+const imgBubble        = qs("#imgBubble");
+const videoLink        = qs("#videoLink");
+const linkSite         = qs("#linkSite");
+const textBubble       = qs("#textBubble");
+const closeBubble      = qs("#closeBubble");
+const infoBubble       = qs("#infoBubble");
+const imgEndGame       = qs("#imgEndGame");
+const help             = qs("#help");
+const treasureCounter  = qs("#treasureCounter");
+const userSubmit       = qs("#userSubmit");
 
 let introBounds;
 let containerBounds; 
@@ -434,7 +432,6 @@ let relativeRight;
 
 let isSeachActivate    = false;
 let isGameEnded        = false;
-
 let treasuresNumber    = 0;
 let isYinFound         = false;
 let isYangFound        = false;
@@ -608,7 +605,7 @@ btnFlipTablet.onclick= (e) =>{
 	let time = indice * 100;
     
 	if (isFlipped==false){
-        introContentOverlay.style.zIndex = "-1";
+        introOverlay.style.zIndex = "-1";
 		cAdd("activePannel","flipTuileOn");
         clickAnim(e)
 		setTimeout(() => {introContent.style.transform= "rotateY(90deg)";}, time);
@@ -619,7 +616,7 @@ btnFlipTablet.onclick= (e) =>{
 		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
 	}
 	else{
-        introContentOverlay.style.zIndex = "0";
+        introOverlay.style.zIndex = "0";
 		cAdd("emptyPannel","flipTuileOn");
         clickAnim(e)
 		setTimeout(() => {emptyPannel.style.transform = "rotateY(90deg)";}, time);
@@ -653,14 +650,14 @@ function handlerMove (ev) {
     mask.style.setProperty('--y', ev.offsetY / ev.target.offsetHeight);
 }
 
-imgActivateSearch.addEventListener("click", (e)=>{
+imgSearchOn.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
         clickAnim(e);
         isSeachActivate   = true;
         mask.style.cursor = "none";
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
-        imgActivateSearch.style.cursor = "zoom-out";
-        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
+        imgSearchOn.style.cursor = "zoom-out";
+        imgSearchOn.setAttribute("src", "assets/img/unactivSearch.png");
         mask.addEventListener("mousemove", handlerMove)
     }
     else{
@@ -668,8 +665,8 @@ imgActivateSearch.addEventListener("click", (e)=>{
         isSeachActivate   = false;
         mask.style.cursor = "auto"
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
-        imgActivateSearch.style.cursor = "zoom-in";
-        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png");
+        imgSearchOn.style.cursor = "zoom-in";
+        imgSearchOn.setAttribute("src", "assets/img/activSearch.png");
         mask.removeEventListener("mousemove", handlerMove)
     }
 })
@@ -714,7 +711,7 @@ function updateTreasure(){
     if (treasuresNumber > 3) {
         treasuresNumber = 4;
         isGameEnded     = true;
-        imgActivateSearch.style.display = "none";
+        imgSearchOn.style.display = "none";
         cAdd("mask", "unmask");
     }
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
@@ -751,7 +748,6 @@ mask.onclick          = e => {
     if(isSeachActivate)mask.style.cursor = "none"; 
     else mask.style.cursor = "auto";
 };
-
 overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");};
 closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble"); mask.style.cursor = "none"; closeBubble.style.cursor = "none";};
 userSubmit.onclick    = e => {clickAnim(e);};
@@ -801,5 +797,5 @@ function sendMail(){
 }
 
 
-let app= new Application();
+let app = new Application();
 app.create();
