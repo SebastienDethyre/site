@@ -136,8 +136,8 @@ class Application extends Object {
         this.#bubbles(this.tabHome)
         this.#bubbles(this.tabAchiev)
         for(let i=0 ; i < this.#fishes.tabAchiev.length  ; ++i) this.#flyinImage(this.tabAchiev,this.#fishes.tabAchiev[i].path, this.#fishes.tabAchiev[i].direction,this.#fishes.tabAchiev[i].number);
-        for(let i=0 ; i < this.#fishes.tabContact.length ; ++i) this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
         this.#bubbles(this.tabContact)
+        for(let i=0 ; i < this.#fishes.tabContact.length ; ++i) this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
     }
     #handleTabsStart(evt){
         this.#prevPosX = evt.clientX;
@@ -257,20 +257,20 @@ class Application extends Object {
             element.appendChild(canvas);
         }
         const context       = canvas.getContext("2d");
-        context.shadowColor = c.shadowColor || "#fff00";
-        context.shadowBlur  = c.blur || 1;
+        // context.shadowColor = c.shadowColor || "#fff00";
+        // context.shadowBlur  = c.blur || 1;
         
-        const gradient = context.createLinearGradient(0, 0, width, height);
+        // const gradient = context.createLinearGradient(0, 0, width, height);
         
-        gradient.addColorStop(0, c.colorStart || "#39B8ED00");
-        gradient.addColorStop(1, c.colorStop || "#39B8ED00");
+        // gradient.addColorStop(0, c.colorStart || "#39B8ED00");
+        // gradient.addColorStop(1, c.colorStop || "#39B8ED00");
     
         const nbImagesToDisplay = c.images || Math.floor((width + height) * 0.001 * numberImages);
         const images   = [];
         for (let i = 0; i < nbImagesToDisplay; i++) {
             let randomVelocity = 5 + Math.round(Math.random() * 20);
             images.push({
-                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
+                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
                 x: r() * width, // x-position
                 y: r() * height, // y-position
                 r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
@@ -297,7 +297,7 @@ class Application extends Object {
             images.forEach(bubble => {
                 context.drawImage(base_image, bubble.x, bubble.y, bubble.r,bubble.r * 1.5);
                 context.fillStyle = bubble.f;
-                context.fill();
+                // context.fill();
                 // update positions for next draw
                 if(imageDirection && imageDirection === "left") bubble.x += -Math.abs(Math.cos(bubble.a) * bubble.v);
                 if(imageDirection && imageDirection === "right") bubble.x += Math.abs(Math.cos(bubble.a) * bubble.v);
