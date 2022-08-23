@@ -135,7 +135,7 @@ class Application extends Object {zoneYang
     #handleTabsStart(evt){
         this.#prevPosX = evt.clientX;
         qs("#header").style.cursor = "grabbing";
-        qs(".mask").style.cursor = "grabbing";
+        mask.style.cursor = "grabbing";
         for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "grabbing";
     }
     #handleTabsMove(evt) {
@@ -145,13 +145,13 @@ class Application extends Object {zoneYang
     #handleTabsEnd(evt) {
         evt.preventDefault();
         qs("#header").style.cursor = "auto";
-        qs(".mask").style.cursor = "auto";
+        mask.style.cursor = "auto";
         for (let i = 0; i < this.#tabs.length; i++) this.#tabs[i].style.cursor = "auto";
-        if(isSeachActivate)qs(".mask").style.cursor = "none";
-        if(!isSeachActivate)qs(".mask").style.cursor = "auto";
+        if(isSeachActivate)mask.style.cursor = "none";
+        if(!isSeachActivate)mask.style.cursor = "auto";
         let diffPos = this.#prevPosX - evt.clientX;
         if(evt.pointerType === "mouse"){
-            if(evt.target == qs("#intro")) return;
+            if(evt.target == intro) return;
             if(diffPos > 60) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos < -60) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
@@ -160,7 +160,7 @@ class Application extends Object {zoneYang
         evt.preventDefault();
         let diffPos = this.#tmpEventClient - this.#prevPosX;
         if(evt.pointerType === "touch"){
-            if(evt.target == qs("#intro")) return;
+            if(evt.target == intro) return;
             if(diffPos < -8.5) this.#tabButtons[clamp(this.#currentTabIndex + 1, 0, this.#tabButtons.length-1)].click();
             if(diffPos > 8.5) this.#tabButtons[clamp(this.#currentTabIndex - 1, 0, this.#tabButtons.length-1)].click();
         }
@@ -387,16 +387,47 @@ function clamp(number, min, max){
     return Math.min(Math.max(number, min), max);
 }
 
-const draggable = document.getElementsByClassName("draggable");
+const draggable           = qs(".draggable");
 
 for (let i = 0; i < draggable.length; i++) {
     draggable[i].style.position = "relative";
 }
 
-let blurMaskTop     = qs("#blurMaskTop");
-let blurMaskBottom  = qs("#blurMaskBottom");
-let blurMaskLeft    = qs("#blurMaskLeft");
-let blurMaskRight   = qs("#blurMaskRight");
+const intro               = qs("#intro");
+const tabHome             = qs("#tabHome");
+const introContent        = qs("#introContent");
+const introContentOverlay = qs("#introContentOverlay");
+const emptyPannel         = qs("#emptyPannel")
+const activePannel        = qs(".activePannel");
+const btnFlipTablet       = qs("#btnFlipTablet");
+
+const linkHome            = qs('[data-target="tabHome"]');
+const linkAchievements    = qs('[data-target="tabAchievements"]');
+const switcher            = qs("#switcher");
+const linkContact         = qs('[data-target="tabContact"]');
+const tabButtons          = [linkHome, linkAchievements, linkContact];
+
+const blurMaskTop         = qs("#blurMaskTop");
+const blurMaskBottom      = qs("#blurMaskBottom");
+const blurMaskLeft        = qs("#blurMaskLeft");
+const blurMaskRight       = qs("#blurMaskRight");
+
+const mask                = qs(".mask");
+const zones               = qsa(".zone");
+const imgActivateSearch   = qs("#imgActivateSearch");
+const endGame             = qs("#endGame");
+const overlayBubble       = qs("#overlayBubble");
+const imgBubble           = qs("#imgBubble");
+const videoLink           = qs("#videoLink");
+const linkSite            = qs("#linkSite");
+const textBubble          = qs("#textBubble");
+const closeBubble         = qs("#closeBubble");
+const infoBubble          = qs("#infoBubble");
+const imgEndGame          = qs("#imgEndGame");
+const help                = qs("#help");
+const treasureCounter     = qs("#treasureCounter");
+const userSubmit          = qs("#userSubmit");
+
 let introBounds;
 let containerBounds; 
 let relativeTop;   
@@ -404,222 +435,8 @@ let relativeBottom;
 let relativeLeft;   
 let relativeRight;
 
-let isGameEnded = false;
-
-
-function filter(e) {
-    let target = e.target;
-    
-    if (!target.classList.contains("draggable")) {
-        return;
-    }
-    target.moving = true;
-    //      👇 Check if Mouse events exist on users' device
-    if (e.clientX) {
-        target.oldX = e.clientX; // If they exist then use Mouse input
-        target.oldY = e.clientY;
-        
-    } 
-    else {
-        target.oldX = e.touches[0].clientX; // Otherwise use touch input
-        target.oldY = e.touches[0].clientY;
-    }
-    //           👆 Since there can be multiple touches, you need to mention which touch to look for, we are using the first touch only in this case
-    
-    target.oldLeft = window.getComputedStyle(target).getPropertyValue('left').split('px')[0] * 1;
-    target.oldTop = window.getComputedStyle(target).getPropertyValue('top').split('px')[0] * 1;
-    
-    qs("#intro").onmousemove = dr;
-    qs("#intro").ontouchmove = dr;
-
-    function dr(event) {
-       event.stopPropagation()
-       event.preventDefault();
-      
-        if (!target.moving) {
-            return;
-        }
-        //          👇
-        if (event.clientX) {
-            target.distX = event.clientX - target.oldX;
-            target.distY = event.clientY - target.oldY;
-            
-        } 
-        else {
-            target.distX = event.touches[0].clientX - target.oldX;
-            target.distY = event.touches[0].clientY - target.oldY;
-        }
-        //          👆
-    
-        introBounds = qs("#intro").getBoundingClientRect();
-        containerBounds = qs("#tabHome").getBoundingClientRect();
-        
-        target.style.left = target.oldLeft + target.distX + "px";
-        target.style.top  = target.oldTop + target.distY + "px";
-    
-        if(target.offsetTop < -200){target.style.top = "0px";}
-        if(target.offsetLeft < (window.pageXOffset)-150)target.style.left ="0px";
-        
-        let targetRight = target.offsetLeft + target.offsetWidth;
-        if(targetRight > (window.innerWidth)+200)target.style.left ="0px";
-        let targetBottom = target.offsetTop + target.offsetHeight;
-        if(targetBottom > (window.innerHeight)+50)target.style.top ="0px";
-
-        let relativeTop     = introBounds.top - containerBounds.top;
-        let relativeBottom  = containerBounds.bottom - introBounds.bottom;
-        let relativeLeft    = introBounds.left - containerBounds.left;
-        let relativeRight   = containerBounds.right - introBounds.right;
-        let roundedAnglesAdjust     = 12;
-        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
-        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
-        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
-        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
-        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
-        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
-        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
-        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
-        qs("#intro").style.cursor = "grabbing";
-    }
-    window.onresize = () =>{
-        introBounds = qs("#intro").getBoundingClientRect();
-        containerBounds = qs("#tabHome").getBoundingClientRect();
-        relativeTop     = introBounds.top - containerBounds.top;
-        relativeBottom  = containerBounds.bottom - introBounds.bottom;
-        relativeLeft    = introBounds.left - containerBounds.left;
-        relativeRight   = containerBounds.right - introBounds.right;
-
-        let roundedAnglesAdjust     = 12;
-        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
-        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
-        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
-        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
-        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
-        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
-        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
-        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
-        target.style.left           ="0";
-
-        let containerLinksBounds    = qs(".linksMenu").getBoundingClientRect();
-        let linkHome                = qs('[data-target="tabHome"]');
-        let linkAchievements        = qs('[data-target="tabAchievements"]');
-        let switcher                = qs("#switcher");
-        let linkContact             = qs('[data-target="tabContact"]');
-        let tabButtons              = [linkHome, linkAchievements, linkContact];
-        let targetBounds            = tabButtons[app.getCurrentTabIndex()].getBoundingClientRect();
-        switcher.style.right        =  containerLinksBounds.right - targetBounds.right + 'px';
-        switcher.style.left         = targetBounds.x - containerLinksBounds.x + 'px';
-    }
-    function endDrag() {
-        target.moving = false;
-        qs("#introContent").style.zIndex = 0;
-        qs("#intro").style.cursor = "grab";
-    }
-
-    target.onmouseup = endDrag;
-    target.ontouchend = endDrag;
-    //            👆
-}
-
-/* Click Amination */
-function clickAnim(e) {
-	const rond = document.createElement("div");
-	rond.className = "clickAnim";
-	rond.style.top = `${e.pageY - 25}px`;
-	rond.style.left = `${e.pageX - 25}px`;	
-	document.body.appendChild(rond);
-	setTimeout(() => {rond.remove();}, 1500)
-}
-
-/* accessing methods */
-function cRem(parent, child){if(gc(parent)[0].classList.contains(child))return gc(parent)[0].classList.remove(child);}
-
-function cAdd(parent, child){return gc(parent)[0].classList.add(child);}
-
-/* shortcut for getElementById */
-function gi(idName){return document.getElementById(idName)}
-
-/* shortcut for getElementsByClassName */
-function gc(className){return document.getElementsByClassName(className)}
-
-let activePannel = qs(".activePannel");
-let btnFlipTablet = qs("#btnFlipTablet");
-let isFlipped=false;
-
-btnFlipTablet.onclick= (e) =>{
-    let indice = 2;
-	let time = indice * 100;
-    
-	if (isFlipped==false){
-        qs("#introContentOverlay").style.zIndex = "-1";
-		cAdd("activePannel","flipTuileOn");
-        clickAnim(e)
-		setTimeout(() => {qs("#introContent").style.transform= "rotateY(90deg)";}, time);
-		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
-		isFlipped=true;
-		setTimeout(() => {cAdd("emptyPannel","flipTuileOff")}, time);
-		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(0deg)";}, time * 2);
-		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
-	}
-	else{
-        qs("#introContentOverlay").style.zIndex = "0";
-		cAdd("emptyPannel","flipTuileOn");
-        clickAnim(e)
-		setTimeout(() => {qs("#emptyPannel").style.transform= "rotateY(90deg)";}, time);
-		setTimeout(() => {cRem("emptyPannel","flipTuileOn")}, time);
-		isFlipped=false;
-		setTimeout(() => {cAdd("introContent","flipTuileOff")}, time)
-		setTimeout(() => {qs("#introContent").style.transform= "rotateY(0deg)";}, time * 2);
-		setTimeout(() => {cRem("introContent","flipTuileOff")}, time * 2);	
-	}	
-}
-
-qs("#intro").onmousedown = filter;
-qs("#intro").ontouchstart = filter;
-//                👆
-
-let img = qs(".mask");
-let zones= qsa(".zone")
-let imgActivateSearch = qs("#imgActivateSearch");
-let isSeachActivate = false;
-
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ 
-    if(isSeachActivate){
-        img.style.setProperty('--z', "14vh"); 
-        zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; 
-    }
-    if (isGameEnded) zones[i].style.animation="";
-})
-
-for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ 
-    if(isSeachActivate)img.style.setProperty('--z', "8vh"); 
-    zones[i].style.animation="";
-})
-
-function handlerMove (ev) {
-    img.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
-    img.style.setProperty('--y', ev.offsetY / ev.target.offsetHeight);
-}
-
-imgActivateSearch.addEventListener("click", (e)=>{
-    if(!isSeachActivate) {
-        isSeachActivate = true;
-        clickAnim(e);
-        qs(".mask").style.cursor = "none";
-        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
-        imgActivateSearch.style.cursor = "zoom-out"
-        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
-        img.addEventListener("mousemove", handlerMove)
-    }
-    else{
-        isSeachActivate = false;
-        clickAnim(e);
-        qs(".mask").style.cursor = "auto"
-        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
-        imgActivateSearch.style.cursor = "zoom-in"
-        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
-        img.removeEventListener("mousemove", handlerMove)
-    }
-})
+let isSeachActivate    = false;
+let isGameEnded        = false;
 
 let treasuresNumber    = 0;
 let isYinFound         = false;
@@ -655,13 +472,218 @@ const imgIdEasygit     = "#imgEasygit";
 const linkSiteRythmy   = "https://dethyre.alwaysdata.net/";
 const linkSiteEasygit  = "https://github.com/SebastienDethyre/easyGit.git";
 
+
+function filter(e) {
+    let target = e.target;
+    
+    if (!target.classList.contains("draggable")) {
+        return;
+    }
+    target.moving = true;
+    //      👇 Check if Mouse events exist on users' device
+    if (e.clientX) {
+        target.oldX = e.clientX; // If they exist then use Mouse input
+        target.oldY = e.clientY;
+        
+    } 
+    else {
+        target.oldX = e.touches[0].clientX; // Otherwise use touch input
+        target.oldY = e.touches[0].clientY;
+    }
+    //           👆 Since there can be multiple touches, you need to mention which touch to look for, we are using the first touch only in this case
+    
+    target.oldLeft = window.getComputedStyle(target).getPropertyValue('left').split('px')[0] * 1;
+    target.oldTop = window.getComputedStyle(target).getPropertyValue('top').split('px')[0] * 1;
+    
+    intro.onmousemove = dr;
+    intro.ontouchmove = dr;
+
+    function dr(event) {
+       event.stopPropagation()
+       event.preventDefault();
+      
+        if (!target.moving) {
+            return;
+        }
+        //          👇
+        if (event.clientX) {
+            target.distX = event.clientX - target.oldX;
+            target.distY = event.clientY - target.oldY;
+            
+        } 
+        else {
+            target.distX = event.touches[0].clientX - target.oldX;
+            target.distY = event.touches[0].clientY - target.oldY;
+        }
+        //          👆
+    
+        introBounds = intro.getBoundingClientRect();
+        containerBounds = tabHome.getBoundingClientRect();
+        
+        target.style.left = target.oldLeft + target.distX + "px";
+        target.style.top  = target.oldTop + target.distY + "px";
+    
+        if(target.offsetTop < -200){target.style.top = "0px";}
+        if(target.offsetLeft < (window.pageXOffset)-150)target.style.left ="0px";
+        
+        let targetRight = target.offsetLeft + target.offsetWidth;
+        if(targetRight > (window.innerWidth)+200)target.style.left ="0px";
+        let targetBottom = target.offsetTop + target.offsetHeight;
+        if(targetBottom > (window.innerHeight)+50)target.style.top ="0px";
+
+        let relativeTop     = introBounds.top - containerBounds.top;
+        let relativeBottom  = containerBounds.bottom - introBounds.bottom;
+        let relativeLeft    = introBounds.left - containerBounds.left;
+        let relativeRight   = containerBounds.right - introBounds.right;
+        let roundedAnglesAdjust     = 12;
+        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
+        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
+        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
+        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
+        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
+        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
+        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
+        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+        intro.style.cursor = "grabbing";
+    }
+    window.onresize = () =>{
+        introBounds = intro.getBoundingClientRect();
+        containerBounds = tabHome.getBoundingClientRect();
+        relativeTop     = introBounds.top - containerBounds.top;
+        relativeBottom  = containerBounds.bottom - introBounds.bottom;
+        relativeLeft    = introBounds.left - containerBounds.left;
+        relativeRight   = containerBounds.right - introBounds.right;
+
+        let roundedAnglesAdjust     = 12;
+        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
+        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
+        blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
+        if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
+        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
+        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
+        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
+        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+        target.style.left           ="0";
+
+        const containerLinksBounds    = qs(".linksMenu").getBoundingClientRect();
+        const targetBounds            = tabButtons[app.getCurrentTabIndex()].getBoundingClientRect();
+        switcher.style.right        =  containerLinksBounds.right - targetBounds.right + 'px';
+        switcher.style.left         = targetBounds.x - containerLinksBounds.x + 'px';
+    }
+    function endDrag() {
+        target.moving = false;
+        introContent.style.zIndex = 0;
+        intro.style.cursor = "grab";
+    }
+
+    target.onmouseup = endDrag;
+    target.ontouchend = endDrag;
+    //            👆
+}
+
+/* Click Amination */
+function clickAnim(e) {
+	const rond = document.createElement("div");
+	rond.className = "clickAnim";
+	rond.style.top = `${e.pageY - 25}px`;
+	rond.style.left = `${e.pageX - 25}px`;	
+	document.body.appendChild(rond);
+	setTimeout(() => {rond.remove();}, 1500)
+}
+
+function c(e){console.log(e)}
+
+/* accessing methods */
+function cRem(parent, child){if(gc(parent)[0].classList.contains(child))return gc(parent)[0].classList.remove(child);}
+
+function cAdd(parent, child){return gc(parent)[0].classList.add(child);}
+
+/* shortcut for getElementById */
+function gi(idName){return document.getElementById(idName)}
+
+/* shortcut for getElementsByClassName */
+function gc(className){return document.getElementsByClassName(className)}
+
+let isFlipped=false;
+
+btnFlipTablet.onclick= (e) =>{
+    let indice = 2;
+	let time = indice * 100;
+    
+	if (isFlipped==false){
+        introContentOverlay.style.zIndex = "-1";
+		cAdd("activePannel","flipTuileOn");
+        clickAnim(e)
+		setTimeout(() => {introContent.style.transform= "rotateY(90deg)";}, time);
+		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
+		isFlipped=true;
+		setTimeout(() => {cAdd("emptyPannel","flipTuileOff")}, time);
+		setTimeout(() => {emptyPannel.style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
+	}
+	else{
+        introContentOverlay.style.zIndex = "0";
+		cAdd("emptyPannel","flipTuileOn");
+        clickAnim(e)
+		setTimeout(() => {emptyPannel.style.transform= "rotateY(90deg)";}, time);
+		setTimeout(() => {cRem("emptyPannel","flipTuileOn")}, time);
+		isFlipped=false;
+		setTimeout(() => {cAdd("introContent","flipTuileOff")}, time)
+		setTimeout(() => {introContent.style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {cRem("introContent","flipTuileOff")}, time * 2);	
+	}	
+}
+
+intro.onmousedown = filter;
+intro.ontouchstart = filter;
+//                👆
+
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()=>{ 
+    if(isSeachActivate){
+        mask.style.setProperty('--z', "14vh"); 
+        zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; 
+    }
+    if (isGameEnded) zones[i].style.animation="";
+})
+
+for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ 
+    if(isSeachActivate)mask.style.setProperty('--z', "8vh"); 
+    zones[i].style.animation="";
+})
+
+function handlerMove (ev) {
+    mask.style.setProperty('--x', ev.offsetX / ev.target.offsetWidth);
+    mask.style.setProperty('--y', ev.offsetY / ev.target.offsetHeight);
+}
+
+imgActivateSearch.addEventListener("click", (e)=>{
+    if(!isSeachActivate) {
+        isSeachActivate = true;
+        clickAnim(e);
+        mask.style.cursor = "none";
+        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
+        imgActivateSearch.style.cursor = "zoom-out"
+        imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
+        mask.addEventListener("mousemove", handlerMove)
+    }
+    else{
+        isSeachActivate = false;
+        clickAnim(e);
+        mask.style.cursor = "auto"
+        for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
+        imgActivateSearch.style.cursor = "zoom-in"
+        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
+        mask.removeEventListener("mousemove", handlerMove)
+    }
+})
+
 function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
     zoneName.addEventListener("click", (e)=>{
         if(isFound){
             clickAnim(e);	
-            qs(".mask").style.cursor = "none";
-            qs("#closeBubble").style.cursor = "pointer";
+            mask.style.cursor = "none";
+            closeBubble.style.cursor = "pointer";
             cAdd("infoBubble", "activeBubble");
             fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
         }
@@ -675,9 +697,8 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             updateTreasure();
         }
 
-
-        qs(".mask").style.cursor = "none";
-        qs("#closeBubble").style.cursor = "pointer";
+        mask.style.cursor = "none";
+        closeBubble.style.cursor = "pointer";
         cAdd("infoBubble", "activeBubble");
         fillInfoBubble(textZone, titleZone, imgZone, linkZone, titleLinkSup,linkSup);
     })
@@ -704,53 +725,51 @@ function updateTreasure(){
 
 function fillInfoBubble(text, title, img = "", link = "", titleLinkSup = "",linkSup = ""){
     clearInfoBubble()
-    let textBubble = qs("#textBubble");
     textBubble.innerHTML=text;
-    
-    let imgBubble= qs("#imgBubble");
     if (img !== "") imgBubble.setAttribute("src", img);
     
-    let videoLink = qs("#videoLink");
     if (link !== ""){
         videoLink.innerHTML = title;
         videoLink.setAttribute("href", link);
     }
     
-    let linkSite = qs("#linkSite")
     linkSite.style.display="none";
     linkSite.innerHTML = "";
     if (titleLinkSup !== "" && linkSup !== ""){
         linkSite.setAttribute("href", linkSup);
-        linkSite.style.display="block";
+        linkSite.style.display = "block";
         linkSite.innerHTML = titleLinkSup;
     } 
 }
+
 function clearInfoBubble(){
-    qs("#textBubble").innerHTML = "";
-    qs("#videoLink").innerHTML = "";
-    qs("#imgBubble").src = "";
-    qs("#linkSite").innerHTML = "";
-    qs("#imgEndGame").src = "";
-    qs("#endGame").style.display="none";
+    textBubble.innerHTML  = "";
+    videoLink.innerHTML   = "";
+    imgBubble.src         = "";
+    linkSite.innerHTML    = "";
+    imgEndGame.src        = "";
+    endGame.style.display = "none";
 }
 
-qs(".mask").onclick          = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");if(isSeachActivate)qs(".mask").style.cursor = "none"; else qs(".mask").style.cursor = "auto";};
-qs("#overlayBubble").onclick = e => {if(e.target != qs("#infoBubble")) cRem("infoBubble", "activeBubble");};
-qs("#closeBubble").onclick = () => {cRem("infoBubble", "activeBubble");qs(".mask").style.cursor = "none";qs("#closeBubble").style.cursor = "none";};
-qs("#userSubmit").onclick = e => {clickAnim(e)};
-qs("#help").onclick = e => {
+mask.onclick          = e => {
+    if(e.target != infoBubble) cRem("infoBubble", "activeBubble");
+    if(isSeachActivate)mask.style.cursor = "none"; 
+    else mask.style.cursor = "auto";
+};
+
+overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");};
+closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble");mask.style.cursor = "none";closeBubble.style.cursor = "none";};
+userSubmit.onclick    = e => {clickAnim(e)};
+help.onclick          = e => {
     clearInfoBubble()
     clickAnim(e);	
-    if(!isGameEnded)qs("#imgEndGame").setAttribute("src", "assets/img/finishFlag.png")
-    qs("#closeBubble").style.cursor = "pointer";
-    cAdd("infoBubble", "activeBubble");
-    let textBubble = qs("#textBubble");
+    if(!isGameEnded) imgEndGame.setAttribute("src", "assets/img/finishFlag.png")
+    closeBubble.style.cursor = "pointer";
     textBubble.innerHTML = textHelp;
-    qs("#endGame").style.display="flex";
+    endGame.style.display="flex";
+    cAdd("infoBubble", "activeBubble");
 }
-
-qs("#endGame").onclick = e => {
-    let imgBubble= qs("#imgBubble");
+endGame.onclick       = e => {
     imgBubble.setAttribute("src", "");
     clickAnim(e);
     treasuresNumber = 4; 
@@ -765,7 +784,7 @@ qs("#endGame").onclick = e => {
     qs(imgIdEasygit).style.height="100%";
     updateTreasure();
     activateEveryZone();
-    qs("#endGame").style.display="none";
+    endGame.style.display="none";
 }
 
 function sendMail(){
@@ -785,7 +804,6 @@ function sendMail(){
     userMessage = document.forms["contactForm"]["userMessage"].value = "";
 }
 
-function c(e){console.log(e)}
 
 let app= new Application();
 app.create();
