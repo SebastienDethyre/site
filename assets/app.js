@@ -1,4 +1,4 @@
-class Application extends Object {zoneYang
+class Application extends Object {
     /* List of tabs and their appropriate buttons  */
     #tabs = [];
     #tabButtons = [];
