@@ -1,38 +1,47 @@
 class Application extends Object {
     /* List of tabs and their appropriate buttons  */
-    #tabs = [];
-    #tabButtons = [];
+    #tabs            = [];
+    #tabButtons      = [];
     #currentTabIndex = 0;
     
-    #tmpEventClient = 0;
-    #prevPosX = 0;
+    #tmpEventClient  = 0;
+    #prevPosX        = 0;
 
     #fishes = {
         tabAchiev:[    
-            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 0},
-            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 0},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
+            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number:  1},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number:  1},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number:  1},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: .5},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .5},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number:  1}
         ],
         tabContact:[    
-            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 0},
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 0},
-            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: .5},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .5},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number:  1},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number:  1},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number:  1}
         ]
     };
+
+    /*___________________________Available fishes ! :____________________________
+    {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number:  1},
+    {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number:  1},
+    {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number:  1},
+    {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number:  1},
+    {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number:  1},
+    {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number:  1},
+    {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number:  1},
+    {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number:  1},
+    {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number:  1},
+    {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number:  1},
+    */
 
      /**
      * Creates a new instance of the Application
