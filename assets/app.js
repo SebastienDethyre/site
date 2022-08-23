@@ -518,29 +518,29 @@ function filter(e) {
         containerBounds = tabHome.getBoundingClientRect();
         
         target.style.left = target.oldLeft + target.distX + "px";
-        target.style.top  = target.oldTop + target.distY + "px";
+        target.style.top  = target.oldTop  + target.distY + "px";
     
-        if(target.offsetTop < -200){target.style.top = "0px";}
+        if(target.offsetTop  < -200){target.style.top = "0px";}
         if(target.offsetLeft < (window.pageXOffset)-150)target.style.left ="0px";
         
-        let targetRight = target.offsetLeft + target.offsetWidth;
-        if(targetRight > (window.innerWidth)+200)target.style.left ="0px";
+        let targetRight  = target.offsetLeft + target.offsetWidth;
+        if(targetRight   > (window.innerWidth)+200)target.style.left = "0px";
         let targetBottom = target.offsetTop + target.offsetHeight;
-        if(targetBottom > (window.innerHeight)+50)target.style.top ="0px";
+        if(targetBottom  > (window.innerHeight)+50)target.style.top = "0px";
 
-        let relativeTop     = introBounds.top - containerBounds.top;
+        let relativeTop     = introBounds.top        - containerBounds.top;
         let relativeBottom  = containerBounds.bottom - introBounds.bottom;
-        let relativeLeft    = introBounds.left - containerBounds.left;
-        let relativeRight   = containerBounds.right - introBounds.right;
+        let relativeLeft    = introBounds.left       - containerBounds.left;
+        let relativeRight   = containerBounds.right  - introBounds.right;
         let roundedAnglesAdjust     = 12;
-        blurMaskTop.style.height    = relativeTop + roundedAnglesAdjust + "px";
-        if(relativeTop < 0 )        blurMaskTop.style.height= "0px";
+        blurMaskTop.style.height    = relativeTop    + roundedAnglesAdjust + "px";
+        if(relativeTop    < 0 )     blurMaskTop.style.height= "0px";
         blurMaskBottom.style.height = relativeBottom + roundedAnglesAdjust + "px";
         if(relativeBottom < 0 )     blurMaskBottom.style.height= "0px";
-        blurMaskLeft.style.width    = relativeLeft + roundedAnglesAdjust + "px";
-        if(relativeLeft < 0 )       blurMaskLeft.style.width= "0px";
-        blurMaskRight.style.width   = relativeRight + roundedAnglesAdjust + "px";
-        if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
+        blurMaskLeft.style.width    = relativeLeft   + roundedAnglesAdjust + "px";
+        if(relativeLeft   < 0 )     blurMaskLeft.style.width= "0px";
+        blurMaskRight.style.width   = relativeRight  + roundedAnglesAdjust + "px";
+        if(relativeRight  < 0 )     blurMaskRight.style.width= "0px";
         intro.style.cursor = "grabbing";
     }
     window.onresize = () =>{
@@ -568,21 +568,21 @@ function filter(e) {
         switcher.style.left         = targetBounds.x - containerLinksBounds.x + 'px';
     }
     function endDrag() {
-        target.moving = false;
+        target.moving             = false;
         introContent.style.zIndex = 0;
-        intro.style.cursor = "grab";
+        intro.style.cursor        = "grab";
     }
 
-    target.onmouseup = endDrag;
+    target.onmouseup  = endDrag;
     target.ontouchend = endDrag;
     //            👆
 }
 
 /* Click Amination */
 function clickAnim(e) {
-	const rond = document.createElement("div");
-	rond.className = "clickAnim";
-	rond.style.top = `${e.pageY - 25}px`;
+	const rond      = document.createElement("div");
+	rond.className  = "clickAnim";
+	rond.style.top  = `${e.pageY - 25}px`;
 	rond.style.left = `${e.pageX - 25}px`;	
 	document.body.appendChild(rond);
 	setTimeout(() => {rond.remove();}, 1500)
@@ -640,12 +640,12 @@ for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseover", ()
         mask.style.setProperty('--z', "14vh"); 
         zones[i].style.animation="heartbeat_element_white_bright 1s alternate infinite"; 
     }
-    if (isGameEnded) zones[i].style.animation="";
+    if (isGameEnded) zones[i].style.animation = "";
 })
 
 for (let i = 0; i < zones.length; i++) zones[i].addEventListener("mouseout", ()=>{ 
     if(isSeachActivate)mask.style.setProperty('--z', "8vh"); 
-    zones[i].style.animation="";
+    zones[i].style.animation = "";
 })
 
 function handlerMove (ev) {
@@ -655,8 +655,8 @@ function handlerMove (ev) {
 
 imgActivateSearch.addEventListener("click", (e)=>{
     if(!isSeachActivate) {
-        isSeachActivate = true;
         clickAnim(e);
+        isSeachActivate   = true;
         mask.style.cursor = "none";
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
         imgActivateSearch.style.cursor = "zoom-out";
@@ -664,8 +664,8 @@ imgActivateSearch.addEventListener("click", (e)=>{
         mask.addEventListener("mousemove", handlerMove)
     }
     else{
-        isSeachActivate = false;
         clickAnim(e);
+        isSeachActivate   = false;
         mask.style.cursor = "auto"
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
         imgActivateSearch.style.cursor = "zoom-in";
@@ -690,11 +690,11 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             isFound = true;
             clickAnim(e);	
             qs(imgId).setAttribute("src",imgZone);
-            qs(imgId).style.height="100%";
+            qs(imgId).style.height = "100%";
             updateTreasure();
         }
 
-        mask.style.cursor = "none";
+        mask.style.cursor        = "none";
         closeBubble.style.cursor = "pointer";
         cAdd("infoBubble", "activeBubble");
         fillInfoBubble(textZone, titleZone, imgZone, linkZone, titleLinkSup,linkSup);
@@ -713,8 +713,8 @@ function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
     if (treasuresNumber > 3) {
         treasuresNumber = 4;
-        isGameEnded = true;
-        imgActivateSearch.style.display="none";
+        isGameEnded     = true;
+        imgActivateSearch.style.display = "none";
         cAdd("mask", "unmask");
     }
     treasureCounter.innerHTML = "<h1><big>" + treasuresNumber + "/4</big></h1>";
@@ -724,18 +724,16 @@ function fillInfoBubble(text, title, img = "", link = "", titleLinkSup = "",link
     clearInfoBubble()
     textBubble.innerHTML=text;
     if (img !== "") imgBubble.setAttribute("src", img);
-    
     if (link !== ""){
         videoLink.innerHTML = title;
         videoLink.setAttribute("href", link);
     }
-    
-    linkSite.style.display="none";
-    linkSite.innerHTML = "";
+    linkSite.style.display = "none";
+    linkSite.innerHTML     = "";
     if (titleLinkSup !== "" && linkSup !== ""){
         linkSite.setAttribute("href", linkSup);
         linkSite.style.display = "block";
-        linkSite.innerHTML = titleLinkSup;
+        linkSite.innerHTML     = titleLinkSup;
     } 
 }
 
@@ -755,15 +753,15 @@ mask.onclick          = e => {
 };
 
 overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");};
-closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble");mask.style.cursor = "none";closeBubble.style.cursor = "none";};
-userSubmit.onclick    = e => {clickAnim(e)};
+closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble"); mask.style.cursor = "none"; closeBubble.style.cursor = "none";};
+userSubmit.onclick    = e => {clickAnim(e);};
 help.onclick          = e => {
     clearInfoBubble()
     clickAnim(e);	
     if(!isGameEnded) imgEndGame.setAttribute("src", "assets/img/finishFlag.png")
     closeBubble.style.cursor = "pointer";
-    textBubble.innerHTML = textHelp;
-    endGame.style.display="flex";
+    textBubble.innerHTML     = textHelp;
+    endGame.style.display    = "flex";
     cAdd("infoBubble", "activeBubble");
 }
 endGame.onclick       = e => {
@@ -772,13 +770,13 @@ endGame.onclick       = e => {
     treasuresNumber = 4; 
     isSeachActivate = true ;
     qs(imgIdYin).setAttribute("src",imgYin);
-    qs(imgIdYin).style.height="100%";
+    qs(imgIdYin).style.height     = "100%";
     qs(imgIdYang).setAttribute("src",imgYang);
-    qs(imgIdYang).style.height="100%";
+    qs(imgIdYang).style.height    = "100%";
     qs(imgIdRythmy).setAttribute("src",imgRythmy);
-    qs(imgIdRythmy).style.height="100%";
+    qs(imgIdRythmy).style.height  = "100%";
     qs(imgIdEasygit).setAttribute("src",imgEasygit);
-    qs(imgIdEasygit).style.height="100%";
+    qs(imgIdEasygit).style.height = "100%";
     updateTreasure();
     activateEveryZone();
     endGame.style.display = "none";
