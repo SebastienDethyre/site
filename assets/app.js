@@ -9,24 +9,23 @@ class Application extends Object {
 
     #fishes = {
         tabAchiev:[    
-            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number:  1},
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number:  1},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number:  1},
-            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: .5},
-            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .5},
-            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number:  1}
+            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: .5}
         ],
         tabContact:[    
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: .5},
-            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .5},
-            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number:  1},
-            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number:  1},
-            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number:  1}
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: .5},
+            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .5},
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: .8}
         ]
     };
 
@@ -268,7 +267,8 @@ class Application extends Object {
         const nbImagesToDisplay = c.images || Math.floor((width + height) * 0.001 * numberImages);
         const images   = [];
         for (let i = 0; i < nbImagesToDisplay; i++) {
-            let randomVelocity = 5 + Math.round(Math.random() * 20);
+            let randomVelocity  = 5 + Math.round(Math.random() * 30);
+            let randomVelocity2 = 5 + Math.round(Math.random() * 15);
             images.push({
                 f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
                 x: r() * width, // x-position
@@ -276,10 +276,19 @@ class Application extends Object {
                 r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
                 a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
                 v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomVelocity)).call() // velocity
+            },{
+                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
+                x: r() * width, // x-position
+                y: r() * height, // y-position
+                r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
+                a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
+                v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomVelocity2)).call() // velocity
             });
         }
         let base_image = new Image();
-        base_image.src = 'assets/img/fishes/blue.png';
+       
+        base_image.src = 'assets/img/fishes/blueL.png';
+       
                 
         if(imagePath !== null)base_image.src = imagePath;
 
