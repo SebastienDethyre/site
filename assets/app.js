@@ -387,11 +387,8 @@ function clamp(number, min, max){
     return Math.min(Math.max(number, min), max);
 }
 
-const draggable           = qs(".draggable");
-
-for (let i = 0; i < draggable.length; i++) {
-    draggable[i].style.position = "relative";
-}
+const draggable           = qsa(".draggable");
+for (let i = 0; i < draggable.length; i++) draggable[i].style.position = "relative";
 
 const intro               = qs("#intro");
 const tabHome             = qs("#tabHome");
@@ -547,7 +544,7 @@ function filter(e) {
         intro.style.cursor = "grabbing";
     }
     window.onresize = () =>{
-        introBounds = intro.getBoundingClientRect();
+        introBounds     = intro.getBoundingClientRect();
         containerBounds = tabHome.getBoundingClientRect();
         relativeTop     = introBounds.top - containerBounds.top;
         relativeBottom  = containerBounds.bottom - introBounds.bottom;
@@ -565,8 +562,8 @@ function filter(e) {
         if(relativeRight < 0 )      blurMaskRight.style.width= "0px";
         target.style.left           ="0";
 
-        const containerLinksBounds    = qs(".linksMenu").getBoundingClientRect();
-        const targetBounds            = tabButtons[app.getCurrentTabIndex()].getBoundingClientRect();
+        const containerLinksBounds  = qs(".linksMenu").getBoundingClientRect();
+        const targetBounds          = tabButtons[app.getCurrentTabIndex()].getBoundingClientRect();
         switcher.style.right        =  containerLinksBounds.right - targetBounds.right + 'px';
         switcher.style.left         = targetBounds.x - containerLinksBounds.x + 'px';
     }
@@ -618,18 +615,18 @@ btnFlipTablet.onclick= (e) =>{
 		setTimeout(() => {cRem("activePannel","flipTuileOn")}, time);
 		isFlipped=true;
 		setTimeout(() => {cAdd("emptyPannel","flipTuileOff")}, time);
-		setTimeout(() => {emptyPannel.style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {emptyPannel.style.transform = "rotateY(0deg)";}, time * 2);
 		setTimeout(() => {cRem("emptyPannel","flipTuileOff")}, time * 2);	
 	}
 	else{
         introContentOverlay.style.zIndex = "0";
 		cAdd("emptyPannel","flipTuileOn");
         clickAnim(e)
-		setTimeout(() => {emptyPannel.style.transform= "rotateY(90deg)";}, time);
+		setTimeout(() => {emptyPannel.style.transform = "rotateY(90deg)";}, time);
 		setTimeout(() => {cRem("emptyPannel","flipTuileOn")}, time);
 		isFlipped=false;
 		setTimeout(() => {cAdd("introContent","flipTuileOff")}, time)
-		setTimeout(() => {introContent.style.transform= "rotateY(0deg)";}, time * 2);
+		setTimeout(() => {introContent.style.transform = "rotateY(0deg)";}, time * 2);
 		setTimeout(() => {cRem("introContent","flipTuileOff")}, time * 2);	
 	}	
 }
@@ -662,7 +659,7 @@ imgActivateSearch.addEventListener("click", (e)=>{
         clickAnim(e);
         mask.style.cursor = "none";
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="pointer";
-        imgActivateSearch.style.cursor = "zoom-out"
+        imgActivateSearch.style.cursor = "zoom-out";
         imgActivateSearch.setAttribute("src", "assets/img/unactivSearch.png");
         mask.addEventListener("mousemove", handlerMove)
     }
@@ -671,8 +668,8 @@ imgActivateSearch.addEventListener("click", (e)=>{
         clickAnim(e);
         mask.style.cursor = "auto"
         for (let i = 0; i < zones.length; i++) zones[i].style.cursor="auto";
-        imgActivateSearch.style.cursor = "zoom-in"
-        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png")
+        imgActivateSearch.style.cursor = "zoom-in";
+        imgActivateSearch.setAttribute("src", "assets/img/activSearch.png");
         mask.removeEventListener("mousemove", handlerMove)
     }
 })
@@ -692,7 +689,7 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             treasuresNumber += 1;
             isFound = true;
             clickAnim(e);	
-            qs(imgId).setAttribute("src",imgZone)
+            qs(imgId).setAttribute("src",imgZone);
             qs(imgId).style.height="100%";
             updateTreasure();
         }
@@ -774,34 +771,35 @@ endGame.onclick       = e => {
     clickAnim(e);
     treasuresNumber = 4; 
     isSeachActivate = true ;
-    qs(imgIdYin).setAttribute("src",imgYin)
+    qs(imgIdYin).setAttribute("src",imgYin);
     qs(imgIdYin).style.height="100%";
-    qs(imgIdYang).setAttribute("src",imgYang)
+    qs(imgIdYang).setAttribute("src",imgYang);
     qs(imgIdYang).style.height="100%";
-    qs(imgIdRythmy).setAttribute("src",imgRythmy)
+    qs(imgIdRythmy).setAttribute("src",imgRythmy);
     qs(imgIdRythmy).style.height="100%";
-    qs(imgIdEasygit).setAttribute("src",imgEasygit)
+    qs(imgIdEasygit).setAttribute("src",imgEasygit);
     qs(imgIdEasygit).style.height="100%";
     updateTreasure();
     activateEveryZone();
-    endGame.style.display="none";
+    endGame.style.display = "none";
 }
 
 function sendMail(){
-    let userGender = document.forms["contactForm"]["userGender"].value;	
-    let userName = document.forms["contactForm"]["userName"].value;	
+    let userGender  = document.forms["contactForm"]["userGender"].value;	
+    let userName    = document.forms["contactForm"]["userName"].value;	
     let userSurname = document.forms["contactForm"]["userSurname"].value;	
     let userMessage = document.forms["contactForm"]["userMessage"].value;	
-    const mail = "dethyres@hotmail.fr";
-    let subject = "Message de Mme " + userName + " " + userSurname;
-    if (userGender==="male") subject = "Message de Mr " + userName + " " + userSurname;
+    const mail      = "dethyres@hotmail.fr";
+    let subject     = "Message de Mme " + userName + " " + userSurname;
+    if (userGender === "male") subject = "Message de Mr " + userName + " " + userSurname;
 
-    const body = userMessage;
-    location.href = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
     alert("Votre message à bien été envoyé sur votre messagerie\npar défaut pour Sébastien Dethyre");
-    userName = document.forms["contactForm"]["userName"].value = "";	
-    userSurname = document.forms["contactForm"]["userSurname"].value = "";	
-    userMessage = document.forms["contactForm"]["userMessage"].value = "";
+    
+    const body      = userMessage;
+    location.href   = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+    userName        = document.forms["contactForm"]["userName"].value = "";	
+    userSurname     = document.forms["contactForm"]["userSurname"].value = "";	
+    userMessage     = document.forms["contactForm"]["userMessage"].value = "";
 }
 
 
