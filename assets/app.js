@@ -267,7 +267,7 @@ class Application extends Object {
         const nbImagesToDisplay = c.images || Math.floor((width + height) * 0.001 * numberImages);
         const images   = [];
         for (let i = 0; i < nbImagesToDisplay; i++) {
-            let randomVelocity  = 5 + Math.round(Math.random() * 30);
+            let randomVelocity  = 5 + Math.round(Math.random() * 20);
             let randomVelocity2 = 5 + Math.round(Math.random() * 15);
             images.push({
                 f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
