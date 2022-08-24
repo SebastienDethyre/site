@@ -256,13 +256,6 @@ class Application extends Object {
             element.appendChild(canvas);
         }
         const context       = canvas.getContext("2d");
-        // context.shadowColor = c.shadowColor || "#fff00";
-        // context.shadowBlur  = c.blur || 1;
-        
-        // const gradient = context.createLinearGradient(0, 0, width, height);
-        
-        // gradient.addColorStop(0, c.colorStart || "#39B8ED00");
-        // gradient.addColorStop(1, c.colorStop || "#39B8ED00");
     
         const nbImagesToDisplay = c.images || Math.floor((width + height) * 0.001 * numberImages);
         const images   = [];
@@ -270,26 +263,23 @@ class Application extends Object {
             let randomVelocity  = 5 + Math.round(Math.random() * 10);
             let randomVelocity2 = 5 + Math.round(Math.random() * 5);
             images.push({
-                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
+                f: (c.imageFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
                 x: r() * width, // x-position
                 y: r() * height, // y-position
                 r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
                 a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
                 v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomVelocity)).call() // velocity
             },{
-                f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
+                f: (c.imageFunc2 || (() => `hsla(0, 0%, 100%, ${r() * 1})`)).call(), // fillStyle
                 x: r() * width, // x-position
                 y: r() * height, // y-position
-                r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
-                a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
-                v: (c.velocityFunc || (() => .5 + r() * 0.1 * randomVelocity2)).call() // velocity
+                r: (c.radiusFunc2 || (() => 4 + r() * width / 25)).call(), // radius
+                a: (c.angleFunc2 || (() => r() * Math.PI * 2)).call(), // angle
+                v: (c.velocityFunc2 || (() => .5 + r() * 0.1 * randomVelocity2)).call() // velocity
             });
         }
         let base_image = new Image();
-       
         base_image.src = 'assets/img/fishes/blueL.png';
-       
-                
         if(imagePath !== null)base_image.src = imagePath;
 
         (function draw() {
@@ -303,25 +293,24 @@ class Application extends Object {
             context.canvas.height = element.offsetHeight * 2;
           
             context.globalCompositeOperation = c.compose || "light";
-            images.forEach(bubble => {
-                context.drawImage(base_image, bubble.x, bubble.y, bubble.r,bubble.r * 1.5);
-                context.fillStyle = bubble.f;
-                // context.fill();
+            images.forEach(image => {
+                context.drawImage(base_image, image.x, image.y, image.r,image.r * 1.5);
+                context.fillStyle = image.f;
                 // update positions for next draw
-                if(imageDirection && imageDirection === "left") bubble.x += -Math.abs(Math.cos(bubble.a) * bubble.v);
-                if(imageDirection && imageDirection === "right") bubble.x += Math.abs(Math.cos(bubble.a) * bubble.v);
-                bubble.y += Math.sin(bubble.a) * bubble.v;
-                if (bubble.x - bubble.r > width) {
-                    bubble.x = -bubble.r;
+                if(imageDirection && imageDirection === "left") image.x += -Math.abs(Math.cos(image.a) * image.v);
+                if(imageDirection && imageDirection === "right") image.x += Math.abs(Math.cos(image.a) * image.v);
+                image.y += Math.sin(image.a) * image.v;
+                if (image.x - image.r > width) {
+                    image.x = -image.r;
                 }
-                if (bubble.x + bubble.r < 0) {
-                    bubble.x = width + bubble.r;
+                if (image.x + image.r < 0) {
+                    image.x = width + image.r;
                 }
-                if (bubble.y - bubble.r > height) {
-                    bubble.y = -bubble.r;
+                if (image.y - image.r > height) {
+                    image.y = -image.r;
                 }
-                if (bubble.y + bubble.r < 0) {
-                    bubble.y = height + bubble.r;
+                if (image.y + image.r < 0) {
+                    image.y = height + image.r;
                 }
             });
         })();
