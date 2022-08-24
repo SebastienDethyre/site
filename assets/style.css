@@ -189,7 +189,7 @@ canvas{
 #searchOn img{
     position: relative;
     width: clamp(4.5rem, 6rem,10%);
-    top: -3vh;
+    top: 0vh;
     right: 1rem;
     cursor: zoom-in;
     z-index: 2;
@@ -204,22 +204,23 @@ canvas{
     display: flex;
     height: 50%;
     width: 10%;
-    bottom: 0;
-    right: -2em;
+    bottom: -.4em;
+    padding:2em;
+    /* right: -1.2em; */
 }
 
 #treasuresContainer img{
     right: 1rem;
   position: absolute;
   width: clamp(5rem, 8em,50%);
-  bottom: -2vh;
+  bottom: 0vh;
 }
 
 #treasureCounter{
     position: absolute;
  
     /* bottom: 18vh; */
-    bottom: 5.5em;
+    bottom: 7em;
     right: 2em;
     font-size: clamp(.6em, 6em,10%);
 }
@@ -287,26 +288,25 @@ canvas{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: clamp(11rem, 25rem, 40%);
+    width: clamp(11rem, 25rem, 70%);
     height: clamp(11rem, 30rem, 70%); 
-     padding: 1.5em;
+    padding: 1.5em;
     border-radius: 50%;
     text-align: center;
     background: no-repeat url("img/bubble.png");
     background-size:100% 100%;
     transform: translateY(-100%) scale(.005);
     backdrop-filter: blur(var(--tabsBlurValue));
-    z-index: 2;
+    z-index: 3;
 }
 
 .infoBubble img{
     height: 25%;
     color: var(--textColor);
+    padding-top: 1.5em;
 }
 
 #closeBubble{
-    
-    /* padding-top: 1em; */
     height: .5em;
     color: var(--textColor);
     cursor: pointer;
@@ -318,8 +318,7 @@ canvas{
 }
 
 #endGame{
-    /* position: absolute; */
-position: relative;
+    position: relative;
     height: 10%;
     top: -11%;
 }
@@ -331,9 +330,8 @@ position: relative;
     transform: scale(1.2);
 }
 
-
 #textBubble{
-padding-bottom: 1em;
+    padding-bottom: 1.5em;
     width: 90%;
     height: 20%;
     font-size: min(90vw,90%);
