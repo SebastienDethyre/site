@@ -9,23 +9,23 @@ class Application extends Object {
 
     #fishes = {
         tabAchiev:[    
-            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: .8},
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: .8},
-            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: .8},
-            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: .8},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .8},
-            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: .5}
         ],
         tabContact:[    
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: .8},
-            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: .8},
+            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: .5},
-            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: .8},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: .8},
-            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: .8},
+            {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 1},
+            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
+            {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
             {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .5},
-            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: .8}
+            {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
         ]
     };
 
@@ -247,7 +247,7 @@ class Application extends Object {
         const c = config || {};
         const r = () => Math.random();
         const canvas = c.canvas || document.createElement("canvas");
-        let width    = canvas.width;
+        let width    = window.outerWidth;
         let height   = canvas.height;
         if (canvas.parentNode === null) {
             canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
@@ -291,6 +291,7 @@ class Application extends Object {
             }
             context.canvas.width  = element.offsetWidth  * 2;
             context.canvas.height = element.offsetHeight * 2;
+            
           
             context.globalCompositeOperation = c.compose || "light";
             images.forEach(image => {
