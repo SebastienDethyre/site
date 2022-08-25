@@ -457,7 +457,7 @@ const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin' <br><br>Le mot de passe est : yang";
 const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT, qui s'est transformé en plateforme de remix";
 const textEasygit      = "Cette interface graphique, codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
-const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique les travaux découverts.<br><br>Pour finir ou refaire le mini-jeu, cliquer sur ce drapeau";
+const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Pour <b>abréger le mini-jeu</b> cliquez sur le drapeau ci-dessus";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
@@ -689,7 +689,7 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             cAdd("infoBubble", "activeBubble");
             fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
         }
-        if(!isSeachActivate) return;
+        if(!isSeachActivate && ! isGameEnded) return;
         if (!isFound){
             treasuresNumber += 1;
             isFound = true;
@@ -783,19 +783,15 @@ endGame.onclick       = e => {
         updateTreasure();
         isGameEnded = true ;
         // isSeachActivate = true ;
-        qs(imgIdYin).setAttribute("src",imgYin);
-        qs(imgIdYang).setAttribute("src",imgYang);
-        qs(imgIdRythmy).setAttribute("src",imgRythmy);
-        qs(imgIdEasygit).setAttribute("src",imgEasygit);
-        qs(imgIdYin).style.height     = "100%";
-        qs(imgIdYang).style.height    = "100%";
-        qs(imgIdRythmy).style.height  = "100%";
-        qs(imgIdEasygit).style.height = "100%";
-        qs(imgIdYin).style.width     = "100%";
-        qs(imgIdYang).style.width    = "100%";
-        qs(imgIdRythmy).style.width  = "100%";
-        qs(imgIdEasygit).style.width = "100%";
         activateEveryZone();
+        qs(imgIdYin).setAttribute("src",imgYin);
+        qs(imgIdYin).style.height     = "100%";
+        qs(imgIdYang).setAttribute("src",imgYang);
+        qs(imgIdYang).style.height    = "100%";
+        qs(imgIdRythmy).setAttribute("src",imgRythmy);
+        qs(imgIdRythmy).style.height  = "100%";
+        qs(imgIdEasygit).setAttribute("src",imgEasygit);
+        qs(imgIdEasygit).style.height = "100%";
         imgEndGame.setAttribute("src", "assets/img/resetFlag.png");
         // isSeachActivate = true ;
         // endGame.style.display = "none";
@@ -805,15 +801,14 @@ endGame.onclick       = e => {
         imgEndGame.setAttribute("src", "assets/img/finishFlag.png");
         treasuresNumber = 0; 
         updateTreasure();
+        qs(imgIdYin).setAttribute("src",imgYin);
+        qs(imgIdYang).setAttribute("src",imgYang);
+        qs(imgIdRythmy).setAttribute("src",imgRythmy);
+        qs(imgIdEasygit).setAttribute("src",imgEasygit);
         qs(imgIdYin).style.height     = "0%";
         qs(imgIdYang).style.height    = "0%";
         qs(imgIdRythmy).style.height  = "0%";
         qs(imgIdEasygit).style.height = "0%";
-        qs(imgIdYin).style.width     = "0%";
-        qs(imgIdYang).style.width    = "0%";
-        qs(imgIdRythmy).style.width  = "0%";
-        qs(imgIdEasygit).style.width = "0%";
-        
         mask.style.cursor="default"
     }
 }
