@@ -682,14 +682,19 @@ imgSearchOn.addEventListener("click", (e)=>{
 function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone, imgId, titleLinkSup, linkSup){
     zoneName= qs(zoneName);
     zoneName.addEventListener("click", (e)=>{
+        console.log(treasuresNumber)
+        if(!isSeachActivate && !isGameEnded) return;
         if(isFound){
-            clickAnim(e);	
             mask.style.cursor = "none";
             closeBubble.style.cursor = "pointer";
             cAdd("infoBubble", "activeBubble");
+            clickAnim(e);	
+            qs(imgId).setAttribute("src",imgZone);
+            qs(imgId).style.height = "100%";
+            qs(imgId).style.width = "100%";
+            updateTreasure();
             fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
         }
-        if(!isSeachActivate && ! isGameEnded) return;
         if (!isFound){
             treasuresNumber += 1;
             isFound = true;
@@ -780,10 +785,11 @@ endGame.onclick       = e => {
     clickAnim(e);
     if(!isGameEnded){
         treasuresNumber = 4; 
-        updateTreasure();
+        isYinFound         = true;
+        isYangFound        = true;
+        isRythmyFound      = true;
+        isEasygitFound     = true;
         isGameEnded = true ;
-        // isSeachActivate = true ;
-        activateEveryZone();
         qs(imgIdYin).setAttribute("src",imgYin);
         qs(imgIdYin).style.height     = "100%";
         qs(imgIdYang).setAttribute("src",imgYang);
@@ -793,23 +799,22 @@ endGame.onclick       = e => {
         qs(imgIdEasygit).setAttribute("src",imgEasygit);
         qs(imgIdEasygit).style.height = "100%";
         imgEndGame.setAttribute("src", "assets/img/resetFlag.png");
-        // isSeachActivate = true ;
-        // endGame.style.display = "none";
+        updateTreasure();
     }
     else {
         isGameEnded = false ;
         imgEndGame.setAttribute("src", "assets/img/finishFlag.png");
         treasuresNumber = 0; 
-        updateTreasure();
-        qs(imgIdYin).setAttribute("src",imgYin);
-        qs(imgIdYang).setAttribute("src",imgYang);
-        qs(imgIdRythmy).setAttribute("src",imgRythmy);
-        qs(imgIdEasygit).setAttribute("src",imgEasygit);
+        isYinFound         = false;
+        isYangFound        = false;
+        isRythmyFound      = false;
+        isEasygitFound     = false;
         qs(imgIdYin).style.height     = "0%";
         qs(imgIdYang).style.height    = "0%";
         qs(imgIdRythmy).style.height  = "0%";
         qs(imgIdEasygit).style.height = "0%";
         mask.style.cursor="default"
+        updateTreasure();
     }
 }
 
