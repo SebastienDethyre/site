@@ -285,10 +285,10 @@ canvas{
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
     width: clamp(11rem, 25rem, 70%);
     height: clamp(11rem, 30rem, 70%); 
+    bottom: 5%;
     padding: 1.5em;
     border-radius: 50%;
     text-align: center;
@@ -300,16 +300,18 @@ canvas{
 }
 
 .infoBubble img{
-    height: 25%;
+    position: relative;
+    height: 15%;
     color: var(--textColor);
-    padding-top: 1.5em;
+    top: 0rem;
 }
 
 #closeBubble{
-    height: .5em;
+    position: absolute;
+    height: .3em;
     color: var(--textColor);
     cursor: pointer;
-    padding: 1em;
+    bottom: 2%;
 }
 
 #closeBubble:hover{
@@ -317,9 +319,9 @@ canvas{
 }
 
 #endGame{
-    position: relative;
+    position: absolute;
     height: 10%;
-    top: -11%;
+    top: 12%;
 }
 
 #endGame img{
@@ -331,10 +333,12 @@ canvas{
 }
 
 #textBubble{
-    padding-bottom: 1.5em;
-    width: 90%;
+    position: relative;
+    padding-bottom:10%;
+    width: 85%;
     height: 20%;
-    font-size: min(90vw,90%);
+    font-size: min(85vw,85%);
+    font-size: clamp(.9em, 9vh, 80%);
     color: var(--textColor);
     cursor: default;
 }

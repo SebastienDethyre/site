@@ -455,9 +455,9 @@ const titleSiteRythmy  = "Site Rythmy";
 const titleSiteEasygit = "Dépôt GitHub EasyGit";
 const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper";
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin' <br><br>Le mot de passe est : yang";
-const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT. Il s'est finalement transformé en plateforme de remix";
-const textEasygit      = "Cette interface graphique entièrement codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
-const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Vous pouvez <b>abréger le mini-jeu</b> en cliquant sur le drapeau ci-dessus";
+const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT, qui s'est transformé en plateforme de remix";
+const textEasygit      = "Cette interface graphique codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
+const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Pour <b>abréger le mini-jeu</b> cliquez sur le drapeau ci-dessus";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
@@ -756,6 +756,7 @@ mask.onclick          = e => {
     if(isSeachActivate)mask.style.cursor = "none"; 
     else mask.style.cursor = "auto";
 };
+
 overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");};
 closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble"); mask.style.cursor = "none"; closeBubble.style.cursor = "none";};
 userSubmit.onclick    = e => {clickAnim(e);};
@@ -768,6 +769,7 @@ help.onclick          = e => {
     endGame.style.display    = "flex";
     cAdd("infoBubble", "activeBubble");
 }
+
 endGame.onclick       = e => {
     imgBubble.setAttribute("src", "");
     clickAnim(e);
@@ -787,21 +789,21 @@ endGame.onclick       = e => {
 }
 
 function sendMail(){
-    let userGender  = document.forms["contactForm"]["userGender"].value;	
-    let userName    = document.forms["contactForm"]["userName"].value;	
-    let userSurname = document.forms["contactForm"]["userSurname"].value;	
-    let userMessage = document.forms["contactForm"]["userMessage"].value;	
+    const df        = document.forms["contactForm"];
+    let userGender  = df["userGender"].value;	
+    let userName    = df["userName"].value;	
+    let userSurname = df["userSurname"].value;	
+    let userMessage = df["userMessage"].value;	
     const mail      = "dethyres@hotmail.fr";
     let subject     = "Message de Mme " + userName + " " + userSurname;
     if (userGender === "male") subject = "Message de Mr " + userName + " " + userSurname;
 
     alert("Votre message à bien été envoyé sur votre messagerie\npar défaut pour Sébastien Dethyre");
-    
     const body      = userMessage;
     location.href   = `mailto:${mail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-    userName        = document.forms["contactForm"]["userName"].value = "";	
-    userSurname     = document.forms["contactForm"]["userSurname"].value = "";	
-    userMessage     = document.forms["contactForm"]["userMessage"].value = "";
+    userName        = df["userName"].value = "";	
+    userSurname     = df["userSurname"].value = "";	
+    userMessage     = df["userMessage"].value = "";
 }
 
 
