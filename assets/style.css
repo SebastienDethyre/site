@@ -194,10 +194,12 @@ canvas{
     right: 1rem;
     cursor: zoom-in;
     z-index: 2;
+    transition: all 0.3s ease-out;
 }
 
 #searchOn img:hover{
     transform: scale(1.2);
+
 }
 
 #treasuresContainer{
@@ -211,9 +213,9 @@ canvas{
 
 #treasuresContainer img{
     right: 1rem;
-  position: absolute;
-  width: clamp(5rem, 8em,50%);
-  bottom: 0vh;
+    position: absolute;
+    width: clamp(5rem, 8em,50%);
+    bottom: 0vh;
 }
 
 #treasureCounter{
@@ -230,10 +232,10 @@ canvas{
     bottom: 13.5rem;
     right: 1rem;
     font-size: clamp(5em, 6em,10%);
+    transition: all 0.3s ease-in-out;
 }
 
 #help:hover{
-    transition: all 0.3s ease-out;
     cursor:help;
     transform: scale(1.2);
 }
@@ -244,16 +246,18 @@ canvas{
     border-radius: 50%;
     background-color: rgba(55,55,55,.000000002);
     z-index: 2;
-
+    
 }
 
 .zoneImage{
+    transition: all 0.3s ease-out;
     width: 100%;
     z-index: 1;
 }
 
 .zoneImage:hover{
     transform: scale(1.2);
+    cursor: pointer;
 }
 
 #zoneYang{
@@ -286,7 +290,7 @@ canvas{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: clamp(11rem, 25rem, 70%);
+    width: clamp(11rem, 28rem, 75%);
     height: clamp(11rem, 30rem, 70%); 
     bottom: 5%;
     padding: 1.5em;
@@ -312,6 +316,7 @@ canvas{
     color: var(--textColor);
     cursor: pointer;
     bottom: 2%;
+    transition: all 0.3s ease-out;
 }
 
 #closeBubble:hover{
@@ -322,6 +327,8 @@ canvas{
     position: absolute;
     height: 10%;
     top: 12%;
+    transition: all 0.3s ease-out;
+    border-radius: 50%;
 }
 
 #endGame img{
@@ -330,20 +337,36 @@ canvas{
 
 #endGame:hover{
     transform: scale(1.2);
+    animation: heartbeat_element_white_bright .4s alternate infinite;
+}
+
+#resetGame{
+    position: absolute;
+    height: 10%;
+    top: 12%;
+}
+
+#resetGame img{
+    height: 100%;
+}
+
+#resetGame:hover{
+    transform: scale(1.2);
 }
 
 #textBubble{
     position: relative;
     padding-bottom:10%;
-    width: 85%;
+    width: 90%;
     height: 20%;
     font-size: min(85vw,85%);
-    font-size: clamp(.9em, 9vh, 80%);
+    font-size: clamp(.9em, 3vh, 110%);
     color: var(--textColor);
     cursor: default;
 }
 
 .infoBubble a{
+    padding-top: .2rem;
     font-size: min(90vw,90%);
     color:rgba(15, 40, 51, 0.9);
     animation: heartbeat_site_link_shadow 4s alternate infinite;

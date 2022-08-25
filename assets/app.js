@@ -456,8 +456,8 @@ const titleSiteEasygit = "Dépôt GitHub EasyGit";
 const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique du groupe Tech N9ne : Wordwide Chopper";
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin' <br><br>Le mot de passe est : yang";
 const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT, qui s'est transformé en plateforme de remix";
-const textEasygit      = "Cette interface graphique codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
-const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Pour <b>abréger le mini-jeu</b> cliquez sur le drapeau ci-dessus";
+const textEasygit      = "Cette interface graphique, codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
+const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique les travaux découverts.<br><br>Pour finir ou refaire le mini-jeu, cliquer sur ce drapeau";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
@@ -696,6 +696,7 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
             clickAnim(e);	
             qs(imgId).setAttribute("src",imgZone);
             qs(imgId).style.height = "100%";
+            qs(imgId).style.width = "100%";
             updateTreasure();
         }
 
@@ -716,6 +717,8 @@ activateEveryZone()
 
 function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
+    imgSearchOn.style.display = "flex";
+    cRem("mask", "unmask");
     if (treasuresNumber > 3) {
         treasuresNumber = 4;
         isGameEnded     = true;
@@ -754,16 +757,18 @@ function clearInfoBubble(){
 mask.onclick          = e => {
     if(e.target != infoBubble) cRem("infoBubble", "activeBubble");
     if(isSeachActivate)mask.style.cursor = "none"; 
-    else mask.style.cursor = "auto";
+    else mask.style.cursor = "default";
 };
 
-overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");};
-closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble"); mask.style.cursor = "none"; closeBubble.style.cursor = "none";};
+overlayBubble.onclick = e => {if(e.target != infoBubble) cRem("infoBubble", "activeBubble");if(isSeachActivate)mask.style.cursor = "none"; else mask.style.cursor = "default";};
+closeBubble.onclick   = ()=> {cRem("infoBubble", "activeBubble"); if(isSeachActivate)mask.style.cursor = "none"; else mask.style.cursor = "default"; closeBubble.style.cursor = "none";};
 userSubmit.onclick    = e => {clickAnim(e);};
 help.onclick          = e => {
     clearInfoBubble()
     clickAnim(e);	
-    if(!isGameEnded) imgEndGame.setAttribute("src", "assets/img/finishFlag.png")
+    imgEndGame.setAttribute("src", "assets/img/resetFlag.png");
+    if(!isGameEnded) imgEndGame.setAttribute("src", "assets/img/finishFlag.png");
+
     closeBubble.style.cursor = "pointer";
     textBubble.innerHTML     = textHelp;
     endGame.style.display    = "flex";
@@ -773,19 +778,44 @@ help.onclick          = e => {
 endGame.onclick       = e => {
     imgBubble.setAttribute("src", "");
     clickAnim(e);
-    treasuresNumber = 4; 
-    isSeachActivate = true ;
-    qs(imgIdYin).setAttribute("src",imgYin);
-    qs(imgIdYin).style.height     = "100%";
-    qs(imgIdYang).setAttribute("src",imgYang);
-    qs(imgIdYang).style.height    = "100%";
-    qs(imgIdRythmy).setAttribute("src",imgRythmy);
-    qs(imgIdRythmy).style.height  = "100%";
-    qs(imgIdEasygit).setAttribute("src",imgEasygit);
-    qs(imgIdEasygit).style.height = "100%";
-    updateTreasure();
-    activateEveryZone();
-    endGame.style.display = "none";
+    if(!isGameEnded){
+        treasuresNumber = 4; 
+        updateTreasure();
+        isGameEnded = true ;
+        // isSeachActivate = true ;
+        qs(imgIdYin).setAttribute("src",imgYin);
+        qs(imgIdYang).setAttribute("src",imgYang);
+        qs(imgIdRythmy).setAttribute("src",imgRythmy);
+        qs(imgIdEasygit).setAttribute("src",imgEasygit);
+        qs(imgIdYin).style.height     = "100%";
+        qs(imgIdYang).style.height    = "100%";
+        qs(imgIdRythmy).style.height  = "100%";
+        qs(imgIdEasygit).style.height = "100%";
+        qs(imgIdYin).style.width     = "100%";
+        qs(imgIdYang).style.width    = "100%";
+        qs(imgIdRythmy).style.width  = "100%";
+        qs(imgIdEasygit).style.width = "100%";
+        activateEveryZone();
+        imgEndGame.setAttribute("src", "assets/img/resetFlag.png");
+        // isSeachActivate = true ;
+        // endGame.style.display = "none";
+    }
+    else {
+        isGameEnded = false ;
+        imgEndGame.setAttribute("src", "assets/img/finishFlag.png");
+        treasuresNumber = 0; 
+        updateTreasure();
+        qs(imgIdYin).style.height     = "0%";
+        qs(imgIdYang).style.height    = "0%";
+        qs(imgIdRythmy).style.height  = "0%";
+        qs(imgIdEasygit).style.height = "0%";
+        qs(imgIdYin).style.width     = "0%";
+        qs(imgIdYang).style.width    = "0%";
+        qs(imgIdRythmy).style.width  = "0%";
+        qs(imgIdEasygit).style.width = "0%";
+        
+        mask.style.cursor="default"
+    }
 }
 
 function sendMail(){
