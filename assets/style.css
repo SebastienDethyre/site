@@ -290,6 +290,7 @@ canvas{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     width: clamp(11rem, 28rem, 75%);
     height: clamp(11rem, 30rem, 70%); 
     bottom: 5%;
@@ -315,7 +316,7 @@ canvas{
     height: .3em;
     color: var(--textColor);
     cursor: pointer;
-    bottom: 2%;
+    bottom: 3%;
     transition: all 0.3s ease-out;
 }
 

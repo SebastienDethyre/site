@@ -457,7 +457,7 @@ const textYin          = "Ce montage vidéo reprend des images du film Ong Bak 3
 const textYang         = "Ce montage vidéo reprend des images du film Ong Bak 3 avec Tony Jaa, sur une musique de Bob Marley : Jammin' <br><br>Le mot de passe est : yang";
 const textRythmy       = "L'origine de ce site est la poursuite d'un projet de réseau social musical dans le cadre de mon IUT, qui s'est transformé en plateforme de remix";
 const textEasygit      = "Cette interface graphique, codée en Bash, a pour but de simplifier l'usage de Git dans le sens de tout faire d'une main, sauf les commits";
-const textHelp         = "Chasse aux trésor !<br><br>Le compteur au-dessus du coffre indique le nombre de travaux découverts.<br><br>Pour <b>abréger le mini-jeu</b> cliquez sur le drapeau ci-dessus";
+const textHelp         = "Chasse aux trésor !<br><br>Pour <b>abréger ou refaire le mini-jeu,</b> cliquez sur le drapeau ci-dessus";
 const linkYin          = "https://www.dailymotion.com/video/x1005ve";
 const linkYang         = "https://www.dailymotion.com/video/x2qlfv7";
 const linkRythmy       = "https://www.youtube.com/watch?v=GMLWWS612lg";
@@ -680,28 +680,26 @@ imgSearchOn.addEventListener("click", (e)=>{
 })
 
 function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone, imgId, titleLinkSup, linkSup){
-    zoneName= qs(zoneName);
+    zoneName = qs(zoneName);
+    console.dir("yin found", isYinFound)
     zoneName.addEventListener("click", (e)=>{
-        console.log(treasuresNumber)
+        // console.log(treasuresNumber)
+        // console.log(isFound)
+      
         if(!isSeachActivate && !isGameEnded) return;
-        if(isFound){
-            mask.style.cursor = "none";
-            closeBubble.style.cursor = "pointer";
-            cAdd("infoBubble", "activeBubble");
-            clickAnim(e);	
-            qs(imgId).setAttribute("src",imgZone);
-            qs(imgId).style.height = "100%";
-            qs(imgId).style.width = "100%";
-            updateTreasure();
-            fillInfoBubble(textZone, titleZone, linkZone, imgZone, titleLinkSup,linkSup);
-        }
+        
+        qs(imgId).setAttribute("src",imgZone);
+        qs(imgId).style.height = "100%";
+        qs(imgId).style.width = "100%";
+        clickAnim(e);	
         if (!isFound){
             treasuresNumber += 1;
             isFound = true;
-            clickAnim(e);	
-            qs(imgId).setAttribute("src",imgZone);
-            qs(imgId).style.height = "100%";
-            qs(imgId).style.width = "100%";
+            if (isFound === isYangFound) isYangFound = true;
+            if (isFound === isYinFound) isYinFound = true;
+            if (isFound === isRythmyFound) isRythmyFound = true;
+            if (isFound === isEasygitFound) isEasygitFound = true;
+                 
             updateTreasure();
         }
 
@@ -712,13 +710,24 @@ function activateZone(zoneName, isFound, textZone, titleZone, imgZone, linkZone,
     })
 }
 
-function activateEveryZone(){
+function clearBooleans(isFound){
+    isFound = false;
+}
+
+function clearEveryBoolean(){
+    clearBooleans(isYangFound);
+    clearBooleans(isYinFound);
+    clearBooleans(isRythmyFound);
+    clearBooleans(isEasygitFound);
+}
+
+
     activateZone("#zoneYang",    isYangFound,    textYang,    titleYang,    imgYang,    linkYang,    imgIdYang                                      );
     activateZone("#zoneYin",     isYinFound,     textYin,     titleYin,     imgYin,     linkYin,     imgIdYin                                       );
     activateZone("#zoneRythmy",  isRythmyFound,  textRythmy,  titleRythmy,  imgRythmy,  linkRythmy,  imgIdRythmy,  titleSiteRythmy,  linkSiteRythmy );
     activateZone("#zoneEasygit", isEasygitFound, textEasygit, titleEasygit, imgEasygit, linkEasygit, imgIdEasygit, titleSiteEasygit, linkSiteEasygit);
-}
-activateEveryZone()
+    c("yin found",isYinFound)
+
 
 function updateTreasure(){
     let treasureCounter = qs("#treasureCounter");
@@ -783,13 +792,14 @@ help.onclick          = e => {
 endGame.onclick       = e => {
     imgBubble.setAttribute("src", "");
     clickAnim(e);
+   
     if(!isGameEnded){
+        isGameEnded = true;
         treasuresNumber = 4; 
         isYinFound         = true;
         isYangFound        = true;
         isRythmyFound      = true;
         isEasygitFound     = true;
-        isGameEnded = true ;
         qs(imgIdYin).setAttribute("src",imgYin);
         qs(imgIdYin).style.height     = "100%";
         qs(imgIdYang).setAttribute("src",imgYang);
@@ -805,6 +815,7 @@ endGame.onclick       = e => {
         isGameEnded = false ;
         imgEndGame.setAttribute("src", "assets/img/finishFlag.png");
         treasuresNumber = 0; 
+        // clearEveryBoolean()
         isYinFound         = false;
         isYangFound        = false;
         isRythmyFound      = false;
