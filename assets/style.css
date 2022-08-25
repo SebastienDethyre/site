@@ -56,6 +56,7 @@ html,body{
     font-size: clamp(1.5em, 16px, 70%) ;
     font-family: 'Vujahday Script', cursive;
     animation: heartbeat_text 8s infinite alternate;
+    cursor: default;
 }
 
 #myName img{
@@ -206,7 +207,6 @@ canvas{
     width: 10%;
     bottom: -.4em;
     padding:2em;
-    /* right: -1.2em; */
 }
 
 #treasuresContainer img{
@@ -218,8 +218,7 @@ canvas{
 
 #treasureCounter{
     position: absolute;
- 
-    /* bottom: 18vh; */
+    cursor: default;
     bottom: 7em;
     right: 2em;
     font-size: clamp(.6em, 6em,10%);
@@ -227,10 +226,10 @@ canvas{
 
 #help{
     position: absolute;
-    height: 2.5em;
+    height: 2.5rem;
     bottom: 13.5rem;
     right: 1rem;
-    font-size: clamp(2em, 6em,10%);
+    font-size: clamp(5em, 6em,10%);
 }
 
 #help:hover{
@@ -322,6 +321,7 @@ canvas{
     height: 10%;
     top: -11%;
 }
+
 #endGame img{
     height: 100%;
 }
