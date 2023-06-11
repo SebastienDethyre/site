@@ -26,6 +26,7 @@
                 <span id="switcher"></span>
                 <li data-target="tabHome" class="active" role="tab"><a href="#" >Accueil</a></li>
                 <li data-target="tabAchiev" role="tab"><a href="#" >Réalisations</a></li>
+                <li data-target="tabGame" role="tab"><a href="#" >Mini-jeu</a></li>
                 <li data-target="tabContact" role="tab"><a href="#" >M'écrire</a></li>
             </ul>
         </header>
@@ -44,15 +45,33 @@
                             <br>Passionné de Kung Fu et de développement web, la musique et le montage vidéo musical font partie de mes autres centres d'intérêt.
                             <br><br>Je vous propose ici une plongée dans mon univers.
                             <br><br><i>La tablette sur laquelle vous lisez ceci est interactive : vous pouvez l'éteindre avec son interrupteur pour la saisir par écran.
-                            <br>L'accès aux pages peut se faire via les boutons de navigation ou en faisant "glisser" les pages avec la souris.</i>
-                            <br><br>Bonne visite !
-                        </div>
+                                <br>L'accès aux pages peut se faire via les boutons de navigation ou en faisant "glisser" les pages avec la souris.</i>
+                                <br><br>Bonne visite !
+                            </div>
                         <div id="emptyPannel"class="emptyPannel"></div>
                     </div>
                     <span id="btnFlipTablet"></span>
                 </div>
             </div>
-            <div id="tabAchiev" class="everyTab" aria-labelledby= "tabAchiev" role="tabpanel">
+            <div id="tabAchiev" class="everyTab" aria-labelledby= "tabContact" role="tabpanel">
+                <div id="contactFormContainer">
+                    <form id="contactForm" action="javascript:sendMail();" method="post" name="contactForm">
+                        <div id="userGender">
+                            <input  type="radio" id="userMale" name="userGender" value="male" checked><br>
+                            <label for="userMale">Mr</label>
+                            <input  type="radio" id="userFemale" name="userGender" value="female"><br><br>
+                            <label for="userFemale">Mme</label>
+                        </div>
+                        <input id="userName" type="text" name="userName" placeholder="Nom" class="formStyle"><br>
+                        <input id="userSurname" type="text" name="userSurname" placeholder="Prénom" class="formStyle"><br>
+                        <br>
+                        <textarea id="userMessage" name="userMessage" placeholder="Votre message" class="formStyle"></textarea>
+                        <br>
+                        <input id="userSubmit" type="submit" value="Ok" class="">
+                    </form>
+                </div>
+            </div>
+            <div id="tabGame" class="everyTab" aria-labelledby= "tabGame" role="tabpanel">
                 <div id="zoneRythmy" class="zone"><img id="imgRythmy" class="zoneImage"  ></div>
                 <div id="zoneEasygit" class="zone"><img id="imgEasygit" class="zoneImage" ></div>
                 <div id="zoneYang" title="Mot de passe : yang" class="zone"><img id="imgYang" class="zoneImage" ></div>

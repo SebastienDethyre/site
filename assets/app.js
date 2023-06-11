@@ -8,9 +8,8 @@ class Application extends Object {
     #prevPosX        = 0;
 
     #fishes = {
-        tabAchiev:[    
+        tabGame:[    
             {path: "assets/img/fishes/blueYellowL.png"  ,direction: "left"  ,number: 1},
-            {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
             {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: 1},
             {path: "assets/img/fishes/pinkL.png"        ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
@@ -19,10 +18,8 @@ class Application extends Object {
         ],
         tabContact:[    
             {path: "assets/img/fishes/blueYellowR.png"  ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/clownL.png"       ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/clownR.png"       ,direction: "right" ,number: .5},
             {path: "assets/img/fishes/pinkR.png"        ,direction: "right" ,number: 1},
-            {path: "assets/img/fishes/yellowBlackL.png" ,direction: "left"  ,number: 1},
             {path: "assets/img/fishes/yellowBlackR.png" ,direction: "right" ,number: 1},
             {path: "assets/img/fishes/blueL.png"        ,direction: "left"  ,number: .5},
             {path: "assets/img/fishes/blueR.png"        ,direction: "right" ,number: 1}
@@ -60,17 +57,19 @@ class Application extends Object {
         this.switcher         = qs("#switcher");
         this.linkHome         = qs('[data-target="tabHome"]');
         this.linkAchiev       = qs('[data-target="tabAchiev"]');
+        this.linkGame         = qs('[data-target="tabGame"]');
         this.linkContact      = qs('[data-target="tabContact"]');
         this.tabsContainer    = qs(".tabsContainer");
         this.tabHome          = qs("#tabHome");
         this.tabAchiev        = qs("#tabAchiev");
+        this.tabGame          = qs("#tabGame");
         this.tabContact       = qs("#tabContact");
         this.links            = qsa(".linksMenu li");
         this.contents         = qsa(".everyTab");
 
         // Put all tabs and their associated button in a list, for scalability
-        this.#tabs       = [this.tabHome,  this.tabAchiev,  this.tabContact ];
-        this.#tabButtons = [this.linkHome, this.linkAchiev, this.linkContact];
+        this.#tabs       = [this.tabHome, this.tabAchiev, this.tabGame,  this.tabContact ];
+        this.#tabButtons = [this.linkHome, this.linkAchiev, this.linkGame, this.linkContact];
         // Put the links slightly on top of the switcher
         for(let tab of this.#tabButtons) tab.style.zIndex = '1';
     }
@@ -133,8 +132,8 @@ class Application extends Object {
         d.addEventListener("pointermove"  , this.#handleTabsMove.bind(this));
 
         this.#bubbles(this.tabHome)
-        this.#bubbles(this.tabAchiev)
-        for(let i=0 ; i < this.#fishes.tabAchiev.length  ; ++i) this.#flyinImage(this.tabAchiev,this.#fishes.tabAchiev[i].path, this.#fishes.tabAchiev[i].direction,this.#fishes.tabAchiev[i].number);
+        this.#bubbles(this.tabGame)
+        for(let i=0 ; i < this.#fishes.tabGame.length  ; ++i) this.#flyinImage(this.tabGame,this.#fishes.tabGame[i].path, this.#fishes.tabGame[i].direction,this.#fishes.tabGame[i].number);
         this.#bubbles(this.tabContact)
         for(let i=0 ; i < this.#fishes.tabContact.length ; ++i) this.#flyinImage(this.tabContact,this.#fishes.tabContact[i].path, this.#fishes.tabContact[i].direction,this.#fishes.tabContact[i].number); 
     }
@@ -406,9 +405,10 @@ const btnFlipTablet    = qs("#btnFlipTablet");
 
 const linkHome         = qs('[data-target="tabHome"]');
 const linkAchiev       = qs('[data-target="tabAchiev"]');
+const linkGame         = qs('[data-target="tabGame"]');
 const switcher         = qs("#switcher");
 const linkContact      = qs('[data-target="tabContact"]');
-const tabButtons       = [linkHome, linkAchiev, linkContact];
+const tabButtons       = [linkHome, linkAchiev, linkGame, linkContact];
 
 const blurMaskTop      = qs("#blurMaskTop");
 const blurMaskBottom   = qs("#blurMaskBottom");

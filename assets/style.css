@@ -31,7 +31,7 @@ html,body{
     font-weight:600;
 }
 
-#header{
+/* Handle on hover *//* Handle on hover */#header{
     position: absolute;
     display: flex;
     justify-content: center;
@@ -559,7 +559,13 @@ button{
 
 #tabAchiev{
     position: fixed;
-    background: no-repeat url(img/tabAchiev.jpg);
+    background: no-repeat url(img/tabGame.jpg);
+    background-size:100% 100%;
+}
+
+#tabGame{
+    position: fixed;
+    background: no-repeat url(img/tabGame.jpg);
     background-size:100% 100%;
 }
 
